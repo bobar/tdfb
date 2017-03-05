@@ -1,0 +1,93 @@
+inherit_from:
+  - https://raw.githubusercontent.com/bbatsov/rubocop/v0.43.0/config/enabled.yml
+  - https://raw.githubusercontent.com/bbatsov/rubocop/v0.43.0/config/disabled.yml
+  - https://raw.githubusercontent.com/bbatsov/rubocop/v0.43.0/config/default.yml
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Max: 4
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 500
+
+Metrics/LineLength:
+  Max: 149
+
+Metrics/MethodLength:
+  Max: 100
+
+Metrics/ModuleLength:
+  Max: 500
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ExtraSpacing:
+  AllowForAlignment: true
+
+Style/FormatString:
+  EnforcedStyle: sprintf
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/MutableConstant:
+  Enabled: true
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+
+Style/ParenthesesAroundCondition:
+  AllowSafeAssignment: false
+
+Style/OptionHash:
+  Enabled: true
+  Exclude:
+  - 'spec/factories/**/*'
+
+Style/Send:
+  Enabled: true
+
+Style/SignalException:
+  EnforcedStyle: semantic
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/VariableNumber:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/Date:
+  EnforcedStyle: flexible
+
+Rails/FindEach:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/TimeZone:
+  EnforcedStyle: flexible
+
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+  - 'bin/**/*'
+  - 'vendor/**/*'

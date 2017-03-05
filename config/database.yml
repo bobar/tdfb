@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: bob
+  password: mythemec
+  host: localhost
+
+development:
+  <<: *default
+  database: new_tdb
+
+test:
+  <<: *default
+  database: tdb_test
+
+production:
+  <<: *default
+  database: tdfb_production
+  username: tdfb
+  password: <%= ENV['TDFB_DATABASE_PASSWORD'] %>

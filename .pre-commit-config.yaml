@@ -1,0 +1,33 @@
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    sha: v0.7.1
+    hooks:
+    -   id: trailing-whitespace
+        exclude: ^spec/fixtures/
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+        exclude: ^(spec/fixtures/|config/drive_session.json$)
+    -   id: check-added-large-files
+        args:
+        - --maxkb=3000
+-   repo: git://github.com/pricematch/pricematch-pre-commit-hooks
+    sha: 9a41f686d70c32638d43a269a31c8023fd3ee8fe
+    hooks:
+    -   id: do_not_commit
+    -   id: ruby
+    -   id: check_rails_env_with_methods
+    -   id: no_commas_in_string_arrays
+-   repo: local
+    hooks:
+    -   id: rubocop
+        language: ruby
+        name: rubocop
+        additional_dependencies:
+        - rubocop:0.43.0
+        - rubocop-thread_safety:0.3.1
+        entry: rubocop
+        files: \.(rb|rake)$
+        exclude: schema.rb
+        args:
+        - --require
+        - rubocop-thread_safety
+        - --config=config/rubocop/rubocop.yml
