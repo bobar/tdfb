@@ -16,4 +16,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   config.assets.raise_runtime_errors = true
+
+  ENV['http_basic_name'] = 'bob'
+  ENV['http_basic_password'] = 'bob'
 end

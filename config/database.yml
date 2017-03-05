@@ -16,6 +16,6 @@ test:
 
 production:
   <<: *default
-  database: tdfb_production
-  username: tdfb
-  password: <%= ENV['TDFB_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
