@@ -25,7 +25,10 @@
   </div>
   <div class="col-md-4">
       <h1><strong><%= @account.trigramme %></strong></h1>
-      <h2><%= @account.name %></h2>
+      <h2>
+        <%= @account.name %>
+        <small><%= @account.promo %></small>
+      </h2>
       <h1><strong><%= @account.balance %> €</strong></h1>
       <h3>
         <%= if (Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)

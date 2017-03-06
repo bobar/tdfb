@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   controller :account, path: 'account' do
     get 'search' => :search
-    get ':id' => :find
+    get ':id' => :show
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
