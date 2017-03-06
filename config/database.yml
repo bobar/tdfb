@@ -3,12 +3,12 @@ default: &default
   encoding: utf8
   pool: 5
   username: bob
-  password: mythemec
+  password: zde
   host: localhost
 
 development:
   <<: *default
-  database: new_tdb
+  database: tdb
 
 test:
   <<: *default

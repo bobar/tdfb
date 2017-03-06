@@ -27,18 +27,18 @@ class FrankizCrawler
   rescue RestClient::InternalServerError
     WrongFrankizId.find_or_create_by(frankiz_id: id)
   rescue Errno::ETIMEDOUT
-    puts 'Timeout sleeping'
+    Rails.logger.warn 'Timeout sleeping'
     sleep 5
   rescue Errno::ENETDOWN
-    puts 'Wifi disconnected'
+    Rails.logger.warn 'Wifi disconnected'
     sleep 10
   rescue Errno::EHOSTUNREACH
-    puts 'No more internet'
+    Rails.logger.warn 'No more internet'
     sleep 10
   end
 
   def insert(html, id)
-    Account.find_or_initialize_by(frankiz_id: id).update(
+    User.find_or_initialize_by(frankiz_id: id).update(
       name: html.css('.name').text.strip,
       email: html.css('.email').text.strip.split(' ').last,
       promo: html.css('.studies li span').first ? html.css('.studies li span').first.text : nil,
@@ -73,7 +73,7 @@ class FrankizCrawler
       'remember' => 'on',
       'token' => @token,
     }
-    puts "Logging in to Frankiz as #{@username}"
+    Rails.logger.info "Logging in to Frankiz as #{@username}"
     RestClient.post(
       'https://www.frankiz.net/login',
       post_data,
