@@ -1,7 +1,9 @@
 require 'digest/md5'
 
 class ApplicationController < ActionController::Base
-  AUTH_EXPIRES = 8.seconds
+  AUTH_EXPIRES = 20.seconds
+
+  http_basic_authenticate_with name: ENV['http_basic_name'], password: ENV['http_basic_password'] if Rails.env.production?
 
   protect_from_forgery with: :exception
   before_action :load_bank
@@ -28,6 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin!
+    return true if Rails.env.production?
     if session[:expire_at].nil? || session[:expire_at] < Time.current
       session[:expire_at] = Time.current + AUTH_EXPIRES
       request_http_basic_authentication
