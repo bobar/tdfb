@@ -11,13 +11,13 @@
         </tr>
       </thead>
       <tbody>
-        <% @account.paid_transactions.includes(:receiver).includes(:admin).order(created_at: :desc).limit(1000).each do |t| %>
+        <% @account.transactions.includes(:receiver).includes(:admin).order(date: :desc).limit(1000).each do |t| %>
           <tr>
-            <td><%= t.price %></td>
+            <td><%= t.price / 100.0 %></td>
             <td><%= t.receiver.try(:trigramme) %></td>
             <td><%= t.admin.try(:trigramme) %></td>
             <td><%= t.comment %></td>
-            <td><%= t.created_at %></td>
+            <td><%= t.date %></td>
           </tr>
         <% end %>
       </tbody>
@@ -26,16 +26,27 @@
   <div class="col-md-4">
       <h1><strong><%= @account.trigramme %></strong></h1>
       <h2>
-        <%= @account.name %>
+        <%= @account.first_name %> <%= @account.name %>
         <small><%= @account.promo %></small>
       </h2>
-      <h1><strong><%= @account.balance %> €</strong></h1>
+      <span><%= @account.nickname %></span>
       <h3>
-        <%= if (Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
+        <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
           fa_icon "birthday-cake 2x"
         end %>
-        <%= @account.age %> ans (<%= @account.birthdate %>)
+        <% if @account.age %>
+          <%= @account.age %> ans (<%= @account.birthdate %>)
+        <% end %>
       </h3>
+      <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
+      <div class="row">
+        <div class="input-group input-group-lg">
+          <input id="log-input" type="text" class="form-control" placeholder="Paye, bâtard!">
+          <span class="input-group-btn">
+            <button class="btn btn-primary"><%= fa_icon "money" %>  Log!</button>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     get ':id' => :show
   end
 
+  controller :transaction, path: 'transaction' do
+    post 'log/:account_id' => :log
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
