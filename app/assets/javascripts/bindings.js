@@ -12,5 +12,5 @@ $(document).ready(function() {
   });
 
   Mousetrap.bind(letters, function() { $('#navbar-search').focus() });
-  Mousetrap.bind(numbers, function() { $('#log-input').focus() });
+  Mousetrap.bind(numbers, function() { $('#amount').focus() });
 });

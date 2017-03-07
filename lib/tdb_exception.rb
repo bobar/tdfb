@@ -7,3 +7,6 @@ class TdbException < RuntimeError
     { status: 400, message: @message }
   end
 end
+
+class AuthException < RuntimeError
+end

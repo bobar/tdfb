@@ -1,11 +1,17 @@
 require 'digest/md5'
 
 class ApplicationController < ActionController::Base
+  AUTH_EXPIRES = 8.seconds
+
   protect_from_forgery with: :exception
-  before_action :authenticate!
+  before_action :load_bank
 
   rescue_from TdbException do |mes|
     render json: mes.to_h, status: 400
+  end
+
+  rescue_from AuthException do
+    # Just to stop propagation
   end
 
   def index
@@ -15,15 +21,24 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def unauthorized!
-    return render text: 'Unauthorized', status: 401 if cookies[:logged_in].nil? || Time.zone.parse(cookies[:logged_in]) < Time.current - 30.seconds
+  def load_bank
+    cookies[:bank_id] ||= 1
+    cookies[:bank] ||= 'BOB'
+    @bank = Account.find(cookies[:bank_id])
   end
 
-  def authenticate!
-    authenticate_or_request_with_http_basic do |username, password|
-      unauthorized!
-      admin = Admin.joins(:account).find_by(accounts: { trigramme: username })
-      admin && Digest::MD5.hexdigest(password) == admin.passwd && cookies[:logged_in] = Time.current
+  def require_admin!
+    if session[:expire_at].nil? || session[:expire_at] < Time.current
+      session[:expire_at] = Time.current + AUTH_EXPIRES
+      request_http_basic_authentication
+      fail AuthException
+    else
+      authenticate_with_http_basic do |username, password|
+        (admin = Admin.joins(:account).find_by(accounts: { trigramme: username })) &&
+          (Digest::MD5.hexdigest(password) == admin.passwd) &&
+          (session[:expire_at] = Time.current + AUTH_EXPIRES) &&
+          (@admin = admin)
+      end || (request_http_basic_authentication && fail(AuthException))
     end
   end
 end

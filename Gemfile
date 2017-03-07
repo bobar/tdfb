@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.3'
 
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap_form'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.0'

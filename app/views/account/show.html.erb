@@ -11,11 +11,11 @@
         </tr>
       </thead>
       <tbody>
-        <% @account.transactions.includes(:receiver).includes(:admin).order(date: :desc).limit(1000).each do |t| %>
+        <% @account.transactions.includes(:receiver).includes(:administrator).order(date: :desc).limit(50).each do |t| %>
           <tr>
             <td><%= t.price / 100.0 %></td>
             <td><%= t.receiver.try(:trigramme) %></td>
-            <td><%= t.admin.try(:trigramme) %></td>
+            <td><%= t.administrator.try(:trigramme) %></td>
             <td><%= t.comment %></td>
             <td><%= t.date %></td>
           </tr>
@@ -39,13 +39,12 @@
         <% end %>
       </h3>
       <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
-      <div class="row">
-        <div class="input-group input-group-lg">
-          <input id="log-input" type="text" class="form-control" placeholder="Paye, bâtard!">
-          <span class="input-group-btn">
-            <button class="btn btn-primary"><%= fa_icon "money" %>  Log!</button>
-          </span>
-        </div>
+      <div class="form-inline">
+        <%= bootstrap_form_tag(url: "/account/log/#{@account.id}", method: 'post') do |f| %>
+          <%= f.text_field(:amount, hide_label: true, placeholder: 'Paye, bâtard!') %>
+          <%= f.text_field(:comment, hide_label: true, placeholder: 'Commentaire') %>
+          <%= f.primary('Log!') %>
+        <% end %>
       </div>
     </div>
   </div>

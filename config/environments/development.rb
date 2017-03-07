@@ -11,7 +11,7 @@ Rails.application.configure do
 
   config.active_record.migration_error = :page_load
 
-  config.assets.debug = true
+  config.assets.debug = false
 
   config.assets.digest = true
 

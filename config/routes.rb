@@ -6,10 +6,7 @@ Rails.application.routes.draw do
   controller :account, path: 'account' do
     get 'search' => :search
     get ':id' => :show
-  end
-
-  controller :transaction, path: 'transaction' do
-    post 'log/:account_id' => :log
+    post 'log/:id' => :log
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
