@@ -4,7 +4,8 @@ class Account < ActiveRecord::Base
   MANOU_FRANKIZ_ID = 12_368
 
   def self.search(term)
-    where(trigramme: term) + where('LOWER(name) LIKE ? OR LOWER(first_name) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%")
+    return where('LOWER(trigramme) = ?', term.downcase) if term.size == 3
+    where('LOWER(name) LIKE ? OR LOWER(first_name) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%")
   end
 
   def age
