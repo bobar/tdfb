@@ -6,6 +6,7 @@ class Transaction < ActiveRecord::Base
   def self.log(account, bank, amount, comment: nil, admin: nil)
     now = Time.current
     comment ||= ''
+    amount = (amount * 100).to_i
     ActiveRecord::Base.transaction do
       account.balance = account.balance - amount
       account.turnover = account.turnover + amount if amount > 0

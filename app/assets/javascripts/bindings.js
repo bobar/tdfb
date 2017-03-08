@@ -11,6 +11,7 @@ $(document).ready(function() {
     }
   });
 
-  Mousetrap.bind(letters, function() { $('#navbar-search').focus() });
-  Mousetrap.bind(numbers, function() { $('#amount').focus() });
+  Mousetrap.bind(letters, function() { $('#navbar-search').focus(); });
+  Mousetrap.bind(numbers, function() { $('#log-form #amount').focus(); });
+  Mousetrap.bind('+', function() { $('#credit-form #amount').focus(); return false; });
 });

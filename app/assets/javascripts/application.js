@@ -16,3 +16,16 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap-sprockets
+
+function isPositiveNumber(value) {
+  return new RegExp('^\\d+(\\.\\d*)?$').test(value);
+}
+
+function setValidator(form, handler) {
+  form.change(handler);
+  form.submit(function(e) {
+    if (!handler()) {
+      e.preventDefault();
+    }
+  });
+}
