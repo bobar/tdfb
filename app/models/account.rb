@@ -3,6 +3,10 @@ class Account < ActiveRecord::Base
 
   MANOU_FRANKIZ_ID = 12_368
 
+  def self.default_bank
+    find(1)
+  end
+
   def self.search(term)
     return where('LOWER(trigramme) = ?', term.downcase) if term.size == 3
     where('LOWER(name) LIKE ? OR LOWER(first_name) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%")

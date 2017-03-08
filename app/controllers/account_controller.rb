@@ -26,4 +26,13 @@ class AccountController < ApplicationController
     Transaction.log(@account, @bank, -amount, comment: comment, admin: @admin)
     redirect_to action: :show
   end
+
+  def clopes
+    @account = Account.find(params[:id])
+    clope = Clope.find(params[:clope_id])
+    quantity = params[:quantity].to_i
+    require_admin! if quantity * clope.prix > 2000
+    clope.sell(@account, quantity, admin: @admin)
+    redirect_to action: :show
+  end
 end

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     get ':id' => :show
     post 'log/:id' => :log
     post 'credit/:id' => :credit
+    post 'clopes/:id' => :clopes
   end
 end

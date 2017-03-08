@@ -7,7 +7,7 @@ class Transaction < ActiveRecord::Base
     now = Time.current
     comment ||= ''
     amount = (amount * 100).ceil # Screwing the customers
-    ActiveRecord::Base.transaction do
+    transaction do
       account.balance = account.balance - amount
       account.turnover = account.turnover + amount if amount > 0
       bank.balance = bank.balance + amount
