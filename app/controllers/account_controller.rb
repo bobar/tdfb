@@ -13,7 +13,7 @@ class AccountController < ApplicationController
     fail 'Amount must be positive!' if amount < 0
     require_admin! if amount > 20 # 20 euros
     Transaction.log(@account, @bank, amount, comment: params[:comment], admin: @admin)
-    redirect_to action: :show
+    render_redirect_to
   end
 
   def credit
@@ -24,7 +24,7 @@ class AccountController < ApplicationController
     comment = params[:commit]
     comment += " - #{params[:comment]}" if params[:comment] && !params[:comment].empty?
     Transaction.log(@account, @bank, -amount, comment: comment, admin: @admin)
-    redirect_to action: :show
+    render_redirect_to
   end
 
   def clopes
@@ -33,6 +33,15 @@ class AccountController < ApplicationController
     quantity = params[:quantity].to_i
     require_admin! if quantity * clope.prix > 2000
     clope.sell(@account, quantity, admin: @admin)
-    redirect_to action: :show
+    render_redirect_to
+  end
+
+  private
+
+  def render_redirect_to
+    respond_to do |format|
+      format.html { redirect_to action: :show }
+      format.js { return render text: 'location.reload();' }
+    end
   end
 end

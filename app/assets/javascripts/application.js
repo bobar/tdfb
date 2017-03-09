@@ -23,9 +23,16 @@ function isPositiveNumber(value) {
 
 function setValidator(form, handler) {
   form.change(handler);
-  form.submit(function(e) {
-    if (!handler()) {
-      e.preventDefault();
-    }
-  });
+  form.on('ajax:beforeSend', handler);
 }
+
+$(document).ajaxError(function(e, jqXHR) {
+  if (jqXHR.statusText === 'canceled') {
+    return;
+  }
+  if(jqXHR.status === 401){
+    $('#unauthorized-modal').modal('show');
+  } else {
+    $('#error-modal').modal('show');
+  }
+});

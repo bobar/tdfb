@@ -42,18 +42,18 @@
         <% end %>
       </h3>
       <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
-      <%= bootstrap_form_tag(html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: 'post', layout: :inline) do |f| %>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: 'post', layout: :inline) do |f| %>
         <%= f.text_field(:amount, hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
         <%= f.text_field(:comment, hide_label: true, placeholder: 'Commentaire', append: f.primary('Log!')) %>
       <% end %>
       <br>
       <h3>Clopes</h3>
-      <%= bootstrap_form_tag(html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: 'post', layout: :inline) do |f| %>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: 'post', layout: :inline) do |f| %>
         <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, hide_label: true) %>
         <%= f.number_field(:quantity, hide_label: true, value: 1, min: 1, append: f.primary('Log!')) %>
       <% end %>
       <h3>Créditer</h3>
-      <%= bootstrap_form_tag(html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: 'post', layout: :inline) do |f| %>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: 'post', layout: :inline) do |f| %>
         <%= f.text_field(:amount, hide_label: true, placeholder: 'Plus de thunes!', prepend: '€') %>
         <%= f.text_field(:comment, hide_label: true, placeholder: 'Commentaire') %>
         <div class="form-group">
