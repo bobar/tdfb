@@ -22,6 +22,10 @@
 @import "jquery-ui/tabs";
 @import "jquery-ui/tooltip";
 
+body {
+  font-family: 'Muli', sans-serif;
+}
+
 .navbar-brand {
   padding: 5px 15px;
 
