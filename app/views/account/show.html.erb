@@ -33,17 +33,16 @@
         <small><%= @account.promo %></small>
       </h2>
       <div>
+        <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
         <%= @account.nickname %>
-        <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse">
-          <%= fa_icon "pencil-square-o" %>&nbsp;Edit
-        </a>
       </div>
-      <div class="collapse" id="nicknameCollapse">
-        <div class="well">
-          <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/nickname/#{@account.id}", method: :post) do |f| %>
-            <%= f.text_field(:nickname, hide_label: true, value: @account.nickname, append: f.primary('Save')) %>
-          <% end %>
-        </div>
+      <div class="collapse text-right" id="nicknameCollapse">
+        <br>
+        <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/nickname/#{@account.id}", method: :post) do |f| %>
+          <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
+          <%= f.primary 'Save' %>
+        <% end %>
+        <br>
       </div>
       <h3>
         <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
