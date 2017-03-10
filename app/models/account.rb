@@ -10,6 +10,20 @@ class Account < ActiveRecord::Base
   def self.search(term)
     return where('LOWER(trigramme) = ?', term.downcase) if term.size == 3
     where('LOWER(name) LIKE ? OR LOWER(first_name) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%")
+      .order('ISNULL(trigramme)', promo: :desc, name: :asc, first_name: :asc)
+  end
+
+  def autocomplete_text
+    text = ''
+    text += "#{trigramme} - " if trigramme
+    text += "#{promo} " if promo && promo != 0
+    text += "#{first_name} #{name}"
+    text += " (#{budget} €)" if balance != 0
+    text.html_safe
+  end
+
+  def budget # Returns budget in euros
+    (balance / 100.0).round(2)
   end
 
   def age
