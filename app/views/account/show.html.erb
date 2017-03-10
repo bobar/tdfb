@@ -32,7 +32,19 @@
         <%= @account.first_name %> <%= @account.name %>
         <small><%= @account.promo %></small>
       </h2>
-      <span><%= @account.nickname %></span>
+      <div>
+        <%= @account.nickname %>
+        <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse">
+          <%= fa_icon "pencil-square-o" %>&nbsp;Edit
+        </a>
+      </div>
+      <div class="collapse" id="nicknameCollapse">
+        <div class="well">
+          <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/nickname/#{@account.id}", method: :post) do |f| %>
+            <%= f.text_field(:nickname, hide_label: true, value: @account.nickname, append: f.primary('Save')) %>
+          <% end %>
+        </div>
+      </div>
       <h3>
         <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
           fa_icon "birthday-cake 2x"
@@ -42,18 +54,18 @@
         <% end %>
       </h3>
       <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: 'post', layout: :inline) do |f| %>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: :post, layout: :inline) do |f| %>
         <%= f.text_field(:amount, hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
         <%= f.text_field(:comment, hide_label: true, placeholder: 'Commentaire', append: f.primary('Log!')) %>
       <% end %>
       <br>
       <h3>Clopes</h3>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: 'post', layout: :inline) do |f| %>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline) do |f| %>
         <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, hide_label: true) %>
         <%= f.number_field(:quantity, hide_label: true, value: 1, min: 1, append: f.primary('Log!')) %>
       <% end %>
       <h3>Créditer</h3>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: 'post', layout: :inline) do |f| %>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: :post, layout: :inline) do |f| %>
         <%= f.text_field(:amount, hide_label: true, placeholder: 'Plus de thunes!', prepend: '€') %>
         <%= f.text_field(:comment, hide_label: true, placeholder: 'Commentaire') %>
         <div class="form-group">

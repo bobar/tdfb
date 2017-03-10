@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     post 'log/:id' => :log
     post 'credit/:id' => :credit
     post 'clopes/:id' => :clopes
+    post 'nickname/:id' => :nickname
   end
 end

@@ -36,6 +36,13 @@ class AccountController < ApplicationController
     render_redirect_to
   end
 
+  def nickname
+    @account = Account.find(params[:id])
+    require_admin!
+    @account.update(nickname: params[:nickname].strip)
+    render_redirect_to
+  end
+
   private
 
   def render_redirect_to
