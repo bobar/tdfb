@@ -1,6 +1,12 @@
 class Account < ActiveRecord::Base
   has_many :transactions, class_name: :Transaction, foreign_key: :id
 
+  # 0=X platal,1=X
+  # ancien,2=binet,3=personnel,4=autre
+  # etudiant,5=autre
+
+  enum role: { 'X Platal': 0, 'X Ancien': 1, 'Binet': 2, 'Personnel': 3, 'Etudiant non-X': 4, 'Autre': 5 }
+
   MANOU_FRANKIZ_ID = 12_368
 
   def self.default_bank
