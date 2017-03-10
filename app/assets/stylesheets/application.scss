@@ -22,8 +22,13 @@
 @import "jquery-ui/tabs";
 @import "jquery-ui/tooltip";
 
+@font-face {
+  font-family: "Muli";
+  src: url(/assets/Muli.woff2) format("woff2");
+}
+
 body {
-  font-family: 'Muli', sans-serif;
+  font-family: 'Muli Regular', sans-serif;
 }
 
 .navbar-brand {
