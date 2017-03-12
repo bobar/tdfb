@@ -17,4 +17,5 @@ function validateCreditForm() {
 $(document).ready(function() {
   setValidator($('#log-form'), validateLogForm);
   setValidator($('#credit-form'), validateCreditForm);
+  jQuery("time.timeago").timeago();
 })

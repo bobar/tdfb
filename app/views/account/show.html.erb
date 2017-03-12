@@ -20,7 +20,7 @@
             <td><%= t.receiver.try(:trigramme) %></td>
             <td><%= t.administrator.try(:trigramme) %></td>
             <td><%= t.comment %></td>
-            <td><%= t.date %></td>
+            <td><time <% if t.date.to_date == Date.today %>class="timeago"<% end %> datetime="<%= t.date %>"><%= t.date.strftime('%F %T') %></time></td>
           </tr>
         <% end %>
       </tbody>
