@@ -16,7 +16,7 @@ class Account < ActiveRecord::Base
   def self.search(term)
     return where('LOWER(trigramme) = ?', term.downcase) if term.size == 3
     where('LOWER(name) LIKE ? OR LOWER(first_name) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%")
-      .order('COALESCE(trigramme, "ZZZ")', promo: :desc, name: :asc, first_name: :asc)
+      .order('CASE WHEN trigramme IS NULL THEN 1 ELSE 0 END', promo: :desc, name: :asc, first_name: :asc)
   end
 
   def autocomplete_text
