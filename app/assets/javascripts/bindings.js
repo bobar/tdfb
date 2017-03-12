@@ -2,6 +2,10 @@ var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','
                'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+function inputFocused() {
+  return document.activeElement.tagName === 'INPUT';
+}
+
 $(document).ready(function() {
   $('#navbar-search').autocomplete({
     source: '/account/search',
@@ -11,8 +15,22 @@ $(document).ready(function() {
     }
   });
 
-  Mousetrap.bind(letters, function() { $('#navbar-search').focus(); });
-  Mousetrap.bind(numbers, function() { $('#log-form #amount').focus(); });
-  Mousetrap.bind('+', function() { $('#credit-form #amount').focus(); return false; });
-  Mousetrap.bind('ctrl+c', function() { $('#clopes-form #_clope_id').focus(); return false; });
+  Mousetrap.bind(letters, function() {
+    if (inputFocused()) return ;
+    $('#navbar-search').focus();
+  });
+  Mousetrap.bind(numbers, function() {
+    if (inputFocused()) return ;
+    $('#log-form #amount').focus();
+  });
+  Mousetrap.bind('+', function() {
+    if (inputFocused()) return ;
+    $('#credit-form #amount').focus(); return false;
+  });
+  Mousetrap.bind('ctrl+c', function() {
+    if (inputFocused()) return ;
+    $('#clopes-form #_clope_id').focus(); return false;
+  });
+  Mousetrap.bind(['esc', 'escape'], function () {
+    document.activeElement.blur(); });
 });

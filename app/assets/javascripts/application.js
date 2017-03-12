@@ -22,8 +22,8 @@ function isPositiveNumber(value) {
 }
 
 function setValidator(form, handler) {
-  form.change(handler);
-  form.on('ajax:beforeSend', handler);
+  form.change(function() { return handler(false); });
+  form.on('ajax:beforeSend', function() { return handler(true); });
 }
 
 $(document).ajaxError(function(e, jqXHR) {
