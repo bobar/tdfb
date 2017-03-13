@@ -41,21 +41,5 @@ body {
 }
 
 .form-inline .form-group {
-    margin-bottom: 5px;
-}
-
-#pinte-background-container {
-  height: 90vh;
-  left: 0;
-  padding: 20px 100px 100px 50px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-
-  #pinte-background {
-    background: image-url('pinte.png') no-repeat 0 0/contain;
-    height: 100%;
-    opacity: 0.25;
-    width: 100%;
-  }
+  margin-bottom: 5px;
 }

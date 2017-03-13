@@ -1,3 +1,13 @@
 .form-group, .input-group, #_clope_id, #comment {
   width: 100%;
 }
+
+#transactions-table:before {
+    background: image-url('pinte.png') no-repeat 50px 0/contain;;
+    content: '';
+    height: 80vh;
+    opacity: 0.10;
+    pointer-events: none;
+    position: fixed;
+    width: 50vw;
+}
