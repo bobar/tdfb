@@ -1,7 +1,4 @@
 function validateLogForm(submit) {
-  if (submit === undefined) {
-    submit = false;
-  }
   var amountField = $('#log-form #amount');
   var amount = amountField.val();
   var valid = isPositiveNumber(amount);
@@ -11,9 +8,6 @@ function validateLogForm(submit) {
 }
 
 function validateCreditForm(submit) {
-  if (submit === undefined) {
-    submit = false;
-  }
   var amountField = $('#credit-form #amount');
   var amount = amountField.val();
   var valid = isPositiveNumber(amount);
