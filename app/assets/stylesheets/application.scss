@@ -24,12 +24,12 @@
 @import "account";
 
 @font-face {
-  font-family: "Muli";
-  src: url(/assets/Muli.woff2) format("woff2");
+  font-family: "Muli" !important;
+  src: url(/assets/Muli.woff2) format("woff2")!important;
 }
 
 body {
-  font-family: 'Muli Regular', sans-serif;
+  font-family: 'Muli Regular', sans-serif !important;
 }
 
 .navbar-brand {
