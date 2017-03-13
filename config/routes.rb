@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'application#index'
 
   get 'index' => 'application#index'
+  get 'switch_theme' => 'application#switch_theme'
 
   controller :account, path: 'account' do
     get 'search' => :search

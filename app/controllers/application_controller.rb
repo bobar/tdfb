@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
     cookies[:bank] = 'BOB'
   end
 
+  def switch_theme
+    ENV['theme'] = params['theme']
+    redirect_to :back
+  end
+
   private
 
   def load_bank

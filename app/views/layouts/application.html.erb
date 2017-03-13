@@ -4,6 +4,8 @@
   <title>Tdfb</title>
   <link rel="icon" type="image/png" href="/assets/pinte_squared.png">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'themes/' + ENV['theme'] if ENV['theme'] %>
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -35,11 +37,12 @@
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Theme <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><%= link_to 'Boostrap', controller: 'application', action: 'switch_theme', theme: nil %></li>
+            <li><%= link_to 'Cerulean', controller: 'application', action: 'switch_theme', theme: 'cerulean' %></li>
+            <li><%= link_to 'Darkly', controller: 'application', action: 'switch_theme', theme: 'darkly' %></li>
+            <li><%= link_to 'United', controller: 'application', action: 'switch_theme', theme: 'united' %></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li role="separator" class="divider"></li>
