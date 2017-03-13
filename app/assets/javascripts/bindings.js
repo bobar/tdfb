@@ -19,7 +19,7 @@ $(document).ready(function() {
     if (inputFocused()) return ;
     $('#navbar-search').focus();
   });
-  Mousetrap.bind(numbers, function() {
+  Mousetrap.bind(numbers.concat(['.']), function() {
     if (inputFocused()) return ;
     $('#log-form #amount').focus();
   });

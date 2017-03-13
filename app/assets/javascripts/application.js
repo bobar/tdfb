@@ -18,7 +18,7 @@
 //= require bootstrap-sprockets
 
 function isPositiveNumber(value) {
-  return new RegExp('^\\d+(\\.\\d*)?$').test(value);
+  return new RegExp('^(\\d+(\\.\\d*)?|\\.\\d+)$').test(value);
 }
 
 function setValidator(form, handler) {
