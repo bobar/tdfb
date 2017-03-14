@@ -6,6 +6,16 @@ function inputFocused() {
   return document.activeElement.tagName === 'INPUT';
 }
 
+// Use this helper except for escape binding.
+// Otherwise typing in an input focuses elsewhere.
+function bind(shortcut, handler, return_true) {
+  Mousetrap.bind(shortcut, function() {
+    if (inputFocused()) return ;
+    handler();
+    return return_true ? true : false;
+  })
+}
+
 $(document).ready(function() {
   $('#navbar-search').autocomplete({
     source: '/account/search',
@@ -15,22 +25,19 @@ $(document).ready(function() {
     }
   });
 
-  Mousetrap.bind(letters, function() {
-    if (inputFocused()) return ;
+  bind(letters, function() {
     $('#navbar-search').focus();
-  });
-  Mousetrap.bind(numbers.concat(['.']), function() {
-    if (inputFocused()) return ;
+  }, true);
+  bind(numbers.concat(['.']), function() {
     $('#log-form #amount').focus();
+  }, true);
+  bind('+', function() {
+    $('#credit-form #amount').focus();
   });
-  Mousetrap.bind('+', function() {
-    if (inputFocused()) return ;
-    $('#credit-form #amount').focus(); return false;
-  });
-  Mousetrap.bind('ctrl+c', function() {
-    if (inputFocused()) return ;
-    $('#clopes-form #_clope_id').focus(); return false;
+  bind('ctrl+c', function() {
+    $('#clopes-form #_clope_id').focus();
   });
   Mousetrap.bind(['esc', 'escape'], function () {
-    document.activeElement.blur(); });
+    document.activeElement.blur();
+  });
 });
