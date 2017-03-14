@@ -1,5 +1,9 @@
-.form-group, .input-group, #_clope_id, #comment {
-  width: 100%;
+form.form-inline {
+  .form-control,
+  .form-group,
+  .input-group {
+    width: 100%;
+  }
 }
 
 #transactions-table:before {
