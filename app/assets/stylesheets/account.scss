@@ -3,6 +3,10 @@ form.form-inline {
   .form-group,
   .input-group {
     width: 100%;
+
+    .input-group-btn {
+      width: 1%;
+    }
   }
 }
 
