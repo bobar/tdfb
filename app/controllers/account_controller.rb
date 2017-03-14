@@ -7,6 +7,10 @@ class AccountController < ApplicationController
     @account = Account.find(params[:id])
   end
 
+  def exists
+    render json: Account.where('LOWER(trigramme) = ?', params[:trigramme].downcase).exists?
+  end
+
   def log
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
@@ -36,10 +40,20 @@ class AccountController < ApplicationController
     render_redirect_to
   end
 
-  def nickname
+  def set_nickname
     @account = Account.find(params[:id])
     require_admin!
     @account.update(nickname: params[:nickname].strip)
+    render_redirect_to
+  end
+
+  def transfer
+    @account = Account.find(params[:id])
+    amount = params[:amount].to_f
+    fail 'Amount must be positive!' if amount < 0
+    require_admin!
+    receiver = Account.find_by(trigramme: params[:receiver])
+    Transaction.log(@account, receiver, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end
 

@@ -26,6 +26,29 @@ function setValidator(form, handler) {
   form.on('ajax:beforeSend', function() { return handler(true); });
 }
 
+function trigrammeExists(trigramme, el, submit) {
+  if (trigramme.length === 0 && !submit) {
+    el.removeClass('has-error');
+    return;
+  }
+  if (trigramme.length != 3) {
+    el.addClass('has-error');
+    return;
+  }
+  $.ajax({
+    aysnc: false,
+    dataType: 'json',
+    url: '/account/exists/' + trigramme,
+  }).success(function(response) {
+    console.log(response);
+    console.log(el);
+    el.toggleClass('has-error', !response);
+  }).error(function() {
+    el.addClass('has-error');
+  });
+  ;
+}
+
 $(document).ajaxError(function(e, jqXHR) {
   if (jqXHR.statusText === 'canceled') {
     return;

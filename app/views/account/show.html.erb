@@ -56,7 +56,7 @@
             <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
           </div>
           <div class="col-md-6">
-            <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire', append: f.primary('Log!')) %>
+            <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire', append: f.primary('Log !')) %>
           </div>
         </div>
       <% end %>
@@ -68,7 +68,7 @@
             <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
           </div>
           <div class="col-md-6">
-            <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary('Log!')) %>
+            <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary('Log !')) %>
           </div>
         </div>
       <% end %>
@@ -85,6 +85,23 @@
         <div class="form-group">
           <%= f.primary 'Chèque' %>
           <%= f.primary 'Liquide' %>
+        </div>
+      <% end %>
+      <h3>Transfert</h3>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'transfer-form' }, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline) do |f| %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
+          </div>
+          <div class="col-md-6">
+            <%= f.text_field(:receiver, class: 'mousetrap', hide_label: true, placeholder: 'Trigramme') %>
+          </div>
+          <div class="col-md-6">
+            <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
+          </div>
+          <div class="col-md-6">
+            <%= f.primary 'Transférer !' %>
+          </div>
         </div>
       <% end %>
     </div>

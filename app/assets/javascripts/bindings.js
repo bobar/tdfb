@@ -37,6 +37,9 @@ $(document).ready(function() {
   bind('ctrl+c', function() {
     $('#clopes-form #_clope_id').focus();
   });
+  bind('ctrl+t', function() {
+    $('#transfer-form #amount').focus();
+  });
   Mousetrap.bind(['esc', 'escape'], function () {
     document.activeElement.blur();
   });
