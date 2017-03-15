@@ -11,11 +11,13 @@ form.form-inline {
 }
 
 #transactions-table:before {
-    background: image-url('pinte.png') no-repeat 50px 0/contain;;
+    background: image-url('pinte.png') no-repeat 0 0/contain;;
     content: '';
-    height: 80vh;
+    height: calc(100vh - 200px);
+    left: 50px;
     opacity: 0.10;
     pointer-events: none;
     position: fixed;
-    width: 50vw;
+    top: 140px;
+    width: calc(100vw - 120px);
 }
