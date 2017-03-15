@@ -5,7 +5,7 @@ class Account < ActiveRecord::Base
   # ancien,2=binet,3=personnel,4=autre
   # etudiant,5=autre
 
-  enum role: { 'X Platal': 0, 'X Ancien': 1, 'Binet': 2, 'Personnel': 3, 'Etudiant non-X': 4, 'Autre': 5 }
+  enum status: { x_platal: 0, x_ancien: 1, binet: 2, personnel: 3, etudiant_non_x: 4, autre: 5 }
 
   MANOU_FRANKIZ_ID = 12_368
 
@@ -47,5 +47,9 @@ class Account < ActiveRecord::Base
     users = User.where(promo: promo).where('name LIKE ? AND name LIKE ?', "#{first_name}%", "% #{name}%")
     return users.first if users.size == 1
     User.where(promo: promo).where('name LIKE ? AND name LIKE ?', "#{first_name.first}%", "% #{name.first}%") # Same initials
+  end
+
+  def readable_status
+    status.tr('_', ' ').capitalize
   end
 end

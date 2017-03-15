@@ -7,12 +7,11 @@ Rails.application.routes.draw do
   controller :account, path: 'account' do
     get 'search' => :search
     get ':id' => :show
+    post ':id' => :update
     get 'exists/:trigramme' => :exists
     post 'log/:id' => :log
     post 'credit/:id' => :credit
     post 'clopes/:id' => :clopes
-    post 'nickname/:id' => :set_nickname
-    post 'trigramme/:id' => :set_trigramme
     post 'transfer/:id' => :transfer
   end
 end

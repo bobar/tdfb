@@ -40,19 +40,17 @@ class AccountController < ApplicationController
     render_redirect_to
   end
 
-  def set_nickname
+  def update
     @account = Account.find(params[:id])
     require_admin!
-    @account.update(nickname: params[:nickname].strip)
-    render_redirect_to
-  end
-
-  def set_trigramme
-    @account = Account.find(params[:id])
-    trigramme = params[:trigramme].strip.upcase
-    fail TdbException, 'Trigramme must have three letters' unless trigramme.size == 3
-    require_admin!
-    @account.update(trigramme: trigramme)
+    to_update = {}
+    to_update[:nickname] = params[:nickname].strip if params[:nickname] && !params[:nickname].empty?
+    to_update[:trigramme] = params[:trigramme].strip.upcase if params[:trigramme] && !params[:trigramme].empty?
+    to_update[:status] = params[:status] if params[:status]
+    ActiveRecord::Base.transaction do
+      Transaction.account_update(@account, to_update, admin: @admin)
+      @account.update(to_update)
+    end
     render_redirect_to
   end
 

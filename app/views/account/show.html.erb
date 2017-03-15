@@ -29,13 +29,23 @@
       <div class="col-md-6">
         <h1 style="display: inline-block;"> <!-- inline-block because we want the icon on same line -->
           <strong><%= @account.trigramme %></strong>
+          <% unless @account.x_platal? %>
+            <br>
+            <small><%= @account.readable_status %></small>
+          <% end %>
         </h1>
         <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse"><%= fa_icon "pencil-square-o" %></a>
       </div>
       <div class="col-md-6 collapse text-right" id="trigrammeCollapse">
         <h1> <!-- To have the same vertical padding as the trigramme itself -->
-          <%= bootstrap_form_tag(remote: true, html: { id: 'trigramme-form' }, url: "/account/trigramme/#{@account.id}", method: :post) do |f| %>
-            <%= f.text_field(:trigramme, hide_label: true, placeholder: 'Trigramme', append: f.primary('Save')) %>
+          <%= bootstrap_form_tag(remote: true, html: { id: 'trigramme-form' }, url: "/account/#{@account.id}", method: :post) do |f| %>
+            <%= f.text_field(:trigramme, hide_label: true, placeholder: 'Trigramme') %>
+            <%= f.select(
+              :status,
+              Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] },
+              selected: @account.status, hide_label: true)
+            %>
+            <%= f.primary 'Save' %>
           <% end %>
         </h1>
       </div>
@@ -54,7 +64,7 @@
     </div>
     <div class="collapse text-right" id="nicknameCollapse">
       <br>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/nickname/#{@account.id}", method: :post) do |f| %>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/#{@account.id}", method: :post) do |f| %>
         <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
         <%= f.primary 'Save' %>
       <% end %>

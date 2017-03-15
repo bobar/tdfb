@@ -18,4 +18,16 @@ class Transaction < ActiveRecord::Base
       bank.save
     end
   end
+
+  def self.account_update(account, updated = {}, admin: nil)
+    updates = updated.map do |k, v|
+      next if v == account[k]
+      detail = "new #{k}"
+      detail += " (#{account.__send__(k)} => #{v})" unless k.to_sym == :nickname
+      detail
+    end.compact
+    return if updates.empty?
+    comment = 'Account updated: ' + updates.join(', ')
+    create(id: account.id, id2: account.id, price: 0, comment: comment, admin: admin.try(:id), date: Time.current)
+  end
 end
