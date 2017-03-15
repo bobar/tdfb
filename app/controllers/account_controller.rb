@@ -52,7 +52,7 @@ class AccountController < ApplicationController
     amount = params[:amount].to_f
     fail 'Amount must be positive!' if amount < 0
     require_admin!
-    receiver = Account.find_by(trigramme: params[:receiver])
+    receiver = Account.find_by('LOWER(trigramme) = ?', params[:receiver].downcase)
     Transaction.log(@account, receiver, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end
