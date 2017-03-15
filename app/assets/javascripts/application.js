@@ -44,6 +44,11 @@ $(document).ajaxError(function(e, jqXHR) {
   if(jqXHR.status === 401){
     $('#unauthorized-modal').modal('show');
   } else {
+    try {
+      $('#error-modal #error-modal-text').text(jqXHR.responseJSON['message']);
+    } catch(e) {
+      $('#error-modal #error-modal-text').text('Something went wrong, call the SIE.');
+    }
     $('#error-modal').modal('show');
   }
 });

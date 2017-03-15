@@ -14,7 +14,7 @@ class AccountController < ApplicationController
   def log
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
-    fail 'Amount must be positive!' if amount < 0
+    fail TdbException, 'Amount must be positive!' if amount < 0
     require_admin! if amount > 20 # 20 euros
     Transaction.log(@account, @bank, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
@@ -23,7 +23,7 @@ class AccountController < ApplicationController
   def credit
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
-    fail 'Amount must be positive!' if amount < 0
+    fail TdbException, 'Amount must be positive!' if amount < 0
     require_admin!
     comment = params[:commit]
     comment += " - #{params[:comment]}" if params[:comment] && !params[:comment].empty?
@@ -50,7 +50,7 @@ class AccountController < ApplicationController
   def set_trigramme
     @account = Account.find(params[:id])
     trigramme = params[:trigramme].strip.upcase
-    fail unless trigramme.size == 3
+    fail TdbException, 'Trigramme must have three letters' unless trigramme.size == 3
     require_admin!
     @account.update(trigramme: trigramme)
     render_redirect_to
@@ -59,9 +59,11 @@ class AccountController < ApplicationController
   def transfer
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
-    fail 'Amount must be positive!' if amount < 0
+    fail TdbException, 'Amount must be positive!' if amount < 0
     require_admin!
     receiver = Account.find_by(trigramme: params[:receiver].upcase)
+    fail TdbException, "Trigramme #{params[:receiver].upcase} is unknown" unless receiver
+    fail TdbException, 'Sender and recipient are the same' if receiver.id == @account.id
     Transaction.log(@account, receiver, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end
