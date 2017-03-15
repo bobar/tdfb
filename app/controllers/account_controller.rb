@@ -8,7 +8,7 @@ class AccountController < ApplicationController
   end
 
   def exists
-    render json: Account.where('LOWER(trigramme) = ?', params[:trigramme].downcase).exists?
+    render json: Account.where(trigramme: params[:trigramme].upcase).exists?
   end
 
   def log
@@ -52,7 +52,7 @@ class AccountController < ApplicationController
     amount = params[:amount].to_f
     fail 'Amount must be positive!' if amount < 0
     require_admin!
-    receiver = Account.find_by('LOWER(trigramme) = ?', params[:receiver].downcase)
+    receiver = Account.find_by(trigramme: params[:receiver].upcase)
     Transaction.log(@account, receiver, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end

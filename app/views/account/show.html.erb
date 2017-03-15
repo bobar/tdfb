@@ -31,7 +31,11 @@
       </h2>
       <div>
         <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
-        <%= @account.nickname %>
+        <% if @account.nickname.nil? || @account.nickname.blank? %>
+          <small><em>Nickname</em></small>
+        <% else %>
+          <%= @account.nickname %>
+        <% end %>
       </div>
       <div class="collapse text-right" id="nicknameCollapse">
         <br>
