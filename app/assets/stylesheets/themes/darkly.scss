@@ -2850,11 +2850,9 @@ tbody.collapse.in {
   box-shadow: none;
 }
 .btn-lg .caret {
-  border-width: 5px 5px 0;
   border-bottom-width: 0;
 }
 .dropup .btn-lg .caret {
-  border-width: 0 5px 5px;
 }
 .btn-group-vertical > .btn,
 .btn-group-vertical > .btn-group,
@@ -3218,7 +3216,6 @@ tbody.collapse.in {
 }
 .navbar-static-top {
   z-index: 1000;
-  border-width: 0 0 1px;
 }
 @media (min-width: 768px) {
   .navbar-static-top {
@@ -3240,11 +3237,9 @@ tbody.collapse.in {
 }
 .navbar-fixed-top {
   top: 0;
-  border-width: 0 0 1px;
 }
 .navbar-fixed-bottom {
   bottom: 0;
-  border-width: 1px 0 0;
 }
 .navbar-brand {
   float: left;
@@ -4210,7 +4205,6 @@ button.list-group-item-danger.active:focus {
 }
 .panel > .list-group .list-group-item,
 .panel > .panel-collapse > .list-group .list-group-item {
-  border-width: 1px 0;
   border-radius: 0;
 }
 .panel > .list-group:first-child .list-group-item:first-child,
@@ -4667,49 +4661,41 @@ button.close {
 .tooltip.top .tooltip-arrow {
   bottom: 0;
   left: 50%;
-  border-width: 5px 5px 0;
   border-top-color: #000000;
 }
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
   right: 5px;
-  border-width: 5px 5px 0;
   border-top-color: #000000;
 }
 .tooltip.top-right .tooltip-arrow {
   bottom: 0;
   left: 5px;
-  border-width: 5px 5px 0;
   border-top-color: #000000;
 }
 .tooltip.right .tooltip-arrow {
   top: 50%;
   left: 0;
-  border-width: 5px 5px 5px 0;
   border-right-color: #000000;
 }
 .tooltip.left .tooltip-arrow {
   top: 50%;
   right: 0;
-  border-width: 5px 0 5px 5px;
   border-left-color: #000000;
 }
 .tooltip.bottom .tooltip-arrow {
   top: 0;
   left: 50%;
-  border-width: 0 5px 5px;
   border-bottom-color: #000000;
 }
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   right: 5px;
-  border-width: 0 5px 5px;
   border-bottom-color: #000000;
 }
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   left: 5px;
-  border-width: 0 5px 5px;
   border-bottom-color: #000000;
 }
 .popover {
@@ -4752,10 +4738,8 @@ button.close {
   border-style: solid;
 }
 .popover > .arrow {
-  border-width: 11px;
 }
 .popover > .arrow:after {
-  border-width: 10px;
   content: "";
 }
 .popover.top > .arrow {
@@ -5285,7 +5269,6 @@ button.close {
   }
 }
 .navbar {
-  border-width: 0;
 }
 .navbar-default .badge {
   background-color: #fff;
@@ -5302,7 +5285,6 @@ button.close {
   border-color: white;
 }
 .btn {
-  border-width: 2px;
 }
 .btn:active {
   -webkit-box-shadow: none;
