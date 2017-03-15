@@ -1,3 +1,11 @@
+function validateTrigrammeForm(submit) {
+  var trigrammeField = $('#trigramme-form #trigramme');
+  var trigramme = trigrammeField.val();
+  var exists = trigrammeExists(trigramme, trigrammeField.parent(), submit);
+  trigrammeField.parent().toggleClass('has-error', exists);
+  return !exists;
+}
+
 function validateLogForm(submit) {
   var amountField = $('#log-form #amount');
   var amount = amountField.val();
@@ -24,11 +32,13 @@ function validateTransferForm(submit) {
   amountField.parent().toggleClass('has-error', !valid);
   var receiverField = $('#transfer-form #receiver');
   var receiver = receiverField.val();
-  trigrammeExists(receiver, receiverField.parent(), submit);
-  return valid && !receiverField.parent().hasClass('has-error');
+  var exists = trigrammeExists(receiver, receiverField.parent(), submit);
+  receiverField.parent().toggleClass('has-error', !exists);
+  return valid && exists;
 }
 
 $(document).ready(function() {
+  setValidator($('#trigramme-form'), validateTrigrammeForm);
   setValidator($('#log-form'), validateLogForm);
   setValidator($('#credit-form'), validateCreditForm);
   setValidator($('#transfer-form'), validateTransferForm);

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post 'credit/:id' => :credit
     post 'clopes/:id' => :clopes
     post 'nickname/:id' => :set_nickname
+    post 'trigramme/:id' => :set_trigramme
     post 'transfer/:id' => :transfer
   end
 end

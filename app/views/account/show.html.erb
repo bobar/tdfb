@@ -23,91 +23,105 @@
       </tbody>
     </table>
   </div>
+
   <div class="col-md-4">
-      <h1><strong><%= @account.trigramme %></strong></h1>
-      <h2>
-        <%= @account.first_name %> <%= @account.name %>
-        <small><%= @account.promo %></small>
-      </h2>
-      <div>
-        <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
-        <% if @account.nickname.nil? || @account.nickname.blank? %>
-          <small><em>Nickname</em></small>
-        <% else %>
-          <%= @account.nickname %>
-        <% end %>
+    <div class="row">
+      <div class="col-md-6">
+        <h1 style="display: inline-block;"> <!-- inline-block because we want the icon on same line -->
+          <strong><%= @account.trigramme %></strong>
+        </h1>
+        <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse"><%= fa_icon "pencil-square-o" %></a>
       </div>
-      <div class="collapse text-right" id="nicknameCollapse">
-        <br>
-        <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/nickname/#{@account.id}", method: :post) do |f| %>
-          <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
-          <%= f.primary 'Save' %>
-        <% end %>
-        <br>
+      <div class="col-md-6 collapse text-right" id="trigrammeCollapse">
+        <h1> <!-- To have the same vertical padding as the trigramme itself -->
+          <%= bootstrap_form_tag(remote: true, html: { id: 'trigramme-form' }, url: "/account/trigramme/#{@account.id}", method: :post) do |f| %>
+            <%= f.text_field(:trigramme, hide_label: true, placeholder: 'Trigramme', append: f.primary('Save')) %>
+          <% end %>
+        </h1>
       </div>
-      <h3>
-        <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
-          fa_icon "birthday-cake 2x"
-        end %>
-        <% if @account.age %>
-          <%= @account.age %> ans (<%= @account.birthdate %>)
-        <% end %>
-      </h3>
-      <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: :post, layout: :inline) do |f| %>
-        <div class="row">
-          <div class="col-md-6">
-            <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
-          </div>
-          <div class="col-md-6">
-            <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire', append: f.primary('Log !')) %>
-          </div>
-        </div>
-      <% end %>
-      <br>
-      <h3>Clopes</h3>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline) do |f| %>
-        <div class="row">
-          <div class="col-md-6">
-            <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
-          </div>
-          <div class="col-md-6">
-            <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary('Log !')) %>
-          </div>
-        </div>
-      <% end %>
-      <h3>Créditer</h3>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: :post, layout: :inline) do |f| %>
-        <div class="row">
-          <div class="col-md-6">
-            <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Plus de thunes!', prepend: '€') %>
-          </div>
-          <div class="col-md-6">
-            <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
-          </div>
-        </div>
-        <div class="form-group">
-          <%= f.primary 'Chèque' %>
-          <%= f.primary 'Liquide' %>
-        </div>
-      <% end %>
-      <h3>Transfert</h3>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'transfer-form' }, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline) do |f| %>
-        <div class="row">
-          <div class="col-md-6">
-            <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
-          </div>
-          <div class="col-md-6">
-            <%= f.text_field(:receiver, class: 'mousetrap', hide_label: true, placeholder: 'Trigramme') %>
-          </div>
-          <div class="col-md-6">
-            <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
-          </div>
-          <div class="col-md-6">
-            <%= f.primary 'Transférer !' %>
-          </div>
-        </div>
+    </div>
+    <h2>
+      <%= @account.first_name %> <%= @account.name %>
+      <small><%= @account.promo %></small>
+    </h2>
+    <div>
+      <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
+      <% if @account.nickname.nil? || @account.nickname.blank? %>
+        <small><em>Nickname</em></small>
+      <% else %>
+        <%= @account.nickname %>
       <% end %>
     </div>
+    <div class="collapse text-right" id="nicknameCollapse">
+      <br>
+      <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/nickname/#{@account.id}", method: :post) do |f| %>
+        <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
+        <%= f.primary 'Save' %>
+      <% end %>
+      <br>
+    </div>
+    <h3>
+      <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
+        fa_icon "birthday-cake 2x"
+      end %>
+      <% if @account.age %>
+        <%= @account.age %> ans (<%= @account.birthdate %>)
+      <% end %>
+    </h3>
+    <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
+    <%= bootstrap_form_tag(remote: true, html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: :post, layout: :inline) do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
+        </div>
+        <div class="col-md-6">
+          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire', append: f.primary('Log !')) %>
+        </div>
+      </div>
+    <% end %>
+    <br>
+    <h3>Clopes</h3>
+    <%= bootstrap_form_tag(remote: true, html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline) do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
+        </div>
+        <div class="col-md-6">
+          <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary('Log !')) %>
+        </div>
+      </div>
+    <% end %>
+    <h3>Créditer</h3>
+    <%= bootstrap_form_tag(remote: true, html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: :post, layout: :inline) do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Plus de thunes!', prepend: '€') %>
+        </div>
+        <div class="col-md-6">
+          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.primary 'Chèque' %>
+        <%= f.primary 'Liquide' %>
+      </div>
+    <% end %>
+    <h3>Transfert</h3>
+    <%= bootstrap_form_tag(remote: true, html: { id: 'transfer-form' }, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline) do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
+        </div>
+        <div class="col-md-6">
+          <%= f.text_field(:receiver, class: 'mousetrap', hide_label: true, placeholder: 'Trigramme') %>
+        </div>
+        <div class="col-md-6">
+          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
+        </div>
+        <div class="col-md-6">
+          <%= f.primary 'Transférer !' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

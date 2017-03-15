@@ -26,27 +26,15 @@ function setValidator(form, handler) {
   form.on('ajax:beforeSend', function() { return handler(true); });
 }
 
-function trigrammeExists(trigramme, el, submit) {
-  if (trigramme.length === 0 && !submit) {
-    el.removeClass('has-error');
-    return;
+function trigrammeExists(trigramme) {
+  if (trigramme.length !== 3) return false;
+  var request = new XMLHttpRequest();
+  request.open('GET', '/account/exists/' + trigramme, false);
+  request.setRequestHeader('Accept', 'application/json');
+  request.send();
+  if (request.status === 200) {
+    return JSON.parse(request.responseText);
   }
-  if (trigramme.length != 3) {
-    el.addClass('has-error');
-    return;
-  }
-  $.ajax({
-    aysnc: false,
-    dataType: 'json',
-    url: '/account/exists/' + trigramme,
-  }).success(function(response) {
-    console.log(response);
-    console.log(el);
-    el.toggleClass('has-error', !response);
-  }).error(function() {
-    el.addClass('has-error');
-  });
-  ;
 }
 
 $(document).ajaxError(function(e, jqXHR) {

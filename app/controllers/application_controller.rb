@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 class ApplicationController < ActionController::Base
-  AUTH_EXPIRES = 20.seconds
+  AUTH_EXPIRES = 10.seconds
 
   http_basic_authenticate_with name: ENV['http_basic_name'], password: ENV['http_basic_password'] if Rails.env.production?
 

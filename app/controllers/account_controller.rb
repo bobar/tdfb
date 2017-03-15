@@ -47,6 +47,15 @@ class AccountController < ApplicationController
     render_redirect_to
   end
 
+  def set_trigramme
+    @account = Account.find(params[:id])
+    trigramme = params[:trigramme].strip.upcase
+    fail unless trigramme.size == 3
+    require_admin!
+    @account.update(trigramme: trigramme)
+    render_redirect_to
+  end
+
   def transfer
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
