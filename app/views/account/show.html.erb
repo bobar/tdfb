@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-7">
     <table id="transactions-table" class="table table-condensed table-bordered table-striped table-hover">
       <thead>
         <tr>
@@ -24,9 +24,9 @@
     </table>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-5">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <h1 style="display: inline-block;"> <!-- inline-block because we want the icon on same line -->
           <strong><%= @account.trigramme %></strong>
           <% unless @account.x_platal? %>
@@ -35,9 +35,7 @@
           <% end %>
         </h1>
         <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse"><%= fa_icon "pencil-square-o" %></a>
-      </div>
-      <div class="col-md-6 collapse text-right" id="trigrammeCollapse">
-        <h1> <!-- To have the same vertical padding as the trigramme itself -->
+        <div class="collapse text-right" id="trigrammeCollapse">
           <%= bootstrap_form_tag(remote: true, html: { id: 'trigramme-form' }, url: "/account/#{@account.id}", method: :post) do |f| %>
             <%= f.text_field(:trigramme, hide_label: true, placeholder: 'Trigramme') %>
             <%= f.select(
@@ -47,28 +45,31 @@
             %>
             <%= f.primary 'Save' %>
           <% end %>
-        </h1>
+        </div>
+        <h2>
+          <%= @account.first_name %> <%= @account.name %>
+          <small><%= @account.promo %></small>
+        </h2>
+        <div>
+          <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
+          <% if @account.nickname.nil? || @account.nickname.blank? %>
+            <small><em>Nickname</em></small>
+          <% else %>
+            <%= @account.nickname %>
+          <% end %>
+        </div>
+        <div class="collapse text-right" id="nicknameCollapse">
+          <br>
+          <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/#{@account.id}", method: :post) do |f| %>
+            <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
+            <%= f.primary 'Save' %>
+          <% end %>
+          <br>
+        </div>
       </div>
-    </div>
-    <h2>
-      <%= @account.first_name %> <%= @account.name %>
-      <small><%= @account.promo %></small>
-    </h2>
-    <div>
-      <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
-      <% if @account.nickname.nil? || @account.nickname.blank? %>
-        <small><em>Nickname</em></small>
-      <% else %>
-        <%= @account.nickname %>
-      <% end %>
-    </div>
-    <div class="collapse text-right" id="nicknameCollapse">
-      <br>
-      <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/#{@account.id}", method: :post) do |f| %>
-        <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
-        <%= f.primary 'Save' %>
-      <% end %>
-      <br>
+      <div class="col-md-7 text-right">
+        <%= image_tag @account.local_picture, alt: @account.first_name, id: 'account-image' %>
+      </div>
     </div>
     <h3>
       <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)

@@ -13,6 +13,9 @@
 !/log/.keep
 /tmp
 
+# Ignore account images
+app/assets/images/*
+!/app/assets/images/.keep
 
 .byebug_history
 config/rubocop/.rubocop*

@@ -41,6 +41,16 @@ class Account < ActiveRecord::Base
     age
   end
 
+  def local_picture
+    files = Dir[Rails.root.join('app', 'assets', 'images', 'accounts', "#{id}.*")]
+    return files.first.gsub(Rails.root.join('app', 'assets', 'images').to_s + '/', '') unless files.empty?
+    return unless File.exist?(picture)
+    extension = File.extname(picture)
+    path = Rails.root.join('app', 'assets', 'images', 'accounts', "#{id}#{extension}")
+    FileUtils.cp(picture, path)
+    path.gsub(Rails.root.join('app', 'assets', 'images').to_s + '/', '')
+  end
+
   def possible_users
     return User.find_by(frankiz_id: frankiz_id) if frankiz_id
     # full name match?
