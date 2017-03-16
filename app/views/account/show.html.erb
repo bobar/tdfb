@@ -25,7 +25,7 @@
   </div>
 
   <div class="col-md-5">
-    <div class="row">
+    <div class="row low-padding">
       <div class="col-md-5">
         <h1 style="display: inline-block;"> <!-- inline-block because we want the icon on same line -->
           <strong><%= @account.trigramme %></strong>
@@ -81,7 +81,7 @@
     </h3>
     <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
     <%= bootstrap_form_tag(remote: true, html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: :post, layout: :inline) do |f| %>
-      <div class="row">
+      <div class="row low-padding">
         <div class="col-md-6">
           <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
         </div>
@@ -93,7 +93,7 @@
     <br>
     <h3>Clopes</h3>
     <%= bootstrap_form_tag(remote: true, html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline) do |f| %>
-      <div class="row">
+      <div class="row low-padding">
         <div class="col-md-6">
           <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
         </div>
@@ -104,7 +104,7 @@
     <% end %>
     <h3>Créditer</h3>
     <%= bootstrap_form_tag(remote: true, html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: :post, layout: :inline) do |f| %>
-      <div class="row">
+      <div class="row low-padding">
         <div class="col-md-6">
           <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Plus de thunes!', prepend: '€') %>
         </div>
@@ -119,13 +119,15 @@
     <% end %>
     <h3>Transfert</h3>
     <%= bootstrap_form_tag(remote: true, html: { id: 'transfer-form' }, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline) do |f| %>
-      <div class="row">
+      <div class="row low-padding">
         <div class="col-md-6">
           <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
         </div>
         <div class="col-md-6">
           <%= f.text_field(:receiver, class: 'mousetrap', hide_label: true, placeholder: 'Trigramme') %>
         </div>
+      </div>
+      <div class="row low-padding">
         <div class="col-md-6">
           <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
         </div>
