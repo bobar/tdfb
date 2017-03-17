@@ -13,7 +13,7 @@ function bind(shortcut, handler, return_true) {
     if (inputFocused()) return ;
     handler();
     return return_true ? true : false;
-  })
+  }, 'keydown');
 }
 
 $(document).ready(function() {
