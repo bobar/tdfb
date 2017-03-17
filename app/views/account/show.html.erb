@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="col-md-7 text-right">
-        <%= image_tag @account.local_picture, alt: @account.first_name, id: 'account-image' %>
+        <%= image_tag @account.local_picture, alt: @account.first_name, id: 'account-image'  if @account.local_picture %>
       </div>
     </div>
     <h3>
