@@ -54,7 +54,14 @@ $(document).ajaxError(function(e, jqXHR) {
 });
 
 $(document).ready(function() {
-  $('#navbar-search').autocomplete({
+  $('#trigramme-search').on('input', function() {
+    var val = $('#trigramme-search').val();
+    if (val.length === 3 ) {
+      window.location.assign('/account/' + val);
+    }
+  });
+
+  $('#account-search').autocomplete({
     autoFocus: true,
     source: '/account/search',
     minLength: 3,
@@ -63,7 +70,7 @@ $(document).ready(function() {
     },
     select: function(event, ui) {
       window.location.href = '/account/' + ui.item.value;
-      $('#navbar-search').val(ui.item.full_name);
+      $('#account-search').val(ui.item.full_name);
       return false;
     }
   });

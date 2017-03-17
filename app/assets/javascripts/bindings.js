@@ -18,10 +18,13 @@ function bind(shortcut, handler, return_true) {
 
 $(document).ready(function() {
   bind(letters, function() {
-    $('#navbar-search').focus();
+    $('#trigramme-search').focus();
   }, true);
   bind(numbers.concat(['.']), function() {
     $('#log-form #amount').focus();
+  }, true);
+  bind('ctrl+f', function() {
+    $('#account-search').focus();
   }, true);
   bind('+', function() {
     $('#credit-form #amount').focus();
