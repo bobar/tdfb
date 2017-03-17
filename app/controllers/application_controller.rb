@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_theme
-    ENV['theme'] = params['theme']
+    session['theme'] = params['theme']
     redirect_to :back
   end
 

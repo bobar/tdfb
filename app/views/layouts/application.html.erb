@@ -4,7 +4,7 @@
   <title>Tdfb</title>
   <%= favicon_link_tag 'pinte_squared.png' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag 'themes/' + ENV['theme'] if ENV['theme'] %>
+  <%= stylesheet_link_tag 'themes/' + session['theme'] if session['theme'] %>
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
