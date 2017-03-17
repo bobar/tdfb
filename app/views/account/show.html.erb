@@ -36,7 +36,9 @@
         </h1>
         <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse"><%= fa_icon "pencil-square-o" %></a>
         <div class="collapse text-right" id="trigrammeCollapse">
-          <%= bootstrap_form_tag(remote: true, html: { id: 'trigramme-form' }, url: "/account/#{@account.id}", method: :post) do |f| %>
+          <%= bootstrap_form_tag(
+                remote: true, url: "/account/#{@account.id}", method: :post,
+                html: { autocomplete: 'off', id: 'trigramme-form' }) do |f| %>
             <%= f.text_field(:trigramme, hide_label: true, placeholder: 'Trigramme') %>
             <%= f.select(
               :status,
@@ -60,7 +62,9 @@
         </div>
         <div class="collapse text-right" id="nicknameCollapse">
           <br>
-          <%= bootstrap_form_tag(remote: true, html: { id: 'nickname-form' }, url: "/account/#{@account.id}", method: :post) do |f| %>
+          <%= bootstrap_form_tag(
+                remote: true, url: "/account/#{@account.id}", method: :post,
+                html: { autocomplete: 'off', id: 'nickname-form' }) do |f| %>
             <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
             <%= f.primary 'Save' %>
           <% end %>
@@ -80,7 +84,9 @@
       <% end %>
     </h3>
     <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
-    <%= bootstrap_form_tag(remote: true, html: { id: 'log-form' }, url: "/account/log/#{@account.id}", method: :post, layout: :inline) do |f| %>
+    <%= bootstrap_form_tag(
+          remote: true, url: "/account/log/#{@account.id}", method: :post, layout: :inline,
+          html: { autocomplete: 'off', id: 'log-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
           <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
@@ -92,7 +98,9 @@
     <% end %>
     <br>
     <h3>Clopes</h3>
-    <%= bootstrap_form_tag(remote: true, html: { id: 'clopes-form' }, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline) do |f| %>
+    <%= bootstrap_form_tag(
+          remote: true, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline,
+          html: { autocomplete: 'off', id: 'clopes-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
           <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
@@ -103,7 +111,9 @@
       </div>
     <% end %>
     <h3>Créditer</h3>
-    <%= bootstrap_form_tag(remote: true, html: { id: 'credit-form' }, url: "/account/credit/#{@account.id}", method: :post, layout: :inline) do |f| %>
+    <%= bootstrap_form_tag(
+          remote: true, url: "/account/credit/#{@account.id}", method: :post, layout: :inline,
+          html: { autocomplete: 'off', id: 'credit-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
           <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Plus de thunes!', prepend: '€') %>
@@ -118,7 +128,9 @@
       </div>
     <% end %>
     <h3>Transfert</h3>
-    <%= bootstrap_form_tag(remote: true, html: { id: 'transfer-form' }, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline) do |f| %>
+    <%= bootstrap_form_tag(
+          remote: true, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline,
+          html: { autocomplete: 'off', id: 'transfer-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
           <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
