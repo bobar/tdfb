@@ -17,14 +17,6 @@ function bind(shortcut, handler, return_true) {
 }
 
 $(document).ready(function() {
-  $('#navbar-search').autocomplete({
-    source: '/account/search',
-    minLength: 3,
-    select: function(event, ui) {
-      window.location.href = '/account/' + ui.item.value;
-    }
-  });
-
   bind(letters, function() {
     $('#navbar-search').focus();
   }, true);

@@ -52,3 +52,19 @@ $(document).ajaxError(function(e, jqXHR) {
     $('#error-modal').modal('show');
   }
 });
+
+$(document).ready(function() {
+  $('#navbar-search').autocomplete({
+    autoFocus: true,
+    source: '/account/search',
+    minLength: 3,
+    focus: function(event, ui) {
+      return false;
+    },
+    select: function(event, ui) {
+      window.location.href = '/account/' + ui.item.value;
+      $('#navbar-search').val(ui.item.full_name);
+      return false;
+    }
+  });
+});

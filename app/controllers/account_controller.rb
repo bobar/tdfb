@@ -1,6 +1,6 @@
 class AccountController < ApplicationController
   def search
-    render json: Account.search(params[:term]).map { |a| { label: a.autocomplete_text, value: a.id } }
+    render json: Account.search(params[:term]).map { |a| { label: a.autocomplete_text, value: a.id, full_name: a.full_name } }
   end
 
   def show
