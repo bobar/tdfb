@@ -5,7 +5,7 @@ class AccountController < ApplicationController
 
   def show
     @account = Account.find(params[:id]) if params[:id] =~ /^\d+$/
-    @account ||= Account.find_by(trigramme: params[:id]) if params[:id].size == 3
+    @account ||= Account.find_by(trigramme: params[:id].upcase) if params[:id].size == 3
     return redirect_to controller: :application, action: :index unless @account
   end
 
