@@ -26,7 +26,11 @@
 
   <div class="col-md-5">
     <div class="row low-padding">
-      <div class="col-md-5">
+      <% if @account.local_picture %>
+        <div class="col-md-5">
+      <% else %>
+        <div class="col-md-12">
+      <% end %>
         <h1 style="display: inline-block;"> <!-- inline-block because we want the icon on same line -->
           <strong><%= @account.trigramme %></strong>
           <% unless @account.x_platal? %>
@@ -71,9 +75,11 @@
           <br>
         </div>
       </div>
-      <div class="col-md-7 text-right">
-        <%= image_tag @account.local_picture, alt: @account.first_name, id: 'account-image'  if @account.local_picture %>
-      </div>
+      <% if @account.local_picture %>
+        <div class="col-md-7 text-right">
+          <%= image_tag @account.local_picture, alt: @account.first_name, id: 'account-image' %>
+        </div>
+      <% end %>
     </div>
     <h3>
       <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
