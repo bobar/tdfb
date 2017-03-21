@@ -32,13 +32,15 @@ function createWindow (railsApp, railsAddr) {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
-  var railsApp = require('child_process').spawn('rails', ['s']);
+  var env = Object.create( process.env );
+  env.LOG_LEVEL = 'INFO';
+  var railsApp = require('child_process').spawn('bundle', ['exec', 'rails', 's'], { stdio: 'inherit', env: env });
   var rp = require('request-promise');
 
   function start() {
   rp('http://localhost:2626')
     .then(function (htmlString) {
-      console.log('Rails server started~!');
+      console.log('Rails server started!');
       createWindow(railsApp);
     })
     .catch(function (error) {
