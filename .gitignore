@@ -19,3 +19,5 @@ app/assets/images/*
 
 .byebug_history
 config/rubocop/.rubocop*
+
+node_modules

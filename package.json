@@ -1,0 +1,21 @@
+{
+  "name": "tdfb",
+  "version": "1.0.0",
+  "description": "BôBar. Mythe.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobar/tdfb.git"
+  },
+  "license": "CC-BY-NC-ND-4.0",
+  "devDependencies": {
+    "electron": "^1.3.14"
+  },
+  "dependencies": {
+    "continuation-local-storage": "^3.1.4",
+    "request-promise": "^1.0.2"
+  }
+}
