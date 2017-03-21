@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     @bank = Account.find(cookies[:bank_id])
   end
 
-  def require_admin!
+  def require_admin!(right)
     return true if Rails.env.production?
     authenticate_with_http_basic do |username, password|
       if session[:expire_at].nil? || session[:expire_at] < Time.current
@@ -45,9 +45,10 @@ class ApplicationController < ActionController::Base
         request_http_basic_authentication
         fail AuthException
       end
-      @admin = Admin.joins(:account).find_by(accounts: { trigramme: username })
+      @admin = Admin.joins(:account).includes(:right).find_by(accounts: { trigramme: username })
       fail TdbException, "Unknown admin with trigramme #{username}" if @admin.nil?
       fail TdbException, "Wrong password for #{username}" unless Digest::MD5.hexdigest(password) == @admin.passwd
+      fail TdbException, "You don't have the right to do this" unless @admin.right[right]
       session[:expire_at] = Time.current + AUTH_EXPIRES
       true
     end || (request_http_basic_authentication && fail(AuthException))

@@ -17,7 +17,7 @@ class AccountController < ApplicationController
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
     fail TdbException, 'Amount must be positive!' if amount < 0
-    require_admin! if amount > 20 # 20 euros
+    require_admin!(:log_eleve) if amount > 20 || (!@account.x_platal? && @account.budget < amount)
     Transaction.log(@account, @bank, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end
@@ -26,7 +26,7 @@ class AccountController < ApplicationController
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
     fail TdbException, 'Amount must be positive!' if amount < 0
-    require_admin!
+    require_admin!(:credit)
     comment = params[:commit]
     comment += " - #{params[:comment]}" if params[:comment] && !params[:comment].empty?
     Transaction.log(@account, @bank, -amount, comment: comment, admin: @admin)
@@ -37,14 +37,15 @@ class AccountController < ApplicationController
     @account = Account.find(params[:id])
     clope = Clope.find(params[:clope_id])
     quantity = params[:quantity].to_i
-    require_admin! if quantity * clope.prix > 2000
+    total_price = quantity * clope.prix # Clopes price is in cents!
+    require_admin!(:log_eleve) if total_price > 2000 || (!@account.x_platal? && @account.budget < amount / 100.0)
     clope.sell(@account, quantity, admin: @admin)
     render_redirect_to
   end
 
   def update
     @account = Account.find(params[:id])
-    require_admin!
+    require_admin!(:modifier_tri)
     to_update = {}
     to_update[:nickname] = params[:nickname].strip if params[:nickname] && !params[:nickname].empty?
     to_update[:trigramme] = params[:trigramme].strip.upcase if params[:trigramme] && !params[:trigramme].empty?
@@ -60,7 +61,7 @@ class AccountController < ApplicationController
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
     fail TdbException, 'Amount must be positive!' if amount < 0
-    require_admin!
+    require_admin!(:transfert)
     receiver = Account.find_by(trigramme: params[:receiver].upcase)
     fail TdbException, "Trigramme #{params[:receiver].upcase} is unknown" unless receiver
     fail TdbException, 'Sender and recipient are the same' if receiver.id == @account.id
