@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 class ApplicationController < ActionController::Base
-  AUTH_EXPIRES = 10.seconds
+  AUTH_EXPIRES = 20.seconds
 
   http_basic_authenticate_with name: ENV['http_basic_name'], password: ENV['http_basic_password'] if Rails.env.production?
 
@@ -36,17 +36,20 @@ class ApplicationController < ActionController::Base
 
   def require_admin!
     return true if Rails.env.production?
-    if session[:expire_at].nil? || session[:expire_at] < Time.current
+    authenticate_with_http_basic do |username, password|
+      if session[:expire_at].nil? || session[:expire_at] < Time.current
+        session[:expire_at] = Time.current + 24.hours
+        # Will be reset after first successfull login. If this delay is too short, what happens is than the pop-up appears and
+        # when the user finishes typing, the delay has already expired, and the authentication attempt will be rejected whether the
+        # credentials are correct or not.
+        request_http_basic_authentication
+        fail AuthException
+      end
+      @admin = Admin.joins(:account).find_by(accounts: { trigramme: username })
+      fail TdbException, "Unknown admin with trigramme #{username}" if @admin.nil?
+      fail TdbException, "Wrong password for #{username}" unless Digest::MD5.hexdigest(password) == @admin.passwd
       session[:expire_at] = Time.current + AUTH_EXPIRES
-      request_http_basic_authentication
-      fail AuthException
-    else
-      authenticate_with_http_basic do |username, password|
-        (admin = Admin.joins(:account).find_by(accounts: { trigramme: username })) &&
-          (Digest::MD5.hexdigest(password) == admin.passwd) &&
-          (session[:expire_at] = Time.current + AUTH_EXPIRES) &&
-          (@admin = admin)
-      end || (request_http_basic_authentication && fail(AuthException))
-    end
+      true
+    end || (request_http_basic_authentication && fail(AuthException))
   end
 end
