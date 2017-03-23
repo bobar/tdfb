@@ -12,8 +12,8 @@ class Transaction < ActiveRecord::Base
       account.turnover = account.turnover + amount if amount > 0
       bank.balance = bank.balance + amount
       bank.turnover = bank.turnover - amount if amount < 0
-      create(id: account.id, id2: bank.id, price: amount, comment: comment, admin: admin.try(:id), date: now)
-      create(id: bank.id, id2: account.id, price: -amount, comment: comment, admin: admin.try(:id), date: now)
+      create(id: account.id, id2: bank.id, price: -amount, comment: comment, admin: admin.try(:id), date: now)
+      create(id: bank.id, id2: account.id, price: amount, comment: comment, admin: admin.try(:id), date: now)
       account.save
       bank.save
     end
