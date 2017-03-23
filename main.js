@@ -6,6 +6,8 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
+var authWindow = require('./authWindow/authWindow');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -34,16 +36,18 @@ function createWindow (railsApp, railsAddr) {
 app.on('ready', function() {
   var env = Object.create( process.env );
   env.LOG_LEVEL = 'INFO';
-  var railsApp = require('child_process').spawn('bundle', ['exec', 'rails', 's'], { stdio: 'inherit', env: env });
+  var railsApp;
   var rp = require('request-promise');
 
+  rp('http://localhost:2626').catch(function (error) {
+    railsApp = require('child_process').spawn('bundle', ['exec', 'rails', 's'], { stdio: 'inherit', env: env });
+  });
+
   function start() {
-  rp('http://localhost:2626')
-    .then(function (htmlString) {
+    rp('http://localhost:2626').then(function (htmlString) {
       console.log('Rails server started!');
       createWindow(railsApp);
-    })
-    .catch(function (error) {
+    }).catch(function (error) {
       console.log('Waiting on server to start...');
       setTimeout(start, 1000);
     });
@@ -66,4 +70,10 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+app.on('login', (event, webContents, request, authInfo, callback) => {
+    // for http authentication
+    event.preventDefault();
+    authWindow.createAuthWindow(callback);
 });
