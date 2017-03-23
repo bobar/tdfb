@@ -55,7 +55,7 @@ class Account < ActiveRecord::Base
     extension = File.extname(picture)
     path = Rails.root.join('app', 'assets', 'images', 'accounts', "#{id}#{extension}")
     FileUtils.cp(picture, path)
-    path.gsub(Rails.root.join('app', 'assets', 'images').to_s + '/', '')
+    path.to_s.gsub(Rails.root.join('app', 'assets', 'images').to_s + '/', '')
   end
 
   def possible_users
