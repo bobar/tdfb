@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tdfb</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'themes/' + session['theme'] if session['theme'] %>
+</head>
+<body>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-xs-12">
+      <h1>Login</h1>
+      <%= bootstrap_form_tag remote: true, html: { autocomplete: 'off', id: 'login-form' } do |f| %>
+        <%= f.text_field(:trigramme, hide_label: true, placeholder: 'Trigramme') %>
+        <%= f.password_field(:password, hide_label: true, placeholder: 'Password') %>
+        <%= f.primary 'Go!' %>
+      <% end %>
+    </div>
+  </div>
+</div>

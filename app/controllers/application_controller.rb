@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
     cookies[:bank] = 'BOB'
   end
 
+  def login
+    session[:expire_at] = Time.current + 24.hours # To avoid first auth bug
+    render layout: false
+  end
+
   def switch_theme
     session['theme'] = params['theme']
     redirect_to :back
@@ -46,11 +51,19 @@ class ApplicationController < ActionController::Base
         fail AuthException
       end
       @admin = Admin.joins(:account).includes(:right).find_by(accounts: { trigramme: username })
-      fail TdbException, "Unknown admin with trigramme #{username}" if @admin.nil?
-      fail TdbException, "Wrong password for #{username}" unless Digest::MD5.hexdigest(password) == @admin.passwd
-      fail TdbException, "You don't have the right to do this" unless @admin.right[right]
-      session[:expire_at] = Time.current + AUTH_EXPIRES
-      true
+      if @admin.nil?
+        response.header['auth_reason'] = "Unknown admin with trigramme #{username}"
+        false
+      elsif Digest::MD5.hexdigest(password) != @admin.passwd
+        response.header['auth_reason'] = "Wrong password for #{username}"
+        false
+      elsif !@admin.right[right]
+        response.header['auth_reason'] = 'You don\'t have the right to do this'
+        false
+      else
+        session[:expire_at] = Time.current + AUTH_EXPIRES
+        true
+      end
     end || (request_http_basic_authentication && fail(AuthException))
   end
 end
