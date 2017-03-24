@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/bobar/tdfb.git"
   },
-  "license": "CC-BY-NC-ND-4.0",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^1.6.3"
   },
