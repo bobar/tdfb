@@ -1,0 +1,7 @@
+$('#transactions').append('<%= escape_javascript render(@transactions) %>');
+$('.pagination').replaceWith('<%= escape_javascript will_paginate(@transactions) %>');
+<% if @transactions.next_page %>
+  $('.pagination').replaceWith('<%= escape_javascript will_paginate(@transactions) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
