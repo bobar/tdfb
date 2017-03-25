@@ -35,7 +35,11 @@ $(document).ready(function() {
   bind('ctrl+t', function() {
     $('#transfer-form #amount').focus();
   });
-  Mousetrap.bind(['esc', 'escape'], function () {
-    document.activeElement.blur();
+  Mousetrap.bind('esc', function () {
+    if (document.activeElement.tagName === 'BODY') {
+      window.location.href = '/';
+    } else {
+      document.activeElement.blur();
+    }
   });
 });
