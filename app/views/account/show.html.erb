@@ -3,7 +3,7 @@
     <% if (session[:bank_id] != 1) %>
       <div class="text-center alert alert-danger">
         <h1>
-          Banque: <strong><%= @bank.bank_display_name %></strong>
+          <strong><%= I18n.t :current_bank, bank_name: @bank.bank_display_name %></strong>
         </h1>
       </div>
     <% end %>
@@ -11,11 +11,11 @@
     <table id="transactions-table" class="table table-condensed table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <td>Price</td>
-          <td>Receiver</td>
-          <td>Admin</td>
-          <td>Comment</td>
-          <td>Date</td>
+          <td><%= I18n.t(:price) %></td>
+          <td><%= I18n.t(:receiver) %></td>
+          <td><%= I18n.t(:bank) %></td>
+          <td><%= I18n.t(:comment) %></td>
+          <td><%= I18n.t(:date) %></td>
         </tr>
       </thead>
       <tbody id="transactions">
@@ -36,7 +36,7 @@
           <strong><%= @account.trigramme %></strong>
           <% if @account.binet? %>
             <%= bootstrap_form_tag(remote:true, url: "/bank/#{@account.trigramme}", method: :post, html: { style: 'display: inline' }) do |f| %>
-              <%= f.primary 'Set as bank' %>
+              <%= f.primary I18n.t(:set_as_bank) %>
             <% end %>
           <% end %>
           <% unless @account.x_platal? %>
@@ -51,7 +51,7 @@
           <%= bootstrap_form_tag(
                 remote: true, url: "/account/#{@account.id}", method: :post,
                 html: { autocomplete: 'off', id: 'trigramme-form' }) do |f| %>
-            <%= f.text_field(:trigramme, hide_label: true, placeholder: 'Trigramme') %>
+            <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
             <%= f.select(
               :status,
               Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] },
@@ -74,7 +74,7 @@
         </h3>
         <div>
           <small>
-            <%= @account.turnover / 100.0 %> € depuis dernier reset.
+            <%= I18n.t(:since_last_reset, amount: number_to_currency(@account.turnover / 100.0)) %>
           </small>
         </div>
         <div>
@@ -102,16 +102,16 @@
         </div>
       <% end %>
     </div>
-    <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
+    <h1><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
     <%= bootstrap_form_tag(
           remote: true, url: "/account/log/#{@account.id}", method: :post, layout: :inline,
           html: { autocomplete: 'off', id: 'log-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
-          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
+          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:pay), prepend: I18n.t(:currency)) %>
         </div>
         <div class="col-md-6">
-          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire', append: f.primary('Log !')) %>
+          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:comment), append: f.primary(I18n.t(:log))) %>
         </div>
       </div>
     <% end %>
@@ -125,7 +125,7 @@
           <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
         </div>
         <div class="col-md-6">
-          <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary('Log !')) %>
+          <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary(I18n.t(:log))) %>
         </div>
       </div>
     <% end %>
@@ -135,15 +135,15 @@
           html: { autocomplete: 'off', id: 'credit-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
-          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Plus de thunes!', prepend: '€') %>
+          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:more_money), prepend: I18n.t(:currency)) %>
         </div>
         <div class="col-md-6">
-          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
+          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:comment)) %>
         </div>
       </div>
       <div class="form-group">
-        <%= f.primary 'Chèque' %>
-        <%= f.primary 'Liquide' %>
+        <%= f.primary I18n.t(:check) %>
+        <%= f.primary I18n.t(:cash) %>
       </div>
     <% end %>
     <h3>Transfert</h3>
@@ -152,18 +152,18 @@
           html: { autocomplete: 'off', id: 'transfer-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
-          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
+          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:pay), prepend: I18n.t(:currency)) %>
         </div>
         <div class="col-md-6">
-          <%= f.text_field(:receiver, class: 'mousetrap', hide_label: true, placeholder: 'Trigramme') %>
+          <%= f.text_field(:receiver, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:trigramme)) %>
         </div>
       </div>
       <div class="row low-padding">
         <div class="col-md-6">
-          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
+          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:comment)) %>
         </div>
         <div class="col-md-6">
-          <%= f.primary 'Transférer !' %>
+          <%= f.primary I18n.t(:transfer) %>
         </div>
       </div>
     <% end %>

@@ -1,6 +1,6 @@
 <div class="row text-center">
   <div class="col-md-12">
-    <h1>Group log</h1>
+    <h1><%= I18n.t(:group_log) %></h1>
   </div>
 </div>
 <br>
@@ -8,12 +8,12 @@
   remote: true, url: "/group_log", method: :post, layout: :inline, html: { autocomplete: 'off', id: 'group-log-form' }) do |f| %>
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-      <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: 'Paye, bâtard!', prepend: '€') %>
+      <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:pay), prepend: I18n.t(:currency)) %>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-      <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: 'Commentaire') %>
+      <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:comment)) %>
     </div>
   </div>
   <div class="row">
@@ -21,7 +21,7 @@
     <table>
       <tr class="row trigramme-row">
         <td>
-          <%= f.text_field('trigramme[]', class: 'mousetrap', hide_label: true, placeholder: 'Trigramme') %>
+          <%= f.text_field('trigramme[]', class: 'mousetrap', hide_label: true, placeholder: I18n.t(:trigramme)) %>
         </td>
         <td class="account-label" style="padding: 0 10px;">
         </td>
@@ -30,6 +30,6 @@
     </div>
   </div>
   <div class="text-center">
-    <%= f.primary 'Log!' %>
+    <%= f.primary I18n.t(:log) %>
   </div>
 <% end %>

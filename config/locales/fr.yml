@@ -1,0 +1,26 @@
+fr:
+  bank: Bank
+  cash: Liquide
+  check: Chèque
+  comment: Commentaire
+  currency: "€"
+  current_bank: "Banque: %{bank_name}"
+  date: Date
+  group_log: Log groupé
+  log: Log !
+  login: Connection
+  more_money: Plus de thunes !
+  password: Mot de passe
+  pay: Paye, bâtard !
+  price: Prix
+  receiver: Bénéficiaire
+  search: Rechercher
+  select_theme: Thèmes
+  set_as_bank: Utiliser cette banque
+  since_last_reset: "%{amount} dépensés depuis dernier reset."
+  submit: Valider
+  transfer: Transférer !
+  trigramme: Trigramme
+  unauthorized: Non autorisé
+  unauthorized_details: Vous n'avez pas les droits nécessaires pour cette opération.
+  welcome: Bienvenue sur le TDB !

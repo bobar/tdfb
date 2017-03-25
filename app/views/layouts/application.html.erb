@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tdfb</title>
+  <title>Tdb</title>
   <%= favicon_link_tag 'pinte_squared.png' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'themes/' + session['theme'] if session['theme'] %>
@@ -37,17 +37,17 @@
       </ul>
       <form class="navbar-form navbar-left">
         <div class="form-group">
-          <input id="trigramme-search" type="text" class="form-control mousetrap" placeholder="Trigramme">
-          <input id="account-search" type="text" class="form-control mousetrap" placeholder="Search">
+          <input id="trigramme-search" type="text" class="form-control mousetrap" placeholder="<%= I18n.t(:trigramme) %>">
+          <input id="account-search" type="text" class="form-control mousetrap" placeholder="<%= I18n.t(:search) %>">
         </div>
       </form>
 
       <ul class="nav navbar-nav">
-        <li><a href="/group_log">Group log</a></li>
+        <li><a href="/group_log"><%= I18n.t(:group_log) %></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Theme <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t(:select_theme) %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Boostrap', controller: 'application', action: 'switch_theme', theme: nil %></li>
             <li><%= link_to 'Cerulean', controller: 'application', action: 'switch_theme', theme: 'cerulean' %></li>
@@ -71,10 +71,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h2 class="modal-title" id="myModalLabel">Unauthorized</h2>
+        <h2 class="modal-title" id="myModalLabel"><%= I18n.t(:unauthorized) %></h2>
       </div>
       <div class="modal-body">
-        <strong>You don't have permissions to do this.</strong>
+        <strong><%= I18n.t(:unauthorized_details) %></strong>
       </div>
     </div>
   </div>
