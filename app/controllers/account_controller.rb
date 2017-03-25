@@ -18,6 +18,12 @@ class AccountController < ApplicationController
     render json: Account.where(trigramme: params[:trigramme].upcase).exists?
   end
 
+  def details
+    account = Account.find_by(trigramme: params[:trigramme].upcase)
+    return render json: nil if account.nil?
+    render json: account.as_json.merge!(display_text: account.autocomplete_text(with_trigramme: false))
+  end
+
   def log
     @account = Account.find(params[:id])
     amount = params[:amount].to_f

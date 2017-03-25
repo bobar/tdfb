@@ -22,9 +22,9 @@ class Account < ActiveRecord::Base
     where(clause).order('CASE WHEN trigramme IS NULL THEN 1 ELSE 0 END', promo: :desc, name: :asc, first_name: :asc)
   end
 
-  def autocomplete_text
+  def autocomplete_text(with_trigramme: true)
     text = ''
-    text += "#{trigramme} - " if trigramme
+    text += "#{trigramme} - " if trigramme && with_trigramme
     text += "#{promo} " if promo && promo != 0
     text += "#{first_name} #{name}"
     text += " (#{budget} €)" if balance != 0

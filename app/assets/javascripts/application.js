@@ -29,9 +29,22 @@ function setValidator(form, handler) {
 }
 
 function trigrammeExists(trigramme) {
+  if (typeof(trigramme) === 'undefined') return false;
   if (trigramme.length !== 3) return false;
   var request = new XMLHttpRequest();
   request.open('GET', '/account/exists/' + trigramme, false);
+  request.setRequestHeader('Accept', 'application/json');
+  request.send();
+  if (request.status === 200) {
+    return JSON.parse(request.responseText);
+  }
+}
+
+function getAccount(trigramme) {
+  if (typeof(trigramme) === 'undefined') return false;
+  if (trigramme.length !== 3) return false;
+  var request = new XMLHttpRequest();
+  request.open('GET', '/account/details/' + trigramme, false);
   request.setRequestHeader('Accept', 'application/json');
   request.send();
   if (request.status === 200) {
