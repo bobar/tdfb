@@ -41,4 +41,21 @@ module Chart
       f.chart(defaultSeriesType: 'column')
     end
   end
+
+  def self.scatter_plot
+    accounts = Account.where.not(status: 2).where('promo >= 2000')
+    non_smokers = accounts.where('total_clopes = 0')
+    smokers = accounts.where('total_clopes > 0')
+    non_smokers_data = non_smokers.map { |a| { x: a.balance / 100, y: a.promo, tri: a.trigramme, promo: a.promo } }
+    smokers_data = smokers.map { |a| { x: a.balance / 100, y: a.promo, tri: a.trigramme, promo: a.promo } }
+    LazyHighCharts::HighChart.new('graph') do |f|
+      f.title(text: '"Répartition des soldes de trigrammes')
+      f.series(name: 'Non Fumeur', color: 'rgba(119, 152, 191, .5)', data: non_smokers_data, turboThreshold: 0)
+      f.series(name: 'Fumeur', color: 'rgba(223, 83, 83, .5)', data: smokers_data, turboThreshold: 0)
+      f.xAxis(min: -500, max: 500, plotLines: [{ color: '#C0D0E0', width: 1, value: 0 }])
+      f.yAxis(title: { text: 'Promo' }, min: 2000, max: Time.now.utc.year)
+      f.chart(defaultSeriesType: 'scatter')
+      f.plotOptions(scatter: { tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '[{point.promo}] {point.tri}: {point.x} €' } })
+    end
+  end
 end
