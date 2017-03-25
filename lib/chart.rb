@@ -59,7 +59,8 @@ module Chart
     end
   end
 
-  def self.theme(filename)
+  def self.theme(theme)
+    filename = %w(darkly slate solar).include?(theme) ? 'dark_unica' : 'grid_light'
     file = File.read(Rails.root.join('app', 'assets', 'stylesheets', 'highcharts_themes', filename + '.json'))
     json = JSON.parse(file)
     LazyHighCharts::HighChartGlobals.new do |f|
