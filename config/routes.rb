@@ -21,4 +21,8 @@ Rails.application.routes.draw do
     get '/' => :index
     post '/' => :log
   end
+
+  controller :admin do
+    post 'bank/:trigramme' => :set_bank
+  end
 end

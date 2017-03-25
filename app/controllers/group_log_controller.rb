@@ -16,9 +16,6 @@ class GroupLogController < ApplicationController
     accounts.each do |acc|
       Transaction.log(acc, @bank, per_person, comment: comment, admin: @admin, time: time)
     end
-    respond_to do |format|
-      format.html { redirect_to "/account/#{accounts.first.trigramme}" }
-      format.js { return render text: "window.location.href = '/account/#{accounts.first.trigramme}'" }
-    end
+    redirect_to_trigramme(accounts.first.trigramme)
   end
 end

@@ -24,14 +24,21 @@
       <% else %>
         <div class="col-md-12">
       <% end %>
-        <h1 style="display: inline-block;"> <!-- inline-block because we want the icon on same line -->
+        <h1> <!-- inline-block because we want the icon on same line -->
           <strong><%= @account.trigramme %></strong>
+          <% if @account.binet? %>
+            <%= bootstrap_form_tag(remote:true, url: "/bank/#{@account.trigramme}", method: :post, html: { style: 'display: inline' }) do |f| %>
+              <%= f.primary 'Set as bank' %>
+            <% end %>
+          <% end %>
           <% unless @account.x_platal? %>
             <br>
             <small><%= @account.readable_status %></small>
           <% end %>
+          <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse" style="display: inline; font-size: 14px;">
+            <%= fa_icon "pencil-square-o" %>
+          </a>
         </h1>
-        <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse"><%= fa_icon "pencil-square-o" %></a>
         <div class="collapse text-right" id="trigrammeCollapse">
           <%= bootstrap_form_tag(
                 remote: true, url: "/account/#{@account.id}", method: :post,

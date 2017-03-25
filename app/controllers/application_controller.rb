@@ -34,6 +34,20 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def redirect_to_index
+    respond_to do |format|
+      format.html { redirect_to '/' }
+      format.js { return render text: "window.location.href = '/';" }
+    end
+  end
+
+  def redirect_to_trigramme(trigramme)
+    respond_to do |format|
+      format.html { redirect_to "/account/#{trigramme}" }
+      format.js { return render text: "window.location.href = '/account/#{trigramme}'" }
+    end
+  end
+
   def load_bank
     session[:bank_id] ||= 1
     session[:bank] ||= 'BOB'
