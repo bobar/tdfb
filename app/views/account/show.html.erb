@@ -18,7 +18,7 @@
   </div>
 
   <div class="col-md-5">
-    <div class="row low-padding">
+    <div class="row low-padding <%= 'alert alert-danger' if @account.age && @account.age < 18 %>">
       <% if @account.local_picture %>
         <div class="col-md-5">
       <% else %>
@@ -49,6 +49,14 @@
           <%= @account.first_name %> <%= @account.name %>
           <small><%= @account.promo %></small>
         </h2>
+        <h3>
+          <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
+            fa_icon "birthday-cake 2x"
+          end %>
+          <% if @account.age %>
+            <%= @account.age %> ans (<%= @account.birthdate %>)
+          <% end %>
+        </h3>
         <div>
           <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
           <% if @account.nickname.nil? || @account.nickname.blank? %>
@@ -74,14 +82,6 @@
         </div>
       <% end %>
     </div>
-    <h3>
-      <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
-        fa_icon "birthday-cake 2x"
-      end %>
-      <% if @account.age %>
-        <%= @account.age %> ans (<%= @account.birthdate %>)
-      <% end %>
-    </h3>
     <h1><strong><%= @account.balance / 100.0 %> €</strong></h1>
     <%= bootstrap_form_tag(
           remote: true, url: "/account/log/#{@account.id}", method: :post, layout: :inline,
