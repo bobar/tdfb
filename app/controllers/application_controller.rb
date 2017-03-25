@@ -2,6 +2,7 @@ require 'digest/md5'
 
 class ApplicationController < ActionController::Base
   AUTH_EXPIRES = 20.seconds
+  include Chart
 
   http_basic_authenticate_with name: ENV['http_basic_name'], password: ENV['http_basic_password'] if Rails.env.production?
 
@@ -17,8 +18,8 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    cookies[:bank_id] = 1
-    cookies[:bank] = 'BOB'
+    @transactions_volume = Chart.transactions_volume(7, @bank)
+    @best_consumers = Chart.best_consumers(7, @bank)
   end
 
   def login
@@ -34,9 +35,9 @@ class ApplicationController < ActionController::Base
   private
 
   def load_bank
-    cookies[:bank_id] ||= 1
-    cookies[:bank] ||= 'BOB'
-    @bank = Account.find(cookies[:bank_id])
+    session[:bank_id] ||= 1
+    session[:bank] ||= 'BOB'
+    @bank = Account.find(session[:bank_id])
   end
 
   def require_admin!(right)

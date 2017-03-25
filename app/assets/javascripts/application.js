@@ -16,6 +16,8 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap-sprockets
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
 
 function isPositiveNumber(value) {
   return new RegExp('^(\\d+(\\.\\d*)?|\\.\\d+)$').test(value);

@@ -1,5 +1,14 @@
 <div class="row text-center">
-  <div class="col-md-7">
+  <div class="col-md-12">
     <h1>Welcome to the TDB</h1>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <%= high_chart('transactions_volume', @transactions_volume) %>
+  </div>
+  <div class="col-md-6">
+    <%= high_chart('best_consumers', @best_consumers) %>
   </div>
 </div>
