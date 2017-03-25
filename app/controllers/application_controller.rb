@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def index
+    @chart_globals = Chart.theme('dark_unica')
     @transactions_volume = Chart.transactions_volume(7, @bank)
     @best_consumers = Chart.best_consumers(7, @bank)
     @scatter_plot = Chart.scatter_plot

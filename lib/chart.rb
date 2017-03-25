@@ -58,4 +58,14 @@ module Chart
       f.plotOptions(scatter: { tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '[{point.promo}] {point.tri}: {point.x} €' } })
     end
   end
+
+  def self.theme(filename)
+    file = File.read(Rails.root.join('app', 'assets', 'stylesheets', 'highcharts_themes', filename + '.json'))
+    json = JSON.parse(file)
+    LazyHighCharts::HighChartGlobals.new do |f|
+      json.each do |k, v|
+        f.public_send(k, v)
+      end
+    end
+  end
 end
