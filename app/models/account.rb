@@ -69,4 +69,14 @@ class Account < ActiveRecord::Base
   def readable_status
     status.tr('_', ' ').capitalize
   end
+
+  def bank_display_name
+    res = trigramme
+    if first_name || name
+      res += ' -'
+      res += " #{first_name.capitalize}" if first_name
+      res += " #{name.capitalize}" if name
+    end
+    res
+  end
 end
