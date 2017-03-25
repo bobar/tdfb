@@ -2,6 +2,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :payer, class_name: :Account, foreign_key: :id
   belongs_to :receiver, class_name: :Account, foreign_key: :id2
   belongs_to :administrator, class_name: :Account, foreign_key: :admin
+  self.per_page = 25
 
   def self.log(account, bank, amount, comment: nil, admin: nil)
     now = Time.current

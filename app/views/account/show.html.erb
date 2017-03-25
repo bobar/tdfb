@@ -10,18 +10,11 @@
           <td>Date</td>
         </tr>
       </thead>
-      <tbody>
-        <% @account.transactions.includes(:receiver).includes(:administrator).order(date: :desc).limit(50).each do |t| %>
-          <tr>
-            <td><%= t.price / 100.0 %></td>
-            <td><%= t.receiver.try(:trigramme) %></td>
-            <td><%= t.administrator.try(:trigramme) %></td>
-            <td><%= t.comment %></td>
-            <td><time <% if t.date.to_date == Date.today %>class="timeago"<% end %> datetime="<%= t.date %>"><%= t.date.strftime('%F %T') %></time></td>
-          </tr>
-        <% end %>
+      <tbody id="transactions">
+        <%= render @transactions %>
       </tbody>
     </table>
+    <%= will_paginate @transactions %>
   </div>
 
   <div class="col-md-5">
