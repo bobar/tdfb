@@ -24,3 +24,13 @@ fr:
   unauthorized: Non autorisé
   unauthorized_details: Vous n'avez pas les droits nécessaires pour cette opération.
   welcome: Bienvenue sur le TDB !
+  last_transactions: "Transactions des %{days} derniers jours"
+  debits: Débits
+  credits: Crédits
+  euros: Euros
+  best_consumers: "Meilleurs consommateurs des %{days} derniers jours"
+  consumption: Consommation
+  trigrammes_balance: Répartition des soldes de trigrammes
+  non_smoker: Non fumeur
+  smoker: Fumeur
+  promo: Promo

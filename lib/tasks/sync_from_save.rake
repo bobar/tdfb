@@ -3,8 +3,8 @@ namespace :db do
     check_user(args[:user])
     ask_confirmation
     backup_current_base
-    path = fetch_database_on_gmail(args[:password])
-    remplace_database(path)
+    database_path = fetch_database_on_gmail(args[:password])
+    replace_database(database_path)
   end
 
   def check_user(user)
@@ -41,7 +41,7 @@ namespace :db do
     path
   end
 
-  def remplace_database(path)
+  def replace_database(path)
     conf = Rails.configuration.database_configuration[Rails.env]
     puts 'Remplacement de la base ...'
     `gzip -dc #{path} | mysql -u#{conf['username']} -p#{conf['password']} #{conf['database']}`
