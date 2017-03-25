@@ -58,6 +58,11 @@
           <% end %>
         </h3>
         <div>
+          <small>
+            <%= @account.turnover / 100.0 %> € depuis dernier reset.
+          </small>
+        </div>
+        <div>
           <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
           <% if @account.nickname.nil? || @account.nickname.blank? %>
             <small><em>Nickname</em></small>
