@@ -16,6 +16,7 @@ gem 'mysql2', '~> 0.3.18'
 gem 'nokogiri'
 gem 'pg'
 gem 'rest-client', '~> 1.6.7'
+gem 'ruby-gmail'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'turbolinks'
@@ -24,7 +25,6 @@ gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'byebug'
-  gem 'ruby-gmail'
   gem 'spring'
   gem 'timecop'
   gem 'web-console', '~> 2.0'
