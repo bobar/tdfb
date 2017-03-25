@@ -18,10 +18,8 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    cookies[:bank_id] = 1
-    cookies[:bank] = 'BOB'
-    @transactions_volume = Chart.transactions_volume(7)
-    @best_consumers = Chart.best_consumers(7)
+    @transactions_volume = Chart.transactions_volume(7, @bank)
+    @best_consumers = Chart.best_consumers(7, @bank)
   end
 
   def login
@@ -37,9 +35,9 @@ class ApplicationController < ActionController::Base
   private
 
   def load_bank
-    cookies[:bank_id] ||= 1
-    cookies[:bank] ||= 'BOB'
-    @bank = Account.find(cookies[:bank_id])
+    session[:bank_id] ||= 1
+    session[:bank] ||= 'BOB'
+    @bank = Account.find(session[:bank_id])
   end
 
   def require_admin!(right)
