@@ -24,6 +24,7 @@ gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'byebug'
+  gem 'ruby-gmail'
   gem 'spring'
   gem 'timecop'
   gem 'web-console', '~> 2.0'
