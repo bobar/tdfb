@@ -116,7 +116,7 @@
       </div>
     <% end %>
     <br>
-    <h3>Clopes</h3>
+    <h3><%= I18n.t(:cigarettes) %></h3>
     <%= bootstrap_form_tag(
           remote: true, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline,
           html: { autocomplete: 'off', id: 'clopes-form' }) do |f| %>
@@ -129,7 +129,7 @@
         </div>
       </div>
     <% end %>
-    <h3>Créditer</h3>
+    <h3><%= I18n.t(:credit) %></h3>
     <%= bootstrap_form_tag(
           remote: true, url: "/account/credit/#{@account.id}", method: :post, layout: :inline,
           html: { autocomplete: 'off', id: 'credit-form' }) do |f| %>
@@ -146,7 +146,7 @@
         <%= f.primary I18n.t(:cash) %>
       </div>
     <% end %>
-    <h3>Transfert</h3>
+    <h3><%= I18n.t(:transfer) %></h3>
     <%= bootstrap_form_tag(
           remote: true, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline,
           html: { autocomplete: 'off', id: 'transfer-form' }) do |f| %>

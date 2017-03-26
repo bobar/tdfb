@@ -63,6 +63,9 @@ class Account < ActiveRecord::Base
     # full name match?
     users = User.where(promo: promo).where('name LIKE ? AND name LIKE ?', "#{first_name}%", "% #{name}%")
     return users.first if users.size == 1
+    # Casert match ?
+    users = User.where(promo: promo, casert: "X#{casert.gsub(/[^\d]/, '')}")
+    return users.first if users.size == 1
     User.where(promo: promo).where('name LIKE ? AND name LIKE ?', "#{first_name.first}%", "% #{name.first}%") # Same initials
   end
 

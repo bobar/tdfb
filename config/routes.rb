@@ -25,4 +25,9 @@ Rails.application.routes.draw do
   controller :admin do
     post 'bank/:trigramme' => :set_bank
   end
+
+  controller :frankiz, path: 'frankiz' do
+    get '/' => :index
+    post '/crawl' => :start_crawling
+  end
 end

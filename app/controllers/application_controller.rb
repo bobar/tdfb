@@ -37,17 +37,18 @@ class ApplicationController < ActionController::Base
   private
 
   def redirect_to_index
+    redirect_to_url '/'
+  end
+
+  def redirect_to_url(url)
     respond_to do |format|
-      format.html { redirect_to '/' }
-      format.js { return render text: "window.location.href = '/';" }
+      format.html { redirect_to url }
+      format.js { return render text: "window.location.href = '#{url}';" }
     end
   end
 
   def redirect_to_trigramme(trigramme)
-    respond_to do |format|
-      format.html { redirect_to "/account/#{trigramme}" }
-      format.js { return render text: "window.location.href = '/account/#{trigramme}'" }
-    end
+    redirect_to_url "/account/#{trigramme}"
   end
 
   def load_bank

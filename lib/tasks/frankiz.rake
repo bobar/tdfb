@@ -15,6 +15,7 @@ namespace :frankiz do
     username = ENV['fkz_user'] || user_prompt('Frankiz login? ')
     password = ENV['fkz_pass'] || user_prompt('Frankiz password? ', secret: true)
     fkz = FrankizCrawler.new(username, password)
+    WrongFrankizId.where('frankiz_id > ?', User.maximum(:frankiz_id)).delete_all
     from = (args[:from] || 0).to_i
     upto = (args[:to] || [Account::MANOU_FRANKIZ_ID, User.maximum(:frankiz_id), WrongFrankizId.maximum(:frankiz_id)].compact.max + 1000).to_i
     known_frankiz_ids = User.uniq.pluck(:frankiz_id).concat(WrongFrankizId.all.pluck(:frankiz_id))

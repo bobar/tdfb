@@ -53,6 +53,7 @@ module Chart
       f.series(name: I18n.t(:non_smoker), color: 'rgba(119, 152, 191, .5)', data: non_smokers_data, turboThreshold: 0)
       f.series(name: I18n.t(:smoker), color: 'rgba(223, 83, 83, .5)', data: smokers_data, turboThreshold: 0)
       f.xAxis(min: -500, max: 500, plotLines: [{ color: '#C0D0E0', width: 1, value: 0 }])
+      # f.xAxis(min: -500, max: 500, plotLines: [{ color: '#C0D0E0', width: 1, value: 0 }], type: 'logarithmic')
       f.yAxis(title: { text: I18n.t(:promo) }, min: 2000, max: Time.now.utc.year)
       f.chart(defaultSeriesType: 'scatter')
       f.plotOptions(scatter: { tooltip: { headerFormat: '<b>{series.name}</b><br>', pointFormat: '[{point.promo}] {point.tri}: {point.x} €' } })

@@ -19,7 +19,7 @@ fr:
   set_as_bank: Utiliser cette banque
   since_last_reset: "%{amount} dépensés depuis dernier reset."
   submit: Valider
-  transfer: Transférer !
+  transfer: Transférer
   trigramme: Trigramme
   unauthorized: Non autorisé
   unauthorized_details: Vous n'avez pas les droits nécessaires pour cette opération.
@@ -28,9 +28,24 @@ fr:
   debits: Débits
   credits: Crédits
   euros: Euros
-  best_consumers: "Meilleurs consommateurs des %{days} derniers jours"
+  best_consumers: Meilleurs consommateurs des %{days} derniers jours
   consumption: Consommation
   trigrammes_balance: Répartition des soldes de trigrammes
   non_smoker: Non fumeur
   smoker: Fumeur
   promo: Promo
+  frankiz: Frankiz
+  frankiz_username: Compte frankiz (prenom.nom)
+  frankiz_password: Mot de passe frankiz
+  frankiz_dashboard: Paneau d'administration Frankiz
+  accounts: Comptes
+  with_frankiz: Avec un ID Fkz
+  without_frankiz: Sans ID Fkz
+  total: Total
+  x: Polytechniciens
+  not_x: Non Polytechniciens
+  credit: Créditer
+  cigarettes: Clopes
+  go: Go !
+  crawl_frankiz: Crawler frankiz
+  crawl_running: Crawling de Frankiz en cours
