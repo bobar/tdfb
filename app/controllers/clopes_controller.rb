@@ -25,7 +25,7 @@ class ClopesController < ApplicationController
 
   def reset_quantities
     require_admin!(:gestion_clopes)
-    Clope.all.update_all(quantite: 0)
+    Clope.update_all(quantite: 0)
     redirect_to action: :administration
   end
 end
