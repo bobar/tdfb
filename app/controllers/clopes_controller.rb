@@ -1,6 +1,9 @@
 class ClopesController < ApplicationController
   def administration
     @clopes = Clope.all
+    @chart_globals = Chart.theme(session['theme'])
+    @cigarettes_volume = Chart.cigarettes_volume
+    @cigarettes_turnover = Chart.cigarettes_turnover
   end
 
   def update

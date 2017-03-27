@@ -60,6 +60,26 @@ module Chart
     end
   end
 
+  def self.cigarettes_volume
+    data = Clope.all.map { |c| { name: c.marque, y: c.quantite } }
+    LazyHighCharts::HighChart.new('graph') do |f|
+      f.chart(defaultSeriesType: 'pie')
+      f.title(text: I18n.t(:cigarettes_volume))
+      f.series(data: data)
+      f.tooltip(pointFormat: "{point.y} #{I18n.t(:packs)}")
+    end
+  end
+
+  def self.cigarettes_turnover
+    data = Clope.all.map { |c| { name: c.marque, y: c.quantite.to_i * c.prix.to_i / 100 } }
+    LazyHighCharts::HighChart.new('graph') do |f|
+      f.chart(defaultSeriesType: 'pie')
+      f.title(text: I18n.t(:cigarettes_turnover))
+      f.series(data: data)
+      f.tooltip(pointFormat: '{point.y} €')
+    end
+  end
+
   def self.theme(theme)
     filename = %w(darkly slate solar).include?(theme) ? 'dark_unica' : 'grid_light'
     file = File.read(Rails.root.join('app', 'assets', 'stylesheets', 'highcharts_themes', filename + '.json'))

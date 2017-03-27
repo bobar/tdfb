@@ -31,10 +31,26 @@
       </div>
     <% end %>
 
-    <h3><%= I18n.t(:reset_quantities) %></h3>
-    <%= bootstrap_form_tag(url: "/clopes/reset_quantities", method: :post) do |f| %>
-      <%= f.primary I18n.t(:reset) %>
-    <% end %>
+    <br>
+
+    <%= high_chart_globals(@chart_globals) %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= high_chart('cigarettes_volume', @cigarettes_volume) %>
+      </div>
+      <div class="col-md-6">
+        <%= high_chart('cigarettes_turnover', @cigarettes_turnover) %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h3><%= I18n.t(:reset_quantities) %></h3>
+        <%= bootstrap_form_tag(url: "/clopes/reset_quantities", method: :post) do |f| %>
+          <%= f.primary I18n.t(:reset) %>
+        <% end %>
+      </div>
+    </div>
 
     <br>
   </div>
