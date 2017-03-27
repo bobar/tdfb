@@ -32,7 +32,7 @@ namespace :db do
     path = ''
     puts 'Connexion à Gmail ...'
     Gmail.new('bobar.save@gmail.com', password) do |gmail|
-      tdb_dump = gmail.inbox.emails.last.attachments.first
+      tdb_dump = gmail.label('[Gmail]/Corbeille').emails.last.attachments.first
       path = Rails.root.to_s + '/' + tdb_dump.filename
       file = File.new(path, 'w+', encoding: 'ascii-8bit')
       file << tdb_dump.decoded
