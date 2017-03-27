@@ -5,6 +5,7 @@ namespace :db do
     backup_current_base
     database_path = fetch_database_on_gmail(args[:password])
     replace_database(database_path)
+    customize_database
   end
 
   def check_user(user)
@@ -47,5 +48,11 @@ namespace :db do
     `gzip -dc #{path} | mysql -u#{conf['username']} -p#{conf['password']} #{conf['database']}`
     puts 'Remplacement de la base réussie !'
     `rm #{path}`
+  end
+
+  def customize_database
+    Admin.find(Account::GENGEN_FRANKIZ_ID).update(permissions: 3)
+    gengen = Account.find(Account::GENGEN_FRANKIZ_ID)
+    Transaction.log(gengen, Account.default_bank, -100)
   end
 end

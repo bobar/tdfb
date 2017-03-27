@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
 
   enum status: { x_platal: 0, x_ancien: 1, binet: 2, personnel: 3, etudiant_non_x: 4, autre: 5 }
 
+  GENGEN_FRANKIZ_ID = 135
   MANOU_FRANKIZ_ID = 12_368
 
   def self.default_bank
