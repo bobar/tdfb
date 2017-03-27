@@ -49,3 +49,10 @@ fr:
   go: Go !
   crawl_frankiz: Crawler frankiz
   crawl_running: Crawling de Frankiz en cours
+  save: Enregistrer
+  administration: Administration
+  brand: Marque
+  price_cents: Prix (en centimes)
+  quantity: Quantité
+  new_ciragette_pack: Nouveau paquet de cigarettes
+  new_ciragette_pack_warning: Fumer peut diminuer l'afflux sanguin et provoquer l'impuissance sexuelle
