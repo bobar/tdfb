@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/michelson/lazy_high_charts
+  revision: ba12914514da8b2475291e408e49ba8fe912deec
+  branch: master
+  specs:
+    lazy_high_charts (1.5.7)
+      hash-deep-merge
+
+GIT
   remote: https://github.com/svenfuchs/rails-i18n
   revision: f8c83ec753439d7286b9168bbb246e354866cb9e
   branch: rails-4-x
@@ -86,8 +94,6 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (1.8.6)
-    lazy_high_charts (1.5.6)
-      hash-deep-merge
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -190,7 +196,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
-  lazy_high_charts
+  lazy_high_charts!
   mysql2 (~> 0.3.18)
   nokogiri
   pg
