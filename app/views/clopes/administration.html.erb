@@ -4,8 +4,9 @@
       <thead>
         <tr>
           <td><%= I18n.t(:brand) %></td>
-          <td><%= I18n.t(:price_cents) %></td>
+          <td><%= I18n.t(:price) %></td>
           <td><%= I18n.t(:quantity) %></td>
+          <td><%= I18n.t(:delete) %></td>
         </tr>
       </thead>
       <tbody>
@@ -22,10 +23,10 @@
         <div class="col-md-4">
           <%= f.text_field(:marque, hide_label: true, placeholder: I18n.t(:brand)) %>
         </div>
-        <div class="col-md-4">
-          <%= f.text_field(:prix, hide_label: true, placeholder: I18n.t(:price_cents)) %>
+        <div class="col-md-2">
+          <%= f.text_field(:prix, hide_label: true, placeholder: I18n.t(:price)) %>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
           <%= f.primary I18n.t(:save) %>
         </div>
       </div>

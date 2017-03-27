@@ -1,5 +1,10 @@
 <tr>
-  <td class="col-md-6"><%= render 'edit', clope: clope, item: 'marque' %></td>
-  <td class="col-md-3"><%= render 'edit', clope: clope, item: 'prix' %></td>
+  <td class="col-md-4"><%= render 'edit', clope: clope, item: :marque %></td>
+  <td class="col-md-3"><%= render 'edit', clope: clope, item: :euro_price %></td>
   <td class="col-md-3"><%= clope.quantite %></td>
+  <td class="col-md-2">
+    <%= bootstrap_form_tag(url: "/clopes/#{clope.id}", method: :delete) do |f| %>
+      <%= f.submit I18n.t(:delete), class: 'btn btn-danger' %>
+    <% end %>
+  </td>
 </tr>

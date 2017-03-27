@@ -61,7 +61,7 @@ module Chart
   end
 
   def self.cigarettes_volume
-    data = Clope.all.map { |c| { name: c.marque, y: c.quantite } }
+    data = Clope.order(quantite: :desc).all.map { |c| { name: c.marque, y: c.quantite } }
     quantite = Clope.all.map(&:quantite).sum
     LazyHighCharts::HighChart.new('graph') do |f|
       f.chart(defaultSeriesType: 'pie')
@@ -72,7 +72,7 @@ module Chart
   end
 
   def self.cigarettes_turnover
-    data = Clope.all.map { |c| { name: c.marque, y: c.quantite.to_i * c.prix.to_i / 100 } }
+    data = Clope.order(quantite: :desc).all.map { |c| { name: c.marque, y: c.quantite.to_i * c.prix.to_i / 100 } }
     turnover = Clope.all.map { |c| c.quantite.to_i * c.prix.to_i / 100 }.sum
     LazyHighCharts::HighChart.new('graph') do |f|
       f.chart(defaultSeriesType: 'pie')

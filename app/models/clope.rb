@@ -5,4 +5,8 @@ class Clope < ActiveRecord::Base
       Transaction.log(account, Account.default_bank, quantity * prix / 100.0, comment: "#{marque} (#{quantity})", admin: admin)
     end
   end
+
+  def euro_price
+    prix / 100.0
+  end
 end

@@ -42,5 +42,6 @@ Rails.application.routes.draw do
     post 'edit/:id' => :update
     post 'new' => :create
     post 'reset_quantities' => :reset_quantities
+    delete ':id' => :delete
   end
 end
