@@ -18,6 +18,7 @@
 //= require bootstrap-sprockets
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
+//= require highcharts/modules/heatmap
 
 function isPositiveNumber(value) {
   return new RegExp('^(\\d+(\\.\\d*)?|\\.\\d+)$').test(value);

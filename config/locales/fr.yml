@@ -49,3 +49,4 @@ fr:
   go: Go !
   crawl_frankiz: Crawler frankiz
   crawl_running: Crawling de Frankiz en cours
+  heat_map_title: Activité du BôBar sur les %{days} derniers jours

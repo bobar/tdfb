@@ -60,6 +60,27 @@ module Chart
     end
   end
 
+  def self.heat_map(days, chart_global)
+    data = (0..6).map { |day| (0..23).map { |hour| [hour, day, 0] } }
+    Transaction.where('date > ?', Time.current - days.days).each do |t|
+      data[t.date.wday - 1][t.date.utc.hour][2] += 1
+    end
+    data = data.flatten(1)
+    data.each { |item| item[2] = (item[2] / 2).to_i }
+    background = chart_global.options[:chart]['backgroundColor']
+    background_color = background.nil? ? '#FFFFFF' : background['stops'][0][1]
+    LazyHighCharts::HighChart.new('graph') do |f|
+      f.chart(type: 'heatmap')
+      f.title(text: I18n.t(:heat_map_title, days: days))
+      f.xAxis(categories: (0..23).map { |h| "#{h}-#{h + 1}h" })
+      f.yAxis(categories: %w(Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche), reversed: true, title: nil)
+      f.series(data: data)
+      f.tooltip(headerFormat: nil, pointFormat: '{point.value} transactions')
+      f.colorAxis(min: 0, minColor: background_color, maxColor: chart_global.options[:colors][0])
+      f.legend(align: 'right', layout: 'vertical')
+    end
+  end
+
   def self.theme(theme)
     filename = %w(darkly slate solar).include?(theme) ? 'dark_unica' : 'grid_light'
     file = File.read(Rails.root.join('app', 'assets', 'stylesheets', 'highcharts_themes', filename + '.json'))
