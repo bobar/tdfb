@@ -21,9 +21,9 @@ class Transaction < ActiveRecord::Base
 
   def self.account_update(account, updated = {}, admin: nil)
     updates = updated.map do |k, v|
-      next if v == account[k]
+      next if v == account.__send__(k)
       detail = "new #{k}"
-      detail += " (#{account.__send__(k)} => #{v})" unless k.to_sym == :nickname
+      detail += " (#{account.__send__(k)} => #{v})" unless [:nickname, :picture].include? k.to_sym
       detail
     end.compact
     return if updates.empty?

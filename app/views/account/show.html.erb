@@ -51,7 +51,7 @@
         </h1>
         <div class="collapse text-right" id="trigrammeCollapse">
           <%= bootstrap_form_tag(
-                remote: true, url: "/account/#{@account.id}", method: :post,
+                remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,
                 html: { autocomplete: 'off', id: 'trigramme-form' }) do |f| %>
             <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
             <%= f.select(
@@ -59,6 +59,7 @@
               Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] },
               selected: @account.status, hide_label: true)
             %>
+            <%= f.file_field(:picture, hide_label: true, class: 'filestyle', 'data-buttonText' => I18n.t(:picture)) %>
             <%= f.primary 'Save' %>
           <% end %>
         </div>

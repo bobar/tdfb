@@ -58,6 +58,12 @@ class AccountController < ApplicationController
     @account = Account.find(params[:id])
     require_admin!(:modifier_tri)
     to_update = {}
+    if params[:picture]
+      ext = File.extname(params[:picture].tempfile)
+      path = Rails.root.join('app', 'assets', 'images', 'accounts', "#{@account.id}#{ext}")
+      File.open(path, 'wb') { |f| f.write params[:picture].read }
+      to_update[:picture] = path.to_s
+    end
     to_update[:nickname] = params[:nickname].strip if params[:nickname] && !params[:nickname].empty?
     to_update[:trigramme] = params[:trigramme].strip.upcase if params[:trigramme] && !params[:trigramme].empty?
     to_update[:status] = params[:status] if params[:status]

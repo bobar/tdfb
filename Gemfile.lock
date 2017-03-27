@@ -58,6 +58,7 @@ GEM
       execjs
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-filestyle-rails (1.2.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -187,6 +188,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-filestyle-rails
   bootstrap-sass (~> 3.3.6)
   bootstrap_form
   byebug
