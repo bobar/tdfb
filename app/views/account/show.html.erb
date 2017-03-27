@@ -32,7 +32,9 @@
       <% else %>
         <div class="col-md-12">
       <% end %>
-        <h1> <!-- inline-block because we want the icon on same line -->
+        <h1
+          class="<%= @account.binet? ? 'text-success' : @account.x_platal? ? '' : 'text-primary' %>"
+        >
           <strong><%= @account.trigramme %></strong>
           <% if @account.binet? %>
             <%= bootstrap_form_tag(remote: true, url: "/bank/#{@account.trigramme}", method: :post, html: { style: 'display: inline' }) do |f| %>
@@ -95,6 +97,7 @@
           <% end %>
           <br>
         </div>
+        <h1 class="<%= 'text-danger' if @account.balance < 0 %>"><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
       </div>
       <% if @account.local_picture %>
         <div class="col-md-7 text-right">
@@ -102,7 +105,6 @@
         </div>
       <% end %>
     </div>
-    <h1><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
     <%= bootstrap_form_tag(
           remote: true, url: "/account/log/#{@account.id}", method: :post, layout: :inline,
           html: { autocomplete: 'off', id: 'log-form' }) do |f| %>
