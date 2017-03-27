@@ -84,6 +84,7 @@ class AccountController < ApplicationController
   end
 
   def create
+    require_admin!(:creer_tri)
     account = Account.create(
       trigramme: params[:trigramme].upcase,
       frankiz_id: params[:frankiz_id],
