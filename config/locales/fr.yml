@@ -56,3 +56,5 @@ fr:
   quantity: Quantité
   new_ciragette_pack: Nouveau paquet de cigarettes
   new_ciragette_pack_warning: Fumer peut diminuer l'afflux sanguin et provoquer l'impuissance sexuelle
+  reset_quantities: Remettre les quantités à 0
+  reset: Reset (irréversible)

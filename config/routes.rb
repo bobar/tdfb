@@ -17,12 +17,6 @@ Rails.application.routes.draw do
     post 'transfer/:id' => :transfer
   end
 
-  controller :clopes, path: 'clopes' do
-    get 'administration' => :administration
-    post 'edit/:id' => :update
-    post 'new' => :create
-  end
-
   controller :group_log, path: 'group_log' do
     get '/' => :index
     post '/' => :log
@@ -35,5 +29,12 @@ Rails.application.routes.draw do
   controller :frankiz, path: 'frankiz' do
     get '/' => :index
     post '/crawl' => :start_crawling
+  end
+
+  controller :clopes, path: 'clopes' do
+    get 'administration' => :administration
+    post 'edit/:id' => :update
+    post 'new' => :create
+    post 'reset_quantities' => :reset_quantities
   end
 end

@@ -19,19 +19,23 @@
     </h3>
     <%= bootstrap_form_tag(url: "/clopes/new", method: :post) do |f| %>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <%= f.text_field(:marque, hide_label: true, placeholder: I18n.t(:brand)) %>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <%= f.text_field(:prix, hide_label: true, placeholder: I18n.t(:price_cents)) %>
         </div>
-        <div class="col-md-3">
-          <%= f.text_field(:quantite, hide_label: true, placeholder: I18n.t(:quantity)) %>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <%= f.primary I18n.t(:save) %>
         </div>
       </div>
     <% end %>
+
+    <h3><%= I18n.t(:reset_quantities) %></h3>
+    <%= bootstrap_form_tag(url: "/clopes/reset_quantities", method: :post) do |f| %>
+      <%= f.primary I18n.t(:reset) %>
+    <% end %>
+
+    <br>
   </div>
 </div>
