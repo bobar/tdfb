@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= bootstrap_form_tag(html: { autocomplete: 'off', id: 'frankiz-search-form' }) do |f| %>
+        <%= f.text_field :name, label: I18n.t(:frankiz_search) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-3 col-md-offset-1">
+    <%= bootstrap_form_tag(url: "/account/create", method: :post, remote: true, html: { autocomplete: 'off', id: 'account-create-form' }) do |f| %>
+      <%= f.text_field :trigramme, label: I18n.t(:trigramme) %>
+      <%= f.hidden_field :frankiz_id %>
+      <%= f.text_field :first_name, label: I18n.t(:first_name) %>
+      <%= f.text_field :name, label: I18n.t(:name) %>
+      <%= f.date_field :birthdate, label: I18n.t(:birthdate) %>
+      <%= f.email_field :email, label: I18n.t(:email) %>
+      <%= f.text_field :nickname, label: I18n.t(:nickname) %>
+      <%= f.text_field :casert, label: I18n.t(:room) %>
+      <%= f.text_field :balance, label: I18n.t(:balance) %>
+      <%= f.select :status, Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] }, selected: Account.statuses.keys.first %>
+      <%= f.number_field :promo, label: I18n.t(:promo) %>
+      <%= f.submit I18n.t(:create) %>
+    <% end %>
+  </div>
+</div>

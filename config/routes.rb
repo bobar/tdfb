@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   controller :account, path: 'account' do
     get 'search' => :search
+    get 'new' => :new
     get ':id' => :show
+    post 'create' => :create
     post ':id' => :update
     get 'exists/:trigramme' => :exists
     get 'details/:trigramme' => :details
@@ -15,6 +17,10 @@ Rails.application.routes.draw do
     post 'credit/:id' => :credit
     post 'clopes/:id' => :clopes
     post 'transfer/:id' => :transfer
+  end
+
+  controller :user, path: 'user' do
+    get 'search' => :search
   end
 
   controller :group_log, path: 'group_log' do

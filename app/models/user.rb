@@ -33,12 +33,44 @@ class User < ActiveRecord::Base
     end
 
     account.update(
-      name: email.split('@').first.split('.')[1].split('-').map(&:upcase).join(' '),
-      first_name: email.split('@').first.split('.')[0].split('-').map(&:capitalize).join(' '),
+      name: first_name,
+      first_name: last_name,
       casert: casert || '',
       status: STATUSES[group],
       promo: promo,
       mail: email,
     )
+  end
+
+  def self.search(term)
+    terms = term.gsub(/[^a-zA-Z0-9]/, ' ').split(' ')
+    clause = terms.map do |t|
+      "LOWER(name) LIKE #{connection.quote('%' + t.downcase + '%')}"
+    end.join(' AND ')
+    where(clause).order(promo: :desc, name: :asc)
+  end
+
+  def first_name
+    if email =~ /@(institutoptique.fr|polytechnique.edu|polytechnique.org)$/
+      email.split('@').first.split('.')[0].split('-').map(&:capitalize).join(' ')
+    else
+      name.split(' ')[0].split('-').map(&:capitalize).join('-')
+    end
+  end
+
+  def last_name
+    if email =~ /@(institutoptique.fr|polytechnique.edu|polytechnique.org)$/
+      email.split('@').first.split('.')[1].split('-').map(&:upcase).join(' ')
+    else
+      name.split(' ')[1..-1].join(' ').upcase
+    end
+  end
+
+  def status
+    STATUSES[group]
+  end
+
+  def autocomplete_text
+    "#{promo} - #{name}"
   end
 end

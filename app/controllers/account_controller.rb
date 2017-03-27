@@ -80,6 +80,27 @@ class AccountController < ApplicationController
     render_redirect_to
   end
 
+  def new
+  end
+
+  def create
+    account = Account.create(
+      trigramme: params[:trigramme].upcase,
+      frankiz_id: params[:frankiz_id],
+      name: params[:name],
+      first_name: params[:first_name],
+      nickname: params[:nickname] || '',
+      birthdate: params[:birthdate],
+      casert: params[:casert] || '',
+      status: params[:status],
+      promo: params[:promo],
+      mail: params[:email] || '',
+      balance: (100 * params[:balance].to_f).to_i,
+      picture: '',
+    )
+    redirect_to_trigramme(account.id)
+  end
+
   private
 
   def render_redirect_to

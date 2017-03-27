@@ -62,3 +62,13 @@ fr:
   reset_quantities: Remettre les quantités à 0
   reset: Reset (irréversible)
   heat_map_title: Activité du BôBar sur les %{days} derniers jours
+  create_account: Créer un compte
+  first_name: Prénom
+  name: Nom
+  nickname: Surnom
+  room: Casert
+  balance: Solde
+  create: Créer
+  birthdate: Date de naissance
+  frankiz_search: Rechercher sur Frankiz
+  email: Addresse mail
