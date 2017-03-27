@@ -61,3 +61,4 @@ fr:
   packs: paquets
   reset_quantities: Remettre les quantités à 0
   reset: Reset (irréversible)
+  heat_map_title: Activité du BôBar sur les %{days} derniers jours

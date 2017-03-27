@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
-          <a href="/index/" style="padding-bottom: 10px">
+          <a href="/account/<%= session[:bank].downcase %>" style="padding-bottom: 10px">
             <strong style="font-size: 30px;"><%= session[:bank] %></strong>
           </a>
         </li>

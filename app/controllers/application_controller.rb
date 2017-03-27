@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
     @transactions_volume = Chart.transactions_volume(7, @bank)
     @best_consumers = Chart.best_consumers(7, @bank)
     @scatter_plot = Chart.scatter_plot
+    @heat_map = Chart.heat_map(7, @chart_globals)
   end
 
   def login
