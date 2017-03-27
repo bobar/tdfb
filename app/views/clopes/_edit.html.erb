@@ -1,0 +1,18 @@
+<div>
+  <a data-toggle="collapse" href="#<%= item %>-collapse-<%= clope.id %>" aria-expanded="false">
+    <%= fa_icon "pencil-square-o" %>
+  </a>
+  <% if clope.send(item).nil? || clope.send(item).blank? %>
+    <small><em><%= item %></em></small>
+  <% else %>
+    <%= clope.send(item) %>
+  <% end %>
+</div>
+<div class="collapse text-right" id="<%= item %>-collapse-<%= clope.id %>">
+  <br>
+  <%= bootstrap_form_tag(url: "/clopes/edit/#{clope.id}", method: :post) do |f| %>
+    <%= f.text_field(item.to_sym, hide_label: true, value: clope.send(item)) %>
+    <%= f.primary I18n.t(:save) %>
+  <% end %>
+  <br>
+</div>

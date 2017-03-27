@@ -49,4 +49,16 @@ fr:
   go: Go !
   crawl_frankiz: Crawler frankiz
   crawl_running: Crawling de Frankiz en cours
+  save: Enregistrer
+  administration: Administration
+  brand: Marque
+  price_cents: Prix (en centimes)
+  quantity: Quantité
+  new_ciragette_pack: Nouveau paquet de cigarettes
+  new_ciragette_pack_warning: Fumer peut diminuer l'afflux sanguin et provoquer l'impuissance sexuelle
+  cigarettes_volume: Volume de cigarettes vendues
+  cigarettes_turnover: Chiffre d'affaire des cigarettes
+  packs: paquets
+  reset_quantities: Remettre les quantités à 0
+  reset: Reset (irréversible)
   heat_map_title: Activité du BôBar sur les %{days} derniers jours

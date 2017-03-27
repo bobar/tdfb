@@ -30,4 +30,11 @@ Rails.application.routes.draw do
     get '/' => :index
     post '/crawl' => :start_crawling
   end
+
+  controller :clopes, path: 'clopes' do
+    get 'administration' => :administration
+    post 'edit/:id' => :update
+    post 'new' => :create
+    post 'reset_quantities' => :reset_quantities
+  end
 end

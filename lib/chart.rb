@@ -60,6 +60,28 @@ module Chart
     end
   end
 
+  def self.cigarettes_volume
+    data = Clope.all.map { |c| { name: c.marque, y: c.quantite } }
+    quantite = Clope.all.map(&:quantite).sum
+    LazyHighCharts::HighChart.new('graph') do |f|
+      f.chart(defaultSeriesType: 'pie')
+      f.title(text: I18n.t(:cigarettes_volume) + ': ' + quantite.to_s + ' ' + I18n.t(:packs))
+      f.series(data: data)
+      f.tooltip(pointFormat: "{point.y} #{I18n.t(:packs)} ({point.percentage:.2f}%)")
+    end
+  end
+
+  def self.cigarettes_turnover
+    data = Clope.all.map { |c| { name: c.marque, y: c.quantite.to_i * c.prix.to_i / 100 } }
+    turnover = Clope.all.map { |c| c.quantite.to_i * c.prix.to_i / 100 }.sum
+    LazyHighCharts::HighChart.new('graph') do |f|
+      f.chart(defaultSeriesType: 'pie')
+      f.title(text: I18n.t(:cigarettes_turnover) + ': ' + turnover.to_s + ' €')
+      f.series(data: data)
+      f.tooltip(pointFormat: '{point.y}€ ({point.percentage:.2f}%)')
+    end
+  end
+
   def self.heat_map(days, chart_global)
     data = (0..6).map { |day| (0..23).map { |hour| [hour, day, 0] } }
     Transaction.where('date > ?', Time.current - days.days).each do |t|
