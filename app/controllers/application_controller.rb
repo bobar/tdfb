@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   AUTH_EXPIRES = 20.seconds
   include Chart
 
-  http_basic_authenticate_with name: ENV['http_basic_name'], password: ENV['http_basic_password'] if Rails.env.production?
+  before_action do
+    require_admin!(:log_eleve) if Rails.env.production?
+  end
 
   protect_from_forgery with: :exception
   before_action :load_bank
@@ -59,7 +61,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin!(right)
-    return true if Rails.env.production?
     authenticate_with_http_basic do |username, password|
       if session[:expire_at].nil? || session[:expire_at] < Time.current
         session[:expire_at] = Time.current + 24.hours
