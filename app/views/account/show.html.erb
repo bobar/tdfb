@@ -1,31 +1,5 @@
 <div class="row">
-  <div class="col-md-7">
-    <% if (session[:bank_id] != 1) %>
-      <div class="text-center alert alert-danger">
-        <h1>
-          <strong><%= I18n.t :current_bank, bank_name: @bank.bank_display_name %></strong>
-        </h1>
-      </div>
-    <% end %>
-
-    <table id="transactions-table" class="table table-condensed table-bordered table-striped table-hover">
-      <thead>
-        <tr>
-          <td><%= I18n.t(:price) %></td>
-          <td><%= I18n.t(:receiver) %></td>
-          <td><%= I18n.t(:bank) %></td>
-          <td><%= I18n.t(:comment) %></td>
-          <td><%= I18n.t(:_date) %></td>
-        </tr>
-      </thead>
-      <tbody id="transactions">
-        <%= render @transactions %>
-      </tbody>
-    </table>
-    <%= will_paginate @transactions %>
-  </div>
-
-  <div class="col-md-5">
+  <div class="col-md-5 col-lg-push-7">
     <div class="row low-padding <%= 'alert alert-danger' if @account.age && @account.age < 18 %>">
       <% if @account.local_picture %>
         <div class="col-md-5">
@@ -170,5 +144,31 @@
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div class="col-md-7 col-lg-pull-5">
+    <% if (session[:bank_id] != 1) %>
+      <div class="text-center alert alert-danger">
+        <h1>
+          <strong><%= I18n.t :current_bank, bank_name: @bank.bank_display_name %></strong>
+        </h1>
+      </div>
+    <% end %>
+
+    <table id="transactions-table" class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <td><%= I18n.t(:price) %></td>
+          <td><%= I18n.t(:receiver) %></td>
+          <td><%= I18n.t(:bank) %></td>
+          <td><%= I18n.t(:comment) %></td>
+          <td><%= I18n.t(:_date) %></td>
+        </tr>
+      </thead>
+      <tbody id="transactions">
+        <%= render @transactions %>
+      </tbody>
+    </table>
+    <%= will_paginate @transactions %>
   </div>
 </div>
