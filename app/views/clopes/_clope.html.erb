@@ -4,7 +4,7 @@
   <td class="col-md-3"><%= clope.quantite %></td>
   <td class="col-md-2">
     <%= bootstrap_form_tag(url: "/clopes/#{clope.id}", method: :delete) do |f| %>
-      <%= f.submit I18n.t(:delete), class: 'btn btn-danger' %>
+      <%= f.submit I18n.t(:delete), class: 'btn btn-danger', data: { confirm: I18n.t(:confirm_delete) } %>
     <% end %>
   </td>
 </tr>

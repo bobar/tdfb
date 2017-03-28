@@ -48,7 +48,7 @@
       <div class="col-md-12 text-center">
         <h3><%= I18n.t(:reset_quantities) %></h3>
         <%= bootstrap_form_tag(url: "/clopes/reset_quantities", method: :post) do |f| %>
-          <%= f.primary I18n.t(:reset) %>
+          <%= f.primary I18n.t(:reset), data: { confirm: I18n.t(:confirm_delete) } %>
         <% end %>
       </div>
     </div>
