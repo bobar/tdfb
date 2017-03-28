@@ -11,7 +11,7 @@ class ClopesController < ApplicationController
     @clope = Clope.find(params[:id])
     to_update = {}
     to_update[:marque] = params[:marque].strip if params[:marque]
-    to_update[:prix] = (100 * params[:prix].to_f).to_i if params[:prix]
+    to_update[:prix] = (100 * params[:euro_price].to_f).to_i if params[:euro_price]
     @clope.update(to_update)
     redirect_to :administration
   end
