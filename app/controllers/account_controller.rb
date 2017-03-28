@@ -60,6 +60,7 @@ class AccountController < ApplicationController
     to_update = {}
     if params[:picture]
       ext = File.extname(params[:picture].tempfile)
+      Dir[Rails.root.join('app', 'assets', 'images', 'accounts', "#{@account.id}.*")].each { |f| File.delete f }
       path = Rails.root.join('app', 'assets', 'images', 'accounts', "#{@account.id}#{ext}")
       File.open(path, 'wb') { |f| f.write params[:picture].read }
       to_update[:picture] = path.to_s
