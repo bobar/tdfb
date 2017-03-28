@@ -16,6 +16,6 @@ test:
 
 production:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
+  database: tdb
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  host: 92.222.86.35

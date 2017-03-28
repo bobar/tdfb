@@ -23,7 +23,7 @@ namespace :db do
     conf = Rails.configuration.database_configuration[Rails.env]
     backup_path = Rails.root.to_s + '/tmp/Backup_' + Time.now.utc.iso8601
     puts 'Backup de la base actuelle ...'
-    `mysqldump -u#{conf['username']} -p#{conf['password']} #{conf['database']} > #{backup_path}`
+    `mysqldump -h#{conf['host']} -u#{conf['username']} -p#{conf['password']} #{conf['database']} > #{backup_path}`
     puts 'Backup de la base réussi'
   end
 
@@ -45,7 +45,7 @@ namespace :db do
   def replace_database(path)
     conf = Rails.configuration.database_configuration[Rails.env]
     puts 'Remplacement de la base ...'
-    `gzip -dc #{path} | mysql -u#{conf['username']} -p#{conf['password']} #{conf['database']}`
+    `gzip -dc #{path} | mysql -h#{conf['host']} -u#{conf['username']} -p#{conf['password']} #{conf['database']}`
     puts 'Remplacement de la base réussie !'
     `rm #{path}`
   end
