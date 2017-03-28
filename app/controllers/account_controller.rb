@@ -48,8 +48,8 @@ class AccountController < ApplicationController
     @account = Account.find(params[:id])
     clope = Clope.find(params[:clope_id])
     quantity = params[:quantity].to_i
-    total_price = quantity * clope.prix # Clopes price is in cents!
-    require_admin!(:log_eleve) if total_price > 2000 || (!@account.x_platal? && @account.budget < total_price / 100.0)
+    total_price = quantity * clope.euro_price # Clopes price is in cents!
+    require_admin!(:log_eleve) if total_price || (!@account.x_platal? && @account.budget < total_price)
     clope.sell(@account, quantity, admin: @admin)
     render_redirect_to
   end
