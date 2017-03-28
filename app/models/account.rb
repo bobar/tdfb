@@ -15,7 +15,6 @@ class Account < ActiveRecord::Base
   end
 
   def self.search(term)
-    return where('LOWER(trigramme) = ?', term.downcase) if term.size == 3
     terms = term.gsub(/[^a-zA-Z0-9]/, ' ').split(' ')
     clause = terms.map do |t|
       "(LOWER(name) LIKE #{connection.quote('%' + t + '%')} OR LOWER(first_name) LIKE #{connection.quote('%' + t + '%')})"
