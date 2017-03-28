@@ -1,5 +1,5 @@
 <tr>
-  <td><%= number_to_human(transaction.price / 100.0) %></td>
+  <td><%= number_with_precision(transaction.price / 100.0, strip_insignificant_zeros: true, significant: false, precision: 2, delimiter: ' ') %></td>
   <td><%= transaction.receiver.try(:trigramme) %></td>
   <td><%= transaction.administrator.try(:trigramme) %></td>
   <td><%= transaction.comment %></td>
