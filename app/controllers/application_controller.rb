@@ -83,6 +83,6 @@ class ApplicationController < ActionController::Base
         session[:expire_at] = Time.current + AUTH_EXPIRES
         true
       end
-    end || (request_http_basic_authentication && fail(AuthException))
+    end || ((session[:expire_at] = Time.current + 24.hours) && request_http_basic_authentication && fail(AuthException))
   end
 end
