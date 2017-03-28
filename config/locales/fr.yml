@@ -5,7 +5,7 @@ fr:
   comment: Commentaire
   currency: "€"
   current_bank: "Banque: %{bank_name}"
-  date: Date
+  _date: Date # Otherwise it collides with Rails key.
   group_log: Log groupé
   log: Log !
   login: Connection

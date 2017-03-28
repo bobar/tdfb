@@ -6,20 +6,29 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-3 col-md-offset-1">
-    <%= bootstrap_form_tag(url: "/account/create", method: :post, remote: true, html: { autocomplete: 'off', id: 'account-create-form' }) do |f| %>
+  <div class="col-md-6 col-md-offset">
+    <%= bootstrap_form_tag(
+        url: "/account/create", method: :post, remote: true,
+        layout: :horizontal, label_col: 'col-md-6', control_col: 'col-md-6',
+        html: { autocomplete: 'off', id: 'account-create-form' }) do |f| %>
       <%= f.text_field :trigramme, label: I18n.t(:trigramme) %>
       <%= f.hidden_field :frankiz_id %>
       <%= f.text_field :first_name, label: I18n.t(:first_name) %>
       <%= f.text_field :name, label: I18n.t(:name) %>
-      <%= f.date_field :birthdate, label: I18n.t(:birthdate) %>
+      <%= f.text_field(:birthdate, label: I18n.t(:birthdate),
+        'data-provide' => 'datepicker',
+        'data-date-start-view' => 2,
+        'data-date-max-view-mode' => 2,
+        ) %>
       <%= f.email_field :email, label: I18n.t(:email) %>
       <%= f.text_field :nickname, label: I18n.t(:nickname) %>
       <%= f.text_field :casert, label: I18n.t(:room) %>
-      <%= f.text_field :balance, label: I18n.t(:balance) %>
+      <%= f.text_field :balance, label: I18n.t(:balance), prepend: I18n.t(:currency) %>
       <%= f.select :status, Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] }, selected: Account.statuses.keys.first %>
       <%= f.number_field :promo, label: I18n.t(:promo) %>
-      <%= f.submit I18n.t(:create) %>
+      <%= f.form_group do %>
+        <%= f.primary I18n.t(:create) %>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -15,6 +15,7 @@
 //= require jquery-ui/widgets/autocomplete
 //= require jquery_ujs
 //= require_tree .
+//= require bootstrap-datepicker
 //= require bootstrap-filestyle
 //= require bootstrap-sprockets
 //= require highcharts/highcharts
