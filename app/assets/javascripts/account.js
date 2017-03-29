@@ -96,6 +96,7 @@ $(document).ready(function() {
   });
 
   $('[data-toggle="tooltip"]').tooltip({
+    container : 'body',
     title: function() {
       return $(this).attr('text') + ' ' + $.timeago($(this).attr('time'))
     }
