@@ -78,3 +78,4 @@ fr:
   binets: Binets
   binets_positive: Binets à rembourser (au plus vite)
   binets_negative: Binets qui nous doivent de l'argent !!!
+  last_transaction: Dernière transaction

@@ -12,11 +12,10 @@
       </thead>
       <tbody>
         <% v.each do |binet| %>
-        <% next if binet.id == 1 %>
-        <tr>
-          <td><a href="/account/<%= binet.trigramme %>"><%= binet.trigramme %></a></td>
-          <td><%= binet.first_name %> <%= binet.name %></td>
-          <td><%= number_with_precision(binet.balance / 100.0, strip_insignificant_zeros: true, significant: false, precision: 2, delimiter: ' ') %></td>
+        <tr <% if binet[:last_transaction] && binet[:last_transaction] < Time.now - 1.year %>class="danger"<% end %> data-toggle="tooltip" text="<%= I18n.t(:last_transaction) %>" time="<%= binet[:last_transaction] %>">
+          <td><a href="/account/<%= binet[:trigramme] %>"><%= binet[:trigramme] %></a></td>
+          <td><%= binet[:full_name] %></td>
+          <td ><%= number_with_precision(binet[:budget], strip_insignificant_zeros: true, significant: false, precision: 2, delimiter: ' ') %></td>
         </tr>
         <% end %>
       </tbody>

@@ -94,4 +94,10 @@ $(document).ready(function() {
       return false;
     }
   });
+
+  $('[data-toggle="tooltip"]').tooltip({
+    title: function() {
+      return $(this).attr('text') + ' ' + $.timeago($(this).attr('time'))
+    }
+  });
 })
