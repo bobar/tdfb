@@ -1,6 +1,7 @@
 <tr>
   <td><%= number_with_precision(transaction.price / 100.0, strip_insignificant_zeros: true, significant: false, precision: 2, delimiter: ' ') %></td>
-  <td><%= transaction.receiver.try(:trigramme) %></td>
+  <% bank_trigramme = transaction.receiver.try(:trigramme) %>
+  <td><%= bank_trigramme == 'BOB' ? '' : bank_trigramme %></td>
   <td><%= transaction.administrator.try(:trigramme) %></td>
   <td><%= transaction.comment %></td>
   <td>
