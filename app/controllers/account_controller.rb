@@ -110,13 +110,14 @@ class AccountController < ApplicationController
   end
 
   def binets
+    last_transactions = Transaction.group(:id).maximum(:date)
     binets = Account.binet.order(balance: :desc).map do |bin|
       next if bin.id == 1 || bin.balance == 0
       {
         full_name: bin.full_name,
         trigramme: bin.trigramme,
         budget: bin.budget,
-        last_transaction: Transaction.where("id = #{bin.id} OR id2 = #{bin.id}").maximum(:date),
+        last_transaction: last_transactions[bin.id],
       }
     end.compact
     @binets_positive = binets.select { |b| b[:budget] > 0 }
