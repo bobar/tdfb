@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'binets' => :binets
     get 'search' => :search
     get 'new' => :new
+    get 'filter' => :filter
     get ':id' => :show
     post 'create' => :create
     post ':id' => :update

@@ -80,3 +80,10 @@ fr:
   binets_positive: Binets à rembourser (au plus vite)
   binets_negative: Binets qui nous doivent de l'argent !!!
   last_transaction: Dernière transaction
+  id: Id
+  frankiz_id: Id Frankiz
+  casert: Casert
+  status: Status
+  mail: Mail
+  turnover: Chiffre d'affaire
+  total_clopes: Total Clopes
