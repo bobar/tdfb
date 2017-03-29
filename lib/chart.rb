@@ -85,7 +85,7 @@ module Chart
   def self.heat_map(days, chart_global)
     data = (0..6).map { |day| (0..23).map { |hour| [hour, day, 0] } }
     Transaction.where('date > ?', Time.current - days.days).each do |t|
-      data[t.date.wday - 1][t.date.utc.hour][2] += 1
+      data[t.date.wday - 1][t.date.hour][2] += 1
     end
     data = data.flatten(1)
     data.each { |item| item[2] = (item[2] / 2).to_i }
