@@ -75,3 +75,6 @@ fr:
   picture: Image
   delete: Supprimer
   confirm_delete: Attention ! Opération irréversible alors pas de Jean-Jacques !
+  binets: Binets
+  binets_positive: Binets à rembourser (au plus vite)
+  binets_negative: Binets qui nous doivent de l'argent !!!

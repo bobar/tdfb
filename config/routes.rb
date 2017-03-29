@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'switch_theme' => 'application#switch_theme'
 
   controller :account, path: 'account' do
+    get 'binets' => :binets
     get 'search' => :search
     get 'new' => :new
     get ':id' => :show

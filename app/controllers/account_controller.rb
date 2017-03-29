@@ -109,6 +109,11 @@ class AccountController < ApplicationController
     redirect_to_trigramme(account.id)
   end
 
+  def binets
+    @binets_positive = Account.where(status: 2).where('balance > 0').order(balance: :desc)
+    @binets_negative = Account.where(status: 2).where('balance < 0').order(balance: :asc)
+  end
+
   private
 
   def render_redirect_to
