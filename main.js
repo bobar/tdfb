@@ -11,8 +11,12 @@ var authWindow = require('./authWindow');
 let mainWindow;
 
 function createWindow (railsApp, railsAddr) {
-  const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize
-  mainWindow = new BrowserWindow({width, height})
+  const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
+  mainWindow = new BrowserWindow({width: width, height: height, show: false});
+
+  mainWindow.once('ready-to-show', function() {
+    mainWindow.show();
+  });
 
   mainWindow.loadURL('http://localhost:2626');
 
