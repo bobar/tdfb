@@ -5,7 +5,7 @@
 </div>
 <br>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-7">
     <table class="table table-condensed table-bordered table-striped table-hover">
       <thead class="text-center">
         <tr>
@@ -29,7 +29,12 @@
         <% @fkz_polytechniciens.each do |fkz_promo| %>
           <tr>
             <td><%= fkz_promo[:promo] %></td>
-            <td><%= fkz_promo[:count] %></td>
+            <td>
+              <%= fkz_promo[:count] %>
+              <% unless @running %>
+                <a class="refresh-promo" promo="<%= fkz_promo[:promo] %>"><%= I18n.t(:refresh) %></a>
+              <% end %>
+            </td>
             <td><%= @accounts_x.map { |e| e[:count] if e[:promo] == fkz_promo[:promo].to_i }.compact.sum('') %></td>
             <td><%= @accounts_x.find { |e| e[:promo] == fkz_promo[:promo].to_i && e[:has_frankiz] == 1 }.try(:[], :count) %></td>
             <td><%= @accounts_x.find { |e| e[:promo] == fkz_promo[:promo].to_i && e[:has_frankiz] == 0 }.try(:[], :count) %></td>
@@ -42,9 +47,8 @@
     </table>
   </div>
 
-  <div class="col-md-6">
-    <h3><%= I18n.t(:crawl_frankiz) %></h3>
-    <% if system('ps aux | grep -v grep | grep "bin/rake frankiz:crawl"') %>
+  <div class="col-md-5">
+    <% if @running %>
       <script>
         setTimeout(function(){ window.location.reload(); }, 3000);
       </script>
@@ -52,18 +56,29 @@
         <div class="col-md-12">
           <pre>
 <%= I18n.t(:crawl_running) %>
-<%= `cat /tmp/frankiz.log`.split("\r").last.to_s.strip %></pre>
+<%= @output %></pre>
+        </div>
+        <div class="col-md-12 text-center">
+          <%= bootstrap_form_tag(remote: true, url: '/frankiz/stop', method: :post) do |f| %>
+            <%= f.submit I18n.t(:stop), class: 'btn btn-danger' %>
+          <% end %>
         </div>
       </div>
     <% else %>
       <%= bootstrap_form_tag(
-            remote: true, url: "/frankiz/crawl", method: :post, layout: :inline, html: { autocomplete: 'off' }) do |f| %>
+            remote: true, url: "/frankiz/crawl", method: :post, layout: :inline, html: { autocomplete: 'off', id: 'frankiz-form' }) do |f| %>
         <div class="row low-padding">
           <div class="col-md-6">
             <%= f.text_field(:username, hide_label: true, placeholder: I18n.t(:frankiz_username)) %>
           </div>
           <div class="col-md-6">
-            <%= f.password_field(:password, hide_label: true, placeholder: I18n.t(:frankiz_password), append: f.primary(I18n.t(:go))) %>
+            <%= f.password_field(:password, hide_label: true, placeholder: I18n.t(:frankiz_password)) %>
+          </div>
+        </div>
+        <br>
+        <div class="row low-padding">
+          <div class="col-md-12 text-center">
+            <%= f.primary(I18n.t(:crawl_frankiz)) %>
           </div>
         </div>
       <% end %>

@@ -35,7 +35,9 @@ Rails.application.routes.draw do
 
   controller :frankiz, path: 'frankiz' do
     get '/' => :index
+    post '/stop' => :stop
     post '/crawl' => :start_crawling
+    post '/refresh_promo' => :refresh_promo
   end
 
   controller :clopes, path: 'clopes' do
