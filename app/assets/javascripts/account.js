@@ -102,7 +102,7 @@ $(document).ready(function() {
     }
   });
 
-  var ranges = ['id', 'frankiz_id', 'birthdate', 'casert', 'status', 'promo', 'budget', 'turnover']
+  var ranges = ['id', 'frankiz_id', 'birthdate', 'status', 'promo', 'budget', 'turnover']
   var filters = $('#table-filter th').map(function(i, th) {
     var field = $(th).attr('data-field');
     return {
@@ -118,9 +118,6 @@ $(document).ready(function() {
       var data = $('#filter-bar').bootstrapTableFilter('getData');
     }
   });
-  $('#filter-bar').bootstrapTableFilter('setupFilter', 'trigramme');
-  $('#filter-bar').bootstrapTableFilter('setupFilter', 'name');
-  $('#filter-bar').bootstrapTableFilter('setupFilter', 'first_name');
   var year = new Date().getFullYear() - 2;
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'promo', { eq: year });
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'casert');
@@ -129,4 +126,5 @@ $(document).ready(function() {
 
 $(document).on('ready page:load', function () {
   $('#filter-bar').submit();
+  $('#filter-bar').bootstrapTableFilter('toggleRefreshButton', false);
 })

@@ -33,8 +33,6 @@ form.form-inline {
 }
 
 // bootstrap-table-filter
-.dropdown-menu li>span {
-  display: block;
-  padding: 1px 10px;
-  clear: both;
+.fixed-table-toolbar .dropdown-menu {
+  max-height: none !important;
 }

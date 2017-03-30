@@ -19,10 +19,10 @@
 //= require bootstrap-filestyle
 //= require bootstrap-sprockets
 //= require bootstrap-table
-//= require bootstrap-table-filter-extension
+//= require extensions/bootstrap-table-export
+//= require extensions/bootstrap-table-filter
 //= require bootstrap-table-filter
 //= require bs-table
-//= require extensions/bootstrap-table-export
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/modules/heatmap
