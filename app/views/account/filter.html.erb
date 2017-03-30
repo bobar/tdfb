@@ -1,15 +1,13 @@
 <table id="table-filter"
-       data-toggle="table"
        data-classes="table table-hover"
-       data-search="true"
-       data-show-refresh="true"
-       data-show-toggle="true"
-       data-show-columns="true"
-       data-show-pagination-switch="true"
-       data-pagination="true"
-       data-page-size="100"
        data-page-list="[10, 25, 100, ALL]"
-       data-show-export="true">
+       data-page-size="100"
+       data-pagination="true"
+       data-search="true"
+       data-show-columns="true"
+       data-show-export="true"
+       data-show-pagination-switch="true"
+       data-toggle="table">
   <thead>
     <tr>
       <% @columns.each do |column| %>
@@ -25,7 +23,7 @@
     <% @accounts.each do |account| %>
       <tr>
         <% @columns.each do |column| %>
-          <td><%= account[column] %></td>
+          <td><%= account.send(column.to_sym) %></td>
         <% end %>
       </tr>
     <% end %>
