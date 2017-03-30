@@ -1,13 +1,17 @@
+<div id="filter-bar"></div>
 <table id="table-filter"
+       data-toggle="table"
        data-classes="table table-hover"
-       data-page-list="[10, 25, 100, ALL]"
-       data-page-size="100"
-       data-pagination="true"
+       data-toolbar="#filter-bar"
        data-search="true"
+       data-show-refresh="true"
+       data-show-toggle="true"
        data-show-columns="true"
-       data-show-export="true"
        data-show-pagination-switch="true"
-       data-toggle="table">
+       data-page-size="100"
+       data-page-list="[10, 25, 100, ALL]"
+       data-show-export="true"
+       data-show-filter="true">
   <thead>
     <tr>
       <% @columns.each do |column| %>

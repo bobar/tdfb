@@ -19,6 +19,9 @@
 //= require bootstrap-filestyle
 //= require bootstrap-sprockets
 //= require bootstrap-table
+//= require bootstrap-table-filter-extension
+//= require bootstrap-table-filter
+//= require bs-table
 //= require extensions/bootstrap-table-export
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
