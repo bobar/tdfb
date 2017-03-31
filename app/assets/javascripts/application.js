@@ -20,7 +20,7 @@
 //= require bootstrap-sprockets
 //= require bootstrap-table
 //= require extensions/bootstrap-table-export
-//= require extensions/bootstrap-table-filter
+//= require bootstrap-table-filter-extension
 //= require bootstrap-table-filter
 //= require bs-table
 //= require highcharts/highcharts
