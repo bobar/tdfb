@@ -29,7 +29,7 @@ $(document).ready(function() {
   bind('+', function() {
     $('#credit-form #amount').focus();
   });
-  bind('ctrl+c', function() {
+  bind('ctrl+w', function() {
     $('#clopes-form #_clope_id').focus();
   });
   bind('ctrl+t', function() {
