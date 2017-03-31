@@ -90,7 +90,13 @@ module Chart
     data = data.flatten(1)
     data.each { |item| item[2] = (item[2] / 2).to_i }
     background = chart_global.options[:chart]['backgroundColor']
-    background_color = background.nil? ? '#FFFFFF' : background['stops'][0][1]
+    background_color = if background.nil?
+                         '#FFFFFF'
+                       elsif background.class == String
+                         background
+                       else
+                         background['stops'][0][1]
+                       end
     LazyHighCharts::HighChart.new('graph') do |f|
       f.chart(type: 'heatmap')
       f.title(text: I18n.t(:heat_map_title, days: days))
@@ -103,8 +109,8 @@ module Chart
     end
   end
 
-  def self.theme(theme)
-    filename = %w(darkly slate solar).include?(theme) ? 'dark_unica' : 'grid_light'
+  def self.theme(chart_theme, theme)
+    filename = chart_theme || (%w(darkly slate solar).include?(theme) ? 'dark_unica' : 'grid_light')
     file = File.read(Rails.root.join('app', 'assets', 'stylesheets', 'highcharts_themes', filename + '.json'))
     json = JSON.parse(file)
     LazyHighCharts::HighChartGlobals.new do |f|
