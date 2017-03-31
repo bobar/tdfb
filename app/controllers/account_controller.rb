@@ -29,7 +29,7 @@ class AccountController < ApplicationController
     amount = params[:amount].to_f
     fail TdbException, 'Amount must be positive!' if amount < 0
     require_admin!(:log_eleve) if amount > 20 || (!@account.x_platal? && @account.budget < amount)
-    Transaction.log(@account, Account.default_bank, amount, comment: params[:comment], admin: @admin)
+    Transaction.log(@account, @bank, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end
 
@@ -40,7 +40,7 @@ class AccountController < ApplicationController
     require_admin!(:credit)
     comment = params[:commit]
     comment += " - #{params[:comment]}" if params[:comment] && !params[:comment].empty?
-    Transaction.log(@account, @bank, -amount, comment: comment, admin: @admin)
+    Transaction.log(@account, Account.default_bank, -amount, comment: comment, admin: @admin)
     render_redirect_to
   end
 
