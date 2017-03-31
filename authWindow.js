@@ -6,17 +6,18 @@ const path = require('path');
 
 module.exports = { createAuthWindow: function(mainWindow, loginCallback) {
     var loginWindow = new BrowserWindow({
-        alwaysOnTop: true,
         frame: false,
         height: 250,
         modal: true,
         parent: mainWindow,
         movable: false,
         resizable: false,
+        show: false,
         width: 200,
     });
 
-    loginWindow.once('show', function() {
+    loginWindow.once('ready-to-show', function() {
+        loginWindow.show();
         loginWindow.focus();
         loginWindow.webContents.executeJavaScript("\
             var ipcRenderer = require('electron').ipcRenderer;\

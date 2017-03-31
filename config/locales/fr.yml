@@ -47,7 +47,7 @@ fr:
   credit: Créditer
   cigarettes: Clopes
   go: Go !
-  crawl_frankiz: Crawler frankiz
+  crawl_frankiz: Crawler frankiz (nouveaux comptes)
   crawl_running: Crawling de Frankiz en cours
   save: Enregistrer
   admin: Admin
@@ -88,3 +88,5 @@ fr:
   mail: Mail
   turnover: Chiffre d'affaire
   total_clopes: Total Clopes
+  refresh: Rafraîchir
+  stop: Stop

@@ -26,8 +26,17 @@ namespace :frankiz do
     end
   end
 
-  task :update_accounts, [:promo] => :environment do |_, args|
-    User.where(promo: args[:promo]).each { |u| u.update_account(true) }
+  task :refresh_promo, [:promo] => :environment do |_, args|
+    username = ENV['fkz_user'] || user_prompt('Frankiz login? ')
+    password = ENV['fkz_pass'] || user_prompt('Frankiz password? ', secret: true)
+    fkz = FrankizCrawler.new(username, password)
+    users = User.where(promo: args[:promo])
+    progress_bar(0, users.size)
+    users.each_with_index do |u, idx|
+      fkz.get(u.frankiz_id, true)
+      u.update_account(true)
+      progress_bar(idx + 1, users.size, detail: "Refreshing frankiz user #{u.frankiz_id}")
+    end
   end
 
   task :associate_accounts, [:promo] => :environment do |_, args|
