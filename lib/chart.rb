@@ -24,7 +24,7 @@ module Chart
 
   def self.best_consumers(days, bank)
     consumers = Transaction.select('trigramme, SUM(ABS(price)) as sum')
-      .joins(:payer)
+      .joins(:buyer)
       .where.not(accounts: { status: 2 })
       .where.not(id: bank.id)
       .where(id2: bank.id)

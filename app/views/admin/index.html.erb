@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-5">
+    <h2><%= I18n.t(:admins) %></h2>
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <td><%= I18n.t(:trigramme) %></td>
+          <td><%= I18n.t(:promo) %></td>
+          <td><%= I18n.t(:name) %></td>
+          <td><%= I18n.t(:status) %></td>
+          <td><%= I18n.t(:delete) %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @admins %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-7">
+    <h2><%= I18n.t(:rights) %></h2>
+    <%= bootstrap_form_tag(url: "/rights", method: :post) do |f| %>
+      <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <td></td>
+            <% @rights.each do |right| %>
+              <td><%= right.nom %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td></td>
+            <% @rights.each do |right| %>
+              <td>
+                <button class="btn btn-danger delete-rights" permissions="<%= right.permissions %>">
+                  <%= I18n.t(:delete) %>
+                </button>
+              </td>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% Right.right_columns.each do |col| %>
+          <tr>
+            <td><%= I18n.t("_rights.#{col}") %></td>
+            <% @rights.each do |right| %>
+              <td>
+                <input type="checkbox"
+                       name="<%= right.permissions %>.<%= col %>"
+                       <%= 'checked' if right[col] %>>
+              </td>
+            <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="text-right">
+        <%= f.primary I18n.t(:create) %>
+      </div>
+    <% end %>
+
+    <br>
+
+    <h2><%= I18n.t(:new_rights) %></h2>
+
+    <%= bootstrap_form_tag(url: "/rights/new", method: :post, inline: true) do |f| %>
+      <%= f.text_field(:name, hide_label: true, placeholder: I18n.t(:name), append: f.primary(I18n.t(:save))) %>
+    <% end %>
+  </div>
+</div>

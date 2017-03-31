@@ -1,0 +1,11 @@
+<tr>
+  <td><%= admin.account.trigramme %></td>
+  <td><%= admin.account.promo %></td>
+  <td><%= admin.account.full_name %></td>
+  <td><%= admin.right.nom %></td>
+  <td>
+    <%= bootstrap_form_tag(url: "/admin/#{admin.id}", method: :delete) do |f| %>
+      <%= f.submit I18n.t(:delete), class: 'btn btn-danger', data: { confirm: I18n.t(:confirm_delete) } %>
+    <% end %>
+  </td>
+</tr>

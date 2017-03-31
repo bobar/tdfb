@@ -8,4 +8,44 @@ class AdminController < ApplicationController
     session[:bank] = account.trigramme
     redirect_to_trigramme(account.trigramme)
   end
+
+  def index
+    require_admin!(:gestion_admin)
+    @admins = Admin.includes(:account).includes(:right).order(:permissions).all
+    @rights = Right.order(:permissions).all
+  end
+
+  def delete_admin
+    require_admin!(:gestion_admin)
+    Admin.find(params[:id]).delete
+    redirect_to_url '/admins'
+  end
+
+  def update_rights
+    require_admin!(:gestion_admin)
+    Right.transaction do
+      Right.all.each do |right|
+        right.update(
+          Right.right_columns.map do |col|
+            [col, (params["#{right.permissions}.#{col}"] == 'on')]
+          end.to_h,
+        )
+      end
+    end
+    redirect_to_url '/admins'
+  end
+
+  def create_rights
+    require_admin!(:gestion_admin)
+    Right.create(nom: params[:name].strip, permissions: 1 + Right.maximum(:permissions).to_i)
+    redirect_to_url '/admins'
+  end
+
+  def delete_rights
+    require_admin!(:gestion_admin)
+    permissions = params[:permissions].to_i
+    fail TdbException, 'Those rights are in use' if Admin.exists?(permissions: permissions)
+    Right.where(permissions: permissions).delete_all
+    redirect_to_url '/admins'
+  end
 end

@@ -51,6 +51,7 @@ fr:
   crawl_running: Crawling de Frankiz en cours
   save: Enregistrer
   admin: Admin
+  admins: Comptes admin
   administration: Administration
   brand: Marque
   price_cents: Prix (en centimes)
@@ -84,7 +85,7 @@ fr:
   id: Id
   frankiz_id: Id Frankiz
   casert: Casert
-  status: Status
+  status: Statut
   mail: Mail
   turnover: Chiffre d'affaire
   total_clopes: Total Clopes
@@ -92,3 +93,22 @@ fr:
   stop: Stop
   cancel: Annuler
   transaction_cancelled_comment: (Annulée, valait %{amount} €)
+  new_rights: Nouveaux droits
+  rights: Droits
+  _rights:
+    log_eleve: Log > 20 €
+    credit: Créditer
+    log_groupe: Log groupé
+    transfert: Transfert
+    creer_tri: Créer un compte
+    modifier_tri: Modifier un compte
+    supprimer_tri: Supprimer un compte
+    somme_tri: Vérifier somme = 0
+    voir_comptes: Voir/filtrer les comptes
+    debit_fichier: Débiter un fichier
+    export: Exports
+    reinitialiser: Réinitialisation
+    super_admin: Mode super-admin
+    banque_binet: Ouvrir un binet
+    gestion_clopes: Gérer les clopes
+    gestion_admin: Gérer les admins
