@@ -11,6 +11,7 @@ fr:
   login: Connection
   more_money: Plus de thunes !
   password: Mot de passe
+  password_again: Mot de passe (confirmation)
   pay: Paye, bâtard !
   price: Prix
   receiver: Bénéficiaire
@@ -91,6 +92,7 @@ fr:
   total_clopes: Total Clopes
   refresh: Rafraîchir
   stop: Stop
+  create_admin: Ajouter un admin
   cancel: Annuler
   transaction_cancelled_comment: (Annulée, valait %{amount} €)
   new_rights: Nouveaux droits

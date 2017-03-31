@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class AdminController < ApplicationController
   def set_bank
     account = Account.find_by(trigramme: params[:trigramme].upcase)
@@ -11,8 +13,16 @@ class AdminController < ApplicationController
 
   def index
     require_admin!(:gestion_admin)
-    @admins = Admin.includes(:account).includes(:right).order(:permissions).all
+    @admins = Admin.joins(:account).includes(:account).includes(:right).order('admins.permissions, accounts.promo').all
     @rights = Right.order(:permissions).all
+  end
+
+  def create_admin
+    account = Account.find_by(trigramme: params[:trigramme])
+    fail TdbException, 'Trigramme doesn\'t exists' unless account
+    fail TdbException, 'Passwords don\'t match' unless params[:password] == params[:password_again]
+    Admin.create(id: account.id, permissions: params[:permissions], passwd: Digest::MD5.hexdigest(params[:password]))
+    redirect_to_url '/admins'
   end
 
   def delete_admin

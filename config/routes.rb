@@ -34,9 +34,10 @@ Rails.application.routes.draw do
   controller :admin do
     post 'bank/:trigramme' => :set_bank
     get 'admins' => :index
-    delete 'admin/:id' => :delete_admin
     post 'rights' => :update_rights
     post 'rights/new' => :create_rights
+    post 'admin/new' => :create_admin
+    delete 'admin/:id' => :delete_admin
     delete '/rights' => :delete_rights
   end
 
