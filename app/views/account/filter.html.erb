@@ -1,0 +1,33 @@
+<div id="filter-bar"></div>
+<table id="table-filter"
+       data-toggle="table"
+       data-classes="table table-hover"
+       data-toolbar="#filter-bar"
+       data-search="true"
+       data-show-columns="true"
+       data-show-pagination-switch="true"
+       data-page-size="100"
+       data-page-list="[10, 25, 100, ALL]"
+       data-show-export="true"
+       data-show-filter="true">
+  <thead>
+    <tr>
+      <% @columns.each do |column| %>
+        <th data-field="<%= column %>"
+            data-sortable="true"
+            <% unless @visible_columns.include?(column) %>data-visible="false"<% end %>>
+          <%= I18n.t(column) %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <% @columns.each do |column| %>
+          <td><%= account.send(column.to_sym) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

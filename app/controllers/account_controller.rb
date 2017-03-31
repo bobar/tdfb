@@ -124,6 +124,12 @@ class AccountController < ApplicationController
     @binets_negative = binets.select { |b| b[:budget] < 0 }.reverse!
   end
 
+  def filter
+    @accounts = Account.all
+    @columns = Account.columns.map(&:name) - ['balance'] + ['budget']
+    @visible_columns = %w(trigramme name first_name casert promo budget)
+  end
+
   private
 
   def render_redirect_to

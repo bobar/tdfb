@@ -18,9 +18,15 @@
 //= require bootstrap-datepicker
 //= require bootstrap-filestyle
 //= require bootstrap-sprockets
+//= require bootstrap-table
+//= require extensions/bootstrap-table-export
+//= require extensions/bootstrap-table-filter
+//= require bootstrap-table-filter
+//= require bs-table
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/modules/heatmap
+//= require tableExport.min
 
 function isPositiveNumber(value) {
   return new RegExp('^(\\d+(\\.\\d*)?|\\.\\d+)$').test(value);

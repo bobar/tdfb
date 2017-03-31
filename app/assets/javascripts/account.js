@@ -101,4 +101,30 @@ $(document).ready(function() {
       return $(this).attr('text') + ' ' + $.timeago($(this).attr('time'))
     }
   });
+
+  var ranges = ['id', 'frankiz_id', 'birthdate', 'status', 'promo', 'budget', 'turnover']
+  var filters = $('#table-filter th').map(function(i, th) {
+    var field = $(th).attr('data-field');
+    return {
+      field: field,
+      label: th.textContent,
+      type: ranges.includes(field) ? 'range' : 'search'
+    }
+  })
+  $('#filter-bar').bootstrapTableFilter({
+    connectTo: '#table-filter',
+    filters: filters,
+    onSubmit: function() {
+      var data = $('#filter-bar').bootstrapTableFilter('getData');
+    }
+  });
+  var year = new Date().getFullYear() - 2;
+  $('#filter-bar').bootstrapTableFilter('setupFilter', 'promo', { eq: year });
+  $('#filter-bar').bootstrapTableFilter('setupFilter', 'casert');
+  $('#filter-bar').bootstrapTableFilter('setupFilter', 'budget', { lte: -1 });
+})
+
+$(document).on('ready page:load', function () {
+  $('#filter-bar').submit();
+  $('#filter-bar').bootstrapTableFilter('toggleRefreshButton', false);
 })
