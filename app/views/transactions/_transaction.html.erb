@@ -1,4 +1,15 @@
 <tr>
+  <td class="text-center">
+    <% if transaction.price != 0 %>
+      <a class="cancel-transaction"
+         t-id="<%= transaction.id %>"
+         t-id2="<%= transaction.id2 %>"
+         t-date="<%= transaction.date %>"
+         t-price="<%= transaction.price %>">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      </a>
+    <% end %>
+  </td>
   <td><%= number_with_precision(transaction.price / 100.0, strip_insignificant_zeros: true, significant: false, precision: 2, delimiter: ' ') %></td>
   <% bank_trigramme = transaction.receiver.try(:trigramme) %>
   <td><%= bank_trigramme == 'BOB' ? '' : bank_trigramme %></td>
@@ -12,16 +23,5 @@
       datetime="<%= transaction.date %>">
       <%= transaction.date.strftime('%F %T') %>
     </time>
-  </td>
-  <td class="text-right">
-    <% if transaction.price != 0 %>
-      <a class="cancel-transaction"
-         t-id="<%= transaction.id %>"
-         t-id2="<%= transaction.id2 %>"
-         t-date="<%= transaction.date %>"
-         t-price="<%= transaction.price %>">
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-      </a>
-    <% end %>
   </td>
 </tr>
