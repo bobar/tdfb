@@ -13,14 +13,14 @@
       <%= transaction.date.strftime('%F %T') %>
     </time>
   </td>
-  <td>
+  <td class="text-right">
     <% if transaction.price != 0 %>
       <a class="cancel-transaction"
          t-id="<%= transaction.id %>"
          t-id2="<%= transaction.id2 %>"
          t-date="<%= transaction.date %>"
          t-price="<%= transaction.price %>">
-        x
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
       </a>
     <% end %>
   </td>
