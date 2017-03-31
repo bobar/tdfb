@@ -10,15 +10,16 @@ Rails.application.routes.draw do
     get 'search' => :search
     get 'new' => :new
     get 'filter' => :filter
-    get ':id' => :show
-    post 'create' => :create
-    post ':id' => :update
     get 'exists/:trigramme' => :exists
     get 'details/:trigramme' => :details
+    get ':id' => :show
+    post 'create' => :create
+    post 'cancel_transaction' => :cancel_transaction
     post 'log/:id' => :log
     post 'credit/:id' => :credit
     post 'clopes/:id' => :clopes
     post 'transfer/:id' => :transfer
+    post ':id' => :update
   end
 
   controller :user, path: 'user' do

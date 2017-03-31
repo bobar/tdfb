@@ -29,7 +29,7 @@ class AccountController < ApplicationController
     amount = params[:amount].to_f
     fail TdbException, 'Amount must be positive!' if amount < 0
     require_admin!(:log_eleve) if amount > 20 || (!@account.x_platal? && @account.budget < amount)
-    Transaction.log(@account, @bank, amount, comment: params[:comment], admin: @admin)
+    Transaction.log(@account, Account.default_bank, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end
 
@@ -128,6 +128,16 @@ class AccountController < ApplicationController
     @accounts = Account.all
     @columns = Account.columns.map(&:name) - ['balance'] + ['budget']
     @visible_columns = %w(trigramme name first_name casert promo budget)
+  end
+
+  def cancel_transaction
+    date = Time.zone.parse(params[:date])
+    transaction = Transaction.find_by(id: params[:id], id2: params[:id2], price: params[:price], date: date)
+    reverse = Transaction.find_by(id: params[:id2], id2: params[:id], price: -params[:price].to_i, date: date)
+    fail TdbException, 'Cannot find this transaction' unless transaction && reverse
+    require_admin!(:credit) if date < Time.current - 1.minute
+    transaction.cancel(reverse)
+    render_redirect_to
   end
 
   private

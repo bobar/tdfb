@@ -90,3 +90,5 @@ fr:
   total_clopes: Total Clopes
   refresh: Rafraîchir
   stop: Stop
+  cancel: Annuler
+  transaction_cancelled_comment: (Annulée, valait %{amount} €)

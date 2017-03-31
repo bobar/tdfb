@@ -1,5 +1,4 @@
 class Transaction < ActiveRecord::Base
-  belongs_to :payer, class_name: :Account, foreign_key: :id
   belongs_to :receiver, class_name: :Account, foreign_key: :id2
   belongs_to :administrator, class_name: :Account, foreign_key: :admin
   self.per_page = 25
@@ -29,5 +28,33 @@ class Transaction < ActiveRecord::Base
     return if updates.empty?
     comment = 'Account updated: ' + updates.join(', ')
     create(id: account.id, id2: account.id, price: 0, comment: comment, admin: admin.try(:id), date: Time.current)
+  end
+
+  def cancel(reverse) # Reverse is the opposite transaction
+    payer = Account.find_by(id: id)
+    self.class.transaction do
+      payer.balance -= price
+      payer.turnover += price if price < 0
+
+      receiver.balance += price
+      receiver.turnover -= price if price > 0
+
+      new_comment = comment || ''
+      new_comment += ' ' unless new_comment.empty?
+      new_comment += I18n.t(:transaction_cancelled_comment, amount: price / 100.0)
+      self.class.where(date: date, id: id, id2: id2, price: price).update_all(
+        "price = 0, comment = #{self.class.connection.quote(new_comment)}",
+      )
+
+      new_comment = reverse.comment || ''
+      new_comment += ' ' unless new_comment.empty?
+      new_comment += I18n.t(:transaction_cancelled_comment, amount: -price / 100.0)
+      self.class.where(date: date, id: id2, id2: id, price: -price).update_all(
+        "price = 0, comment = #{self.class.connection.quote(new_comment)}",
+      )
+
+      payer.save
+      receiver.save
+    end
   end
 end
