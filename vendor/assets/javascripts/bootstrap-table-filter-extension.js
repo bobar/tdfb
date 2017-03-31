@@ -33,7 +33,7 @@
 
         if (this.options.sidePagination !== 'server') {
             if (typeof this.searchCallback === 'function') {
-                this.data = $.grep(this.options.data, this.searchCallback);
+                this.data = $.grep(this.data, this.searchCallback);
             }
         }
     };
