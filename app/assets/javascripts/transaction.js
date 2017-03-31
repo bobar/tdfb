@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function buttonCancelTransation() {
   $('.cancel-transaction').click(function(event) {
     $.ajax({
       data: {
@@ -12,4 +12,8 @@ $(document).ready(function() {
       url: '/account/cancel_transaction',
     });
   });
+}
+
+$(document).ready(function() {
+  buttonCancelTransation();
 });
