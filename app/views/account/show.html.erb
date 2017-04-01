@@ -25,7 +25,7 @@
         </h1>
         <div class="collapse text-right" id="trigrammeCollapse">
           <%= bootstrap_form_tag(
-                remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,
+                remote: true, url: "/account/#{@account.id}", method: :post,
                 html: { autocomplete: 'off', id: 'trigramme-form' }) do |f| %>
             <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
             <%= f.select(

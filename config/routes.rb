@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   controller :admin do
     post 'bank/:trigramme' => :set_bank
     get 'admins' => :index
+    post 'admin/change_password' => :change_password
     post 'rights' => :update_rights
     post 'rights/new' => :create_rights
     post 'admin/edit/:id' => :update_admin

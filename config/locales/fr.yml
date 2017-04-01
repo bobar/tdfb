@@ -97,6 +97,9 @@ fr:
   transaction_cancelled_comment: (Annulée, valait %{amount} €)
   new_rights: Nouveaux droits
   rights: Droits
+  change_my_password: Changer mon mot de passe
+  new_password: Nouveau mot de passe
+  new_password_again: Nouveau mot de passe (confirmation)
   _rights:
     log_eleve: Log > 20 €
     credit: Créditer

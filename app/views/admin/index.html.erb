@@ -18,8 +18,31 @@
   </div>
 
   <div class="col-md-7">
+    <h2><%= I18n.t(:change_my_password) %></h2>
+    <%= bootstrap_form_tag(remote: true, url: "/admin/change_password", method: :post, inline: true) do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
+        </div>
+        <div class="col-md-6">
+          <%= f.password_field(:password, hide_label: true, placeholder: I18n.t(:password)) %>
+        </div>
+        <div class="col-md-6">
+          <%= f.password_field(:new_password, hide_label: true, placeholder: I18n.t(:new_password)) %>
+        </div>
+        <div class="col-md-6">
+          <%= f.password_field(:new_password_again, hide_label: true, placeholder: I18n.t(:new_password_again)) %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <%= f.primary I18n.t(:create) %>
+        </div>
+      </div>
+    <% end %>
+
     <h2><%= I18n.t(:create_admin) %></h2>
-    <%= bootstrap_form_tag(url: "/admin/new", method: :post, inline: true) do |f| %>
+    <%= bootstrap_form_tag(remote: true, url: "/admin/new", method: :post, inline: true) do |f| %>
       <div class="row">
         <div class="col-md-6">
           <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
@@ -44,7 +67,7 @@
     <br>
 
     <h2><%= I18n.t(:rights) %></h2>
-    <%= bootstrap_form_tag(url: "/rights", method: :post) do |f| %>
+    <%= bootstrap_form_tag(remote: true, url: "/rights", method: :post) do |f| %>
       <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
           <tr>
@@ -88,7 +111,7 @@
 
     <h2><%= I18n.t(:new_rights) %></h2>
 
-    <%= bootstrap_form_tag(url: "/rights/new", method: :post, inline: true) do |f| %>
+    <%= bootstrap_form_tag(remote: true, url: "/rights/new", method: :post, inline: true) do |f| %>
       <%= f.text_field(:name, hide_label: true, placeholder: I18n.t(:name), append: f.primary(I18n.t(:create))) %>
     <% end %>
   </div>

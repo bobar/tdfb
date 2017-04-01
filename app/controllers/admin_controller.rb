@@ -17,6 +17,15 @@ class AdminController < ApplicationController
     @rights = Right.order(:permissions).all
   end
 
+  def change_password
+    admin = Admin.joins(:account).includes(:account).find_by(accounts: { trigramme: params[:trigramme] })
+    fail TdbException, 'Trigramme isn\'t an admin' unless admin
+    fail TdbException, 'Wrong password' unless Digest::MD5.hexdigest(params[:password]) == admin.passwd
+    fail TdbException, 'Passwords don\'t match' unless params[:new_password] == params[:new_password_again]
+    admin.update(passwd: Digest::MD5.hexdigest(params[:new_password]))
+    redirect_to_url '/admins'
+  end
+
   def create_admin
     account = Account.find_by(trigramme: params[:trigramme])
     fail TdbException, 'Trigramme doesn\'t exists' unless account
