@@ -21,7 +21,16 @@ class AdminController < ApplicationController
     account = Account.find_by(trigramme: params[:trigramme])
     fail TdbException, 'Trigramme doesn\'t exists' unless account
     fail TdbException, 'Passwords don\'t match' unless params[:password] == params[:password_again]
+    require_admin!(:gestion_admin)
     Admin.create(id: account.id, permissions: params[:permissions], passwd: Digest::MD5.hexdigest(params[:password]))
+    redirect_to_url '/admins'
+  end
+
+  def update_admin
+    require_admin!(:gestion_admin)
+    admin = Admin.find_by(id: params[:id])
+    fail TdbException, 'Account is not an admin' unless admin
+    admin.update(permissions: params[:permissions])
     redirect_to_url '/admins'
   end
 

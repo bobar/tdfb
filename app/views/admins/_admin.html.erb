@@ -2,7 +2,18 @@
   <td><%= admin.account.trigramme %></td>
   <td><%= admin.account.promo %></td>
   <td><%= admin.account.full_name %></td>
-  <td><%= admin.right.nom %></td>
+  <td>
+    <%= admin.right.nom %>
+    <a data-toggle="collapse" href="#admin-collapse-<%= admin.id %>" aria-expanded="false">
+      <%= fa_icon "pencil-square-o" %>
+    </a>
+    <div class="collapse text-right" id="admin-collapse-<%= admin.id %>">
+      <%= bootstrap_form_tag(url: "/admin/edit/#{admin.id}", method: :post) do |f| %>
+        <%= f.select(:permissions, Right.all.map { |r| [r.nom, r.permissions] }, include_blank: true, hide_label: true) %>
+        <%= f.primary(I18n.t(:save)) %>
+      <% end %>
+    </div>
+  </td>
   <td>
     <%= bootstrap_form_tag(url: "/admin/#{admin.id}", method: :delete) do |f| %>
       <%= f.submit I18n.t(:delete), class: 'btn btn-xs btn-danger', data: { confirm: I18n.t(:confirm_delete) } %>

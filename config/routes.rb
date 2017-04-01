@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get 'admins' => :index
     post 'rights' => :update_rights
     post 'rights/new' => :create_rights
+    post 'admin/edit/:id' => :update_admin
     post 'admin/new' => :create_admin
     delete 'admin/:id' => :delete_admin
     delete '/rights' => :delete_rights
