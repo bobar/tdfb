@@ -31,7 +31,7 @@ class Transaction < ActiveRecord::Base
     create(id: account.id, id2: account.id, price: 0, comment: comment, admin: admin.try(:id), date: Time.current)
   end
 
-  def cancel(reverse) # Reverse is the opposite transaction
+  def cancel(reverse, admin) # Reverse is the opposite transaction
     payer = Account.find_by(id: id)
     self.class.transaction do
       payer.balance -= price
@@ -42,14 +42,22 @@ class Transaction < ActiveRecord::Base
 
       new_comment = comment || ''
       new_comment += ' ' unless new_comment.empty?
-      new_comment += I18n.t(:transaction_cancelled_comment, amount: price / 100.0)
+      new_comment += if admin
+                       I18n.t(:transaction_cancelled_admin, amount: price / 100.0, admin: admin.account.trigramme)
+                     else
+                       I18n.t(:transaction_cancelled_comment, amount: price / 100.0)
+                     end
       self.class.where(date: date, id: id, id2: id2, price: price).update_all(
         "price = 0, comment = #{self.class.connection.quote(new_comment)}",
       )
 
       new_comment = reverse.comment || ''
       new_comment += ' ' unless new_comment.empty?
-      new_comment += I18n.t(:transaction_cancelled_comment, amount: -price / 100.0)
+      new_comment += if admin
+                       I18n.t(:transaction_cancelled_admin, amount: -price / 100.0, admin: admin.account.trigramme)
+                     else
+                       I18n.t(:transaction_cancelled_comment, amount: -price / 100.0)
+                     end
       self.class.where(date: date, id: id2, id2: id, price: -price).update_all(
         "price = 0, comment = #{self.class.connection.quote(new_comment)}",
       )

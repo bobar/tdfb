@@ -95,6 +95,7 @@ fr:
   create_admin: Ajouter un admin
   cancel: Annuler
   transaction_cancelled_comment: (Annulée, valait %{amount} €)
+  transaction_cancelled_admin: (Annulée par %{admin}, valait %{amount} €)
   new_rights: Nouveaux droits
   rights: Droits
   change_my_password: Changer mon mot de passe

@@ -136,7 +136,7 @@ class AccountController < ApplicationController
     reverse = Transaction.find_by(id: params[:id2], id2: params[:id], price: -params[:price].to_i, date: date)
     fail TdbException, 'Cannot find this transaction' unless transaction && reverse
     require_admin!(:credit) if date < Time.current - 1.minute
-    transaction.cancel(reverse)
+    transaction.cancel(reverse, @admin)
     render_redirect_to
   end
 
