@@ -58,6 +58,18 @@ class Account < ActiveRecord::Base
     path.to_s.gsub(Rails.root.join('app', 'assets', 'images').to_s + '/', '')
   end
 
+  def fkz_picture
+    return if frankiz_id.nil?
+    user = User.find_by(frankiz_id: frankiz_id)
+    return unless user
+    return if user.picture.nil?
+    "https://www.frankiz.net/#{user.picture}"
+  end
+
+  def display_picture
+    local_picture || fkz_picture
+  end
+
   def possible_users
     return User.find_by(frankiz_id: frankiz_id) if frankiz_id
     # full name match?

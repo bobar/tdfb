@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-5 col-sm-push-7">
     <div class="row low-padding <%= 'alert alert-danger' if @account.age && @account.age < 18 %>">
-      <% if @account.local_picture %>
+      <% if @account.display_picture %>
         <div class="col-md-5">
       <% else %>
         <div class="col-md-12">
@@ -74,9 +74,9 @@
         </div>
         <h1 class="<%= 'text-danger' if @account.balance < 0 %>"><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
       </div>
-      <% if @account.local_picture %>
+      <% if @account.display_picture %>
         <div class="col-md-7 text-right">
-          <%= image_tag @account.local_picture, alt: @account.first_name, id: 'account-image' %>
+          <%= image_tag @account.display_picture, alt: @account.first_name, id: 'account-image' %>
         </div>
       <% end %>
     </div>
