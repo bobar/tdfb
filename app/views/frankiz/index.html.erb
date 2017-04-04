@@ -9,14 +9,14 @@
     <table class="table table-condensed table-bordered table-striped table-hover">
       <thead class="text-center">
         <tr>
-          <td><%= I18n.t(:promo) %></td>
-          <td><%= I18n.t(:frankiz) %></td>
+          <td colspan="4"></td>
           <td colspan="3"><%= I18n.t(:x) %></td>
           <td colspan="3"><%= I18n.t(:not_x) %></td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
+          <td><%= I18n.t(:promo) %></td>
+          <td><%= I18n.t(:frankiz) %></td>
+          <td colspan="2"><%= I18n.t(:last_update) %></td>
           <td><%= I18n.t(:total) %></td>
           <td><%= I18n.t(:with_frankiz) %></td>
           <td><%= I18n.t(:without_frankiz) %></td>
@@ -29,8 +29,13 @@
         <% @fkz_polytechniciens.each do |fkz_promo| %>
           <tr>
             <td><%= fkz_promo[:promo] %></td>
+            <td><%= fkz_promo[:count] %></td>
             <td>
-              <%= fkz_promo[:count] %>
+              <time class="timeago" datetime="<%= fkz_promo[:updated_at].strftime('%F %T') %>">
+                <%= fkz_promo[:updated_at].strftime('%F %T') %>
+              </time>
+            </td>
+            <td>
               <% unless @running %>
                 <a class="refresh-promo" promo="<%= fkz_promo[:promo] %>"><%= I18n.t(:refresh) %></a>
               <% end %>

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  $('time.timeago').timeago();
+
   $('.refresh-promo').click(function(event) {
     $.ajax({
       data: {

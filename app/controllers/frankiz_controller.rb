@@ -2,7 +2,8 @@ class FrankizController < ApplicationController
   def index
     @running = system('ps aux | grep -v grep | grep "bin/rake frankiz:"')
     @output = `cat /tmp/frankiz.log`.split("\r").last.to_s.strip
-    @fkz_polytechniciens = User.where(group: 'Polytechniciens').select(:promo, 'COUNT(*) count').group(:promo).order(promo: :desc)
+    @fkz_polytechniciens = User
+      .where(group: 'Polytechniciens').select(:promo, 'COUNT(*) count', 'MIN(updated_at) updated_at').group(:promo).order(promo: :desc)
     @accounts_x = Account.where(status: [0, 1]).where.not(trigramme: nil)
       .select(:promo, 'CASE WHEN frankiz_id IS NULL THEN 0 ELSE 1 END has_frankiz', 'COUNT(*) count').group(:promo, 'has_frankiz')
     @accounts_not_x = Account.where.not(status: [0, 1]).where.not(trigramme: nil)

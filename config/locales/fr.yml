@@ -101,6 +101,7 @@ fr:
   change_my_password: Changer mon mot de passe
   new_password: Nouveau mot de passe
   new_password_again: Nouveau mot de passe (confirmation)
+  last_update: Dernière MàJ
   _rights:
     log_eleve: Log > 20 €
     credit: Créditer
