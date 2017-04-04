@@ -102,6 +102,15 @@ fr:
   new_password: Nouveau mot de passe
   new_password_again: Nouveau mot de passe (confirmation)
   last_update: Dernière MàJ
+  file_import: Importer un fichier
+  import: Importer
+  file: Fichier
+  no_account_for_trigramme: Pas de compte avec le trigramme %{trigramme}
+  negative_amount: Montant négatif
+  not_x_goes_negative: Compte non-X passe en négatif
+  high_price: Montant élevé
+  account_goes_negative: Le compte passe en négatif
+  name_mismatch: 'Le nom ne correspond pas : %{name}'
   _rights:
     log_eleve: Log > 20 €
     credit: Créditer

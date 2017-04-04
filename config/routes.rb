@@ -57,4 +57,9 @@ Rails.application.routes.draw do
     post 'reset_quantities' => :reset_quantities
     delete ':id' => :delete
   end
+
+  controller :file_import, path: 'file_import' do
+    get '/' => :index
+    post '/' => :read_file
+  end
 end
