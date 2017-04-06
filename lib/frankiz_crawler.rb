@@ -39,9 +39,10 @@ class FrankizCrawler
 
   def insert(html, id)
     photo = html.css('div.img').first
+    picture = nil
     if photo
-      photo = photo.attributes['photo'].value
-      photo = photo.attributes['photo'].original if photo.blank?
+      picture = photo.attributes['photo'].value
+      picture = photo.attributes['original'].value if picture == ''
     end
     User.find_or_initialize_by(frankiz_id: id).update(
       name: html.css('.name').text.strip,
@@ -50,7 +51,7 @@ class FrankizCrawler
       group: html.css('.studies li img').first ? html.css('.studies li img').first.attributes['title'].value : nil,
       casert: html.css('.caserts span').first ? html.css('.caserts span').first.text.split.last : nil,
       birthdate: html.css('.birthdate span').first ? Date.strptime(html.css('.birthdate span').first.text, '%d/%m/%Y') : nil,
-      picture: photo,
+      picture: picture,
       sport: html.css('div.sports img').first ? html.css('div.sports img').first.attributes['title'].value : nil,
     )
   end
