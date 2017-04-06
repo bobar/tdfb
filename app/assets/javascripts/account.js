@@ -73,13 +73,13 @@ $(document).ready(function() {
   setValidator($('#credit-form'), validateCreditForm);
   setValidator($('#transfer-form'), validateTransferForm);
   setValidator($('#account-create-form'), validateCreateForm);
-  jQuery("time.timeago").timeago();
+  jQuery('time.timeago').timeago();
 
   $('#frankiz-search-form #name').autocomplete({
     autoFocus: true,
     source: '/user/search',
     minLength: 3,
-    focus: function(event, ui) {
+    focus: function() {
       return false;
     },
     select: function(event, ui) {
@@ -98,33 +98,33 @@ $(document).ready(function() {
   $('[data-toggle="tooltip"]').tooltip({
     container : 'body',
     title: function() {
-      return $(this).attr('text') + ' ' + $.timeago($(this).attr('time'))
+      return $(this).attr('text') + ' ' + $.timeago($(this).attr('time'));
     }
   });
 
-  var ranges = ['id', 'frankiz_id', 'birthdate', 'status', 'promo', 'budget', 'turnover']
+  var ranges = ['id', 'frankiz_id', 'birthdate', 'status', 'promo', 'budget', 'turnover'];
   var filters = $('#table-filter th').map(function(i, th) {
     var field = $(th).attr('data-field');
     return {
       field: field,
       label: th.textContent,
       type: ranges.includes(field) ? 'range' : 'search'
-    }
-  })
+    };
+  });
   $('#filter-bar').bootstrapTableFilter({
     connectTo: '#table-filter',
     filters: filters,
-    onSubmit: function() {
-      var data = $('#filter-bar').bootstrapTableFilter('getData');
-    }
+    // onSubmit: function() {
+    //   var data = $('#filter-bar').bootstrapTableFilter('getData');
+    // }
   });
   var year = new Date().getFullYear() - 2;
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'promo', { eq: year });
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'casert');
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'budget', { lte: -1 });
-})
+});
 
 $(document).on('ready page:load', function () {
   $('#filter-bar').submit();
   $('#filter-bar').bootstrapTableFilter('toggleRefreshButton', false);
-})
+});

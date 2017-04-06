@@ -27,6 +27,10 @@
 //= require highcharts/highcharts-more
 //= require highcharts/modules/heatmap
 //= require tableExport.min
+//= require mousetrap.min
+//= require timeago
+
+/* eslint-disable no-unused-vars */
 
 function isPositiveNumber(value) {
   return new RegExp('^(\\d+(\\.\\d*)?|\\.\\d+)$').test(value);
@@ -84,7 +88,7 @@ $(document).ajaxError(function(e, jqXHR) {
 $(document).ready(function() {
   $('#trigramme-search').on('input', function() {
     var val = $('#trigramme-search').val();
-    if (val.length === 3 ) {
+    if (val.length === 3) {
       window.location.assign('/account/' + val);
     }
   });
@@ -107,7 +111,7 @@ $(document).ready(function() {
     $(window).scroll(function() {
       var url = $('.pagination .next_page').attr('href');
       if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
-        $('.pagination').text("Please Wait...");
+        $('.pagination').text('Please Wait...');
         return $.getScript(url);
       }
     });

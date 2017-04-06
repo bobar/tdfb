@@ -10,7 +10,7 @@ var authWindow = require('./authWindow');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow (railsApp, railsAddr) {
+function createWindow (railsApp) {
   const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({width: width, height: height, show: false});
 
@@ -29,21 +29,21 @@ function createWindow (railsApp, railsAddr) {
 }
 
 app.on('ready', function() {
-  var env = Object.create( process.env );
+  var env = Object.create(process.env);
   env.LOG_LEVEL = 'INFO';
   var railsApp;
   var rp = require('request-promise');
 
-  rp('http://localhost:2626').catch(function (error) {
+  rp('http://localhost:2626').catch(function () {
     railsApp = require('child_process').spawn('bundle', ['exec', 'rails', 's'], { stdio: 'inherit', env: env });
   });
 
   function start() {
-    rp('http://localhost:2626').then(function (htmlString) {
-      console.log('Rails server started!');
+    rp('http://localhost:2626').then(function () {
+      console.log('Rails server started!'); // eslint-disable-line no-console
       createWindow(railsApp);
-    }).catch(function (error) {
-      console.log('Waiting on server to start...');
+    }).catch(function () {
+      console.log('Waiting on server to start...'); // eslint-disable-line no-console
       setTimeout(start, 1000);
     });
   }
@@ -63,6 +63,6 @@ app.on('activate', function () {
 });
 
 app.on('login', (event, webContents, request, authInfo, callback) => {
-    event.preventDefault();
-    authWindow.createAuthWindow(mainWindow, callback);
+  event.preventDefault();
+  authWindow.createAuthWindow(mainWindow, callback);
 });

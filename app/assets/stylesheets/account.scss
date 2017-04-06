@@ -1,4 +1,4 @@
-form.form-inline {
+.form-inline {
   .form-control,
   .form-group,
   .input-group {
@@ -10,16 +10,16 @@ form.form-inline {
   }
 }
 
-#transactions-table:before {
-    background: image-url('pinte.png') no-repeat 0 0/contain;;
-    content: '';
-    height: calc(100vh - 200px);
-    left: 50px;
-    opacity: 0.10;
-    pointer-events: none;
-    position: fixed;
-    top: 140px;
-    width: calc(100vw - 120px);
+#transactions-table::before {
+  background: image-url('pinte.png') no-repeat 0 0 / contain;
+  content: '';
+  height: calc(100vh - 200px);
+  left: 50px;
+  opacity: .10;
+  pointer-events: none;
+  position: fixed;
+  top: 140px;
+  width: calc(100vw - 120px);
 }
 
 #account-image {
@@ -29,7 +29,7 @@ form.form-inline {
 }
 
 .pagination {
-  margin: 0px 0px 20px;
+  margin: 0 0 20px;
 }
 
 .cancel-transaction {

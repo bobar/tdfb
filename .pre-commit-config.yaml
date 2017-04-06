@@ -13,7 +13,6 @@
     sha: 9a41f686d70c32638d43a269a31c8023fd3ee8fe
     hooks:
     -   id: do_not_commit
-    -   id: ruby
     -   id: check_rails_env_with_methods
     -   id: no_commas_in_string_arrays
 -   repo: local
@@ -31,3 +30,37 @@
         - --require
         - rubocop-thread_safety
         - --config=config/rubocop/rubocop.yml
+    -   id: rails-erb-lint
+        language: ruby
+        name: rails-erb-lint
+        additional_dependencies:
+        - rails-erb-lint
+        entry: rails-erb-lint
+        files: \.html\.erb$
+        args:
+        - check
+        - -e
+    -   id: ruby
+        language: ruby
+        name: Ruby syntax
+        entry: ruby
+        files: \.(rb|rake)$
+        exclude: schema.rb
+        args:
+        - -c
+    -   id: eslint
+        language: node
+        name: eslint
+        entry: eslint
+        files: \.js$
+        additional_dependencies:
+        - eslint
+        exclude: ^vendor/assets/javascripts/
+    -   id: scss-lint
+        language: ruby
+        name: scss-lint
+        additional_dependencies:
+        - scss_lint
+        entry: scss-lint
+        files: \.scss$
+        exclude: ^app/assets/stylesheets/themes/

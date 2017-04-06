@@ -1,34 +1,34 @@
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "bootstrap-datepicker3";
-@import "rails_bootstrap_forms";
-@import "font-awesome";
-@import "jquery-ui";
-@import "jquery-ui/core";
-@import "jquery-ui/theme";
-@import "jquery-ui/accordion";
-@import "jquery-ui/autocomplete";
-@import "jquery-ui/autocomplete";
-@import "jquery-ui/button";
-@import "jquery-ui/datepicker";
-@import "jquery-ui/datepicker";
-@import "jquery-ui/dialog";
-@import "jquery-ui/menu";
-@import "jquery-ui/menu";
-@import "jquery-ui/progressbar";
-@import "jquery-ui/selectmenu";
-@import "jquery-ui/slider";
-@import "jquery-ui/spinner";
-@import "jquery-ui/tabs";
-@import "jquery-ui/tooltip";
-@import "account";
-@import "bootstrap_ext";
-@import "bootstrap-table";
+// 'bootstrap-sprockets' must be imported before 'bootstrap' and 'bootstrap/variables'
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-datepicker3';
+@import 'rails_bootstrap_forms';
+@import 'font-awesome';
+@import 'jquery-ui';
+@import 'jquery-ui/core';
+@import 'jquery-ui/theme';
+@import 'jquery-ui/accordion';
+@import 'jquery-ui/autocomplete';
+@import 'jquery-ui/autocomplete';
+@import 'jquery-ui/button';
+@import 'jquery-ui/datepicker';
+@import 'jquery-ui/datepicker';
+@import 'jquery-ui/dialog';
+@import 'jquery-ui/menu';
+@import 'jquery-ui/menu';
+@import 'jquery-ui/progressbar';
+@import 'jquery-ui/selectmenu';
+@import 'jquery-ui/slider';
+@import 'jquery-ui/spinner';
+@import 'jquery-ui/tabs';
+@import 'jquery-ui/tooltip';
+@import 'account';
+@import 'bootstrap_ext';
+@import 'bootstrap-table';
 
 @font-face {
-  font-family: "Muli" !important;
-  src: url(/assets/Muli.woff2) format("woff2")!important;
+  font-family: 'Muli' !important;
+  src: url('/assets/Muli.woff2') format('woff2') !important;
 }
 
 body {
