@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/bobar/tdfb.png)](https://codeclimate.com/github/bobar/tdfb)
+
 # Adding a new theme
 
 Here are the steps to follow:
