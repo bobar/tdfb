@@ -11,7 +11,7 @@ module.exports = { createAuthWindow: function(mainWindow, loginCallback) {
     movable: false,
     resizable: false,
     show: false,
-    width: 200,
+    width: 230,
   });
 
   loginWindow.once('ready-to-show', function() {
