@@ -5,16 +5,22 @@ class Transaction < ActiveRecord::Base
   self.per_page = 25
 
   def self.log(account, bank, amount, comment: nil, admin: nil, time: Time.current)
+    batch_log([[account, amount]], bank, comment: comment, admin: admin, time: time)
+  end
+
+  def self.batch_log(amounts, bank, comment: nil, admin: nil, time: Time.current) # amounts is an array [ [account, amount] ]
     comment ||= ''
-    amount = (amount * 100).ceil # Screwing the customers
     transaction do
-      account.balance = account.balance - amount
-      account.turnover = account.turnover + amount if amount > 0
-      bank.balance = bank.balance + amount
-      bank.turnover = bank.turnover - amount if amount < 0
-      create(id: account.id, id2: bank.id, price: -amount, comment: comment, admin: admin.try(:id), date: time)
-      create(id: bank.id, id2: account.id, price: amount, comment: comment, admin: admin.try(:id), date: time)
-      account.save
+      amounts.each do |account, amount|
+        amount = (amount * 100).ceil # Screwing the customers
+        account.balance = account.balance - amount
+        account.turnover = account.turnover + amount if amount > 0
+        bank.balance = bank.balance + amount
+        bank.turnover = bank.turnover - amount if amount < 0
+        create(id: account.id, id2: bank.id, price: -amount, comment: comment, admin: admin.try(:id), date: time)
+        create(id: bank.id, id2: account.id, price: amount, comment: comment, admin: admin.try(:id), date: time)
+        account.save
+      end
       bank.save
     end
   end

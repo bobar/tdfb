@@ -111,6 +111,10 @@ fr:
   high_price: Montant élevé
   account_goes_negative: Le compte passe en négatif
   name_mismatch: 'Le nom ne correspond pas : %{name}'
+  are_you_sure: Etes-vous sûr ?
+  download_csv_format: Télécharger au format CSV
+  file_import_cancelled_mail:
+    subject: Import de fichier - transactions refusées
   _rights:
     log_eleve: Log > 20 €
     credit: Créditer

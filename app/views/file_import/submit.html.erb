@@ -1,0 +1,45 @@
+<div class="row text-center">
+  <div class="col-md-12">
+    <h1><%= I18n.t('file_import_cancelled_mail.subject') %></h1>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-center">
+      <a href="/file_import/cancelled_file?<%= { filename: @cancelled_file }.to_param %>" target="_blank">
+        <button class="btn btn-primary">
+          <%= I18n.t(:download_csv_format) %>
+        </button>
+      </a>
+    </div>
+
+    <br>
+
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <td><%= I18n.t(:trigramme) %></td>
+          <td><%= I18n.t(:name) %></td>
+          <td><%= I18n.t(:price) %></td>
+          <td><%= I18n.t(:comment) %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cancelled.each do |e| %>
+          <tr>
+            <td><%= e[:trigramme] %></td>
+            <td><%= e[:name] %></td>
+            <td><%= e[:price] %></td>
+            <td>
+              <% e[:comments].each do |c| %>
+                <%= c %><br>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>

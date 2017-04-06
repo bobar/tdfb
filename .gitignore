@@ -21,3 +21,6 @@ app/assets/images/*
 config/rubocop/.rubocop*
 
 node_modules
+
+# Secret environment variables
+config/credentials.yml

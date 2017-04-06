@@ -6,7 +6,8 @@
 <br>
 <div class="row">
   <div class="col-md-12">
-    <%= bootstrap_form_tag(remote: true, url: "/zde", method: :post) do |f| %>
+    <%= bootstrap_form_tag(url: '/file_import/submit', method: :post, html: { autocomplete: 'off', id: 'file-import-control-form' }) do |f| %>
+      <%= hidden_field_tag :filename, @filename %>
       <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
           <tr>
@@ -18,14 +19,11 @@
           </tr>
         </thead>
         <tbody>
-          <% @entries.each do |e| %>
+          <% @entries.each_with_index do |e, i| %>
             <tr class="<%= e[:level] %>">
               <td>
-                <input
-                  type="checkbox"
-                  <%= 'disabled' if e[:level] == :fatal %>
-                  <%= 'checked' if e[:level].nil? || e[:level] == :warning %>
-                >
+                <%= hidden_field_tag "data_#{i}", JSON.dump(e) %>
+                <%= f.check_box("checkbox_#{i}", label: '', checked: e[:level].nil? || e[:level] == :warning, disabled: e[:level] == :fatal) %>
               </td>
               <td><%= e[:trigramme] %></td>
               <td><%= e[:name] %></td>
@@ -39,6 +37,16 @@
           <% end %>
         </tbody>
       </table>
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= f.text_field(:comment, hide_label: true, placeholder: I18n.t(:comment)) %>
+        </div>
+      </div>
+      <div class="row text-center">
+        <%= f.primary(I18n.t(:submit), id: 'submit-file-import') %>
+      </div>
     <% end %>
   </div>
 </div>
+<br>
