@@ -10,7 +10,7 @@
   <div class="row text-center">
     <div class="col-xs-12">
       <h1><%= I18n.t(:login) %></h1>
-      <%= bootstrap_form_tag remote: true, html: { autocomplete: 'off', id: 'login-form' } do |f| %>
+      <%= bootstrap_form_tag remote: true, html: { id: 'login-form' } do |f| %>
         <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
         <%= f.password_field(:password, hide_label: true, placeholder: I18n.t(:password)) %>
         <%= f.primary I18n.t(:submit) %>
