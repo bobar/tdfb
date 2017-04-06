@@ -46,6 +46,7 @@ class FrankizCrawler
       casert: html.css('.caserts span').first ? html.css('.caserts span').first.text.split.last : nil,
       birthdate: html.css('.birthdate span').first ? Date.strptime(html.css('.birthdate span').first.text, '%d/%m/%Y') : nil,
       picture: html.css('div.img').first ? html.css('div.img').first.attributes['photo'].value : nil,
+      sport: html.css('div.sports img').first ? html.css('div.sports img').first.attributes['title'].value : nil,
     )
   end
 

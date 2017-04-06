@@ -42,6 +42,6 @@ class FrankizController < ApplicationController
     # Test that username and password seems correct
     fkz = FrankizCrawler.new(params[:username], params[:password])
     html = fkz.get(Account::MANOU_FRANKIZ_ID)
-    fail TdbException, 'Something looks wrong' unless html.to_s.include?('thierry.deo@polytechnique.edu')
+    fail TdbException, 'Frankiz credentials look wrong' unless html.to_s.include?('thierry.deo@polytechnique.edu')
   end
 end

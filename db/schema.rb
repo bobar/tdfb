@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404163905) do
+ActiveRecord::Schema.define(version: 20170406195629) do
 
   create_table "accounts", force: :cascade do |t|
     t.string  "trigramme",    limit: 3
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20170404163905) do
     t.string   "email",      limit: 255
     t.string   "promo",      limit: 255
     t.string   "group",      limit: 255
+    t.string   "sport",      limit: 255
     t.string   "casert",     limit: 255
     t.string   "picture",    limit: 255
     t.date     "birthdate"
