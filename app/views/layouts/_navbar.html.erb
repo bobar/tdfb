@@ -60,6 +60,20 @@
             <% end %>
           </ul>
         </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            TDB 3.0 <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <div class="container">
+            <%= bootstrap_form_tag(url: "/feedback", method: :post) do |f| %>
+              <%= f.text_field(:feedback_title, label: I18n.t('feedback_label'), placeholder: I18n.t('feedback_title')) %>
+              <%= f.text_area(:feedback_body, hide_label: true, placeholder: I18n.t('feedback_body')) %>
+              <%= f.primary I18n.t('feedback_button') %>
+            <% end %>
+            </div>
+          </ul>
+        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

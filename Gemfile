@@ -18,6 +18,7 @@ gem 'lazy_high_charts', git: 'https://github.com/michelson/lazy_high_charts', br
 gem 'levenshtein-ffi'
 gem 'mysql2', '~> 0.3.18'
 gem 'nokogiri'
+gem 'octokit'
 gem 'pg'
 gem 'rails-i18n', git: 'https://github.com/svenfuchs/rails-i18n', branch: 'rails-4-x'
 gem 'rest-client', '~> 1.6.7'

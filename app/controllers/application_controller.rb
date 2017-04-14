@@ -39,6 +39,12 @@ class ApplicationController < ActionController::Base
     redirect_to :back
   end
 
+  def create_github_issue
+    client = Octokit::Client.new(access_token: '505f2c03b3f5ec6acc315f168042aa16f1822dcb')
+    client.create_issue('bobar/tdfb', params[:feedback_title], params[:feedback_body])
+    redirect_to :back
+  end
+
   private
 
   def redirect_to_index
