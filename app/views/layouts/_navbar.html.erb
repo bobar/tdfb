@@ -64,13 +64,18 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             TDB 3.0 <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
-            <div class="container">
-            <%= bootstrap_form_tag(url: "/feedback", method: :post) do |f| %>
-              <%= f.text_field(:feedback_title, label: I18n.t('feedback_label'), placeholder: I18n.t('feedback_title')) %>
-              <%= f.text_area(:feedback_body, hide_label: true, placeholder: I18n.t('feedback_body')) %>
-              <%= f.primary I18n.t('feedback_button') %>
-            <% end %>
+          <ul class="dropdown-menu" style="min-width: 300px;">
+            <div class="col-md-12">
+              <h4>
+                <%= I18n.t(:feedback_label) %>
+              </h4>
+              <%= bootstrap_form_tag(url: "/feedback", method: :post) do |f| %>
+                <%= f.text_field(:name, hide_label: true, placeholder: I18n.t(:name)) %>
+                <%= f.text_field(:email, hide_label: true, placeholder: I18n.t(:email)) %>
+                <%= f.text_field(:feedback_title, hide_label: true, placeholder: I18n.t(:feedback_title)) %>
+                <%= f.text_area(:feedback_body, hide_label: true, placeholder: I18n.t(:feedback_body)) %>
+                <%= f.primary I18n.t('feedback_button') %>
+              <% end %>
             </div>
           </ul>
         </li>
