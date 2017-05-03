@@ -27,7 +27,7 @@
           <%= bootstrap_form_tag(
                 remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,
                 html: { id: 'trigramme-form' }) do |f| %>
-            <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
+            <%= f.text_field(:trigramme, class: 'uppercase-input', hide_label: true, placeholder: I18n.t(:trigramme)) %>
             <%= f.select(
               :status,
               Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] },

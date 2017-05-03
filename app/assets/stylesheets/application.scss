@@ -31,6 +31,16 @@
   src: url('/assets/Muli.woff2') format('woff2') !important;
 }
 
+@mixin placeholder {
+  // scss-lint:disable PseudoElement, VendorPrefix
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+  // scss-lint:enable PseudoElement, VendorPrefix
+}
+
 body {
   font-family: 'Muli Regular', sans-serif !important;
 }
@@ -45,4 +55,12 @@ body {
 
 .form-inline .form-group {
   margin-bottom: 5px;
+}
+
+.uppercase-input {
+  text-transform: uppercase;
+
+  @include placeholder {
+    text-transform: none;
+  }
 }

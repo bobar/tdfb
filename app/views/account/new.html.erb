@@ -11,7 +11,7 @@
         url: "/account/create", method: :post, remote: true,
         layout: :horizontal, label_col: 'col-md-6', control_col: 'col-md-6',
         html: { id: 'account-create-form' }) do |f| %>
-      <%= f.text_field :trigramme, label: I18n.t(:trigramme) %>
+      <%= f.text_field :trigramme, class: 'uppercase-input', label: I18n.t(:trigramme) %>
       <%= f.hidden_field :frankiz_id %>
       <%= f.text_field :first_name, label: I18n.t(:first_name) %>
       <%= f.text_field :name, label: I18n.t(:name) %>

@@ -22,7 +22,7 @@
     <%= bootstrap_form_tag(remote: true, url: "/admin/change_password", method: :post, inline: true) do |f| %>
       <div class="row">
         <div class="col-md-6">
-          <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
+          <%= f.text_field(:trigramme, class: 'uppercase-input', hide_label: true, placeholder: I18n.t(:trigramme)) %>
         </div>
         <div class="col-md-6">
           <%= f.password_field(:password, hide_label: true, placeholder: I18n.t(:password)) %>
@@ -45,7 +45,7 @@
     <%= bootstrap_form_tag(remote: true, url: "/admin/new", method: :post, inline: true) do |f| %>
       <div class="row">
         <div class="col-md-6">
-          <%= f.text_field(:trigramme, hide_label: true, placeholder: I18n.t(:trigramme)) %>
+          <%= f.text_field(:trigramme, class: 'uppercase-input', hide_label: true, placeholder: I18n.t(:trigramme)) %>
         </div>
         <div class="col-md-6">
           <%= f.select(:permissions, Right.all.map { |r| [r.nom, r.permissions] }, include_blank: true, hide_label: true) %>
