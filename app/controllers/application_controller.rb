@@ -39,6 +39,11 @@ class ApplicationController < ActionController::Base
     redirect_to :back
   end
 
+  def create_github_issue
+    IssueMailer.issue(params[:name], params[:email], params[:feedback_title], params[:feedback_body]).deliver_now
+    redirect_to :back
+  end
+
   private
 
   def redirect_to_index

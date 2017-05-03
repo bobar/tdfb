@@ -133,3 +133,7 @@ fr:
     banque_binet: Ouvrir un binet
     gestion_clopes: Gérer les clopes
     gestion_admin: Gérer les admins
+  feedback_label: Merci de laisser un message pour tout remerciement, problème, suggestion d'amélioration ...
+  feedback_title: Titre
+  feedback_body: Description
+  feedback_button: Envoyer un gentil message aux créateurs du TDB

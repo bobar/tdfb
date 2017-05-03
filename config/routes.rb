@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'index' => 'application#index'
   get 'login' => 'application#login'
   get 'switch_theme' => 'application#switch_theme'
+  post 'feedback' => 'application#create_github_issue'
 
   controller :account, path: 'account' do
     get 'binets' => :binets
