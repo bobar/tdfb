@@ -17,6 +17,7 @@
       <%= f.text_field :name, label: I18n.t(:name) %>
       <%= f.text_field(:birthdate, label: I18n.t(:birthdate),
         'data-provide' => 'datepicker',
+        'data-date-format' => 'yyyy-mm-dd',
         'data-date-start-view' => 2,
         'data-date-max-view-mode' => 2,
         ) %>

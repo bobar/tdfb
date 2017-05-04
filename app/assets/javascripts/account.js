@@ -85,7 +85,7 @@ $(document).ready(function() {
     select: function(event, ui) {
       $('#account-create-form #first_name').val(ui.item.first_name);
       $('#account-create-form #name').val(ui.item.last_name);
-      $('#account-create-form #birthdate').val(ui.item.birthdate);
+      $('#account-create-form #birthdate').datepicker('update', new Date(ui.item.birthdate));
       $('#account-create-form #promo').val(ui.item.promo);
       $('#account-create-form #email').val(ui.item.email);
       $('#account-create-form #casert').val(ui.item.casert);
