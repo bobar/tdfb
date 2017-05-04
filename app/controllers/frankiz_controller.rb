@@ -15,17 +15,6 @@ class FrankizController < ApplicationController
       .select(:promo, 'CASE WHEN frankiz_id IS NULL THEN 0 ELSE 1 END has_frankiz', 'COUNT(*) count').group(:promo, 'has_frankiz')
   end
 
-  def start_crawling
-    _check_fkz_auth!
-    # Spawn crawling in a subprocess
-    pid = spawn(
-      "fkz_user=#{params[:username]} fkz_pass=#{params[:password]} bin/rake frankiz:crawl",
-      out: '/tmp/frankiz.log', err: '/tmp/frankiz.log',
-    )
-    Process.detach(pid)
-    redirect_to_url '/frankiz'
-  end
-
   def refresh_promo
     _check_fkz_ldap!
     pid = spawn("bin/rake frankiz:refresh_promo[#{params[:promo]}]", out: '/tmp/frankiz.log', err: '/tmp/frankiz.log')
@@ -45,12 +34,5 @@ class FrankizController < ApplicationController
     fkz = FrankizLdap.new
     manou = fkz.get(Account::MANOU_FRANKIZ_ID)
     fail TdbException, 'Frankiz LDAP not reachable' unless manou
-  end
-
-  def _check_fkz_auth!
-    # Test that username and password seems correct
-    fkz = FrankizCrawler.new(params[:username], params[:password])
-    html = fkz.get(Account::MANOU_FRANKIZ_ID)
-    fail TdbException, 'Frankiz credentials look wrong' unless html.to_s.include?('thierry.deo@polytechnique.edu')
   end
 end
