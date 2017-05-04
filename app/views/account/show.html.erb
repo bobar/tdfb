@@ -76,7 +76,7 @@
       </div>
       <% if @account.display_picture %>
         <div class="col-md-7 text-right">
-          <%= image_tag @account.display_picture, alt: @account.first_name, id: 'account-image' %>
+          <%= image_tag @account.display_picture, alt: @account.first_name, class: 'account-image' %>
         </div>
       <% end %>
     </div>

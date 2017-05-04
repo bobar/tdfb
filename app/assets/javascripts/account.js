@@ -91,6 +91,7 @@ $(document).ready(function() {
       $('#account-create-form #casert').val(ui.item.casert);
       $('#account-create-form #status').val(ui.item.status);
       $('#account-create-form #_frankiz_id').val(ui.item.frankiz_id);
+      $('#new-account-image').attr('src', 'https://www.frankiz.net/' + ui.item.picture);
       return false;
     }
   });

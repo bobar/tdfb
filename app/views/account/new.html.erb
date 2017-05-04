@@ -6,7 +6,7 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-6 col-md-offset">
+  <div class="col-md-5">
     <%= bootstrap_form_tag(
         url: "/account/create", method: :post, remote: true,
         layout: :horizontal, label_col: 'col-md-6', control_col: 'col-md-6',
@@ -30,5 +30,8 @@
         <%= f.primary I18n.t(:create) %>
       <% end %>
     <% end %>
+  </div>
+  <div class="col-md-4">
+    <img alt="" class="account-image" id="new-account-image" src="">
   </div>
 </div>
