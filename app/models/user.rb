@@ -15,11 +15,15 @@ class User < ActiveRecord::Base
     account = Account.find_by(frankiz_id: frankiz_id)
     return if account.nil?
 
+    status = STATUSES[group]
+    status = 1 if Date.current > Date.new(promo.to_i + 3, 5, 1) && status == 0
+
     account.update(
       name: last_name || '',
       first_name: first_name || '',
+      birthdate: birthdate,
       casert: casert || '',
-      status: STATUSES[group],
+      status: status,
       promo: promo,
       mail: email,
     )

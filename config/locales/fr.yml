@@ -114,6 +114,7 @@ fr:
   are_you_sure: Etes-vous sûr ?
   download_csv_format: Télécharger au format CSV
   never: Jamais
+  refresh_from_fkz: Importer depuis Frankiz
   file_import_cancelled_mail:
     subject: Import de fichier - transactions refusées
   _rights:

@@ -14,6 +14,15 @@ class AccountController < ApplicationController
       .paginate(page: params[:page])
   end
 
+  def fkz_refresh
+    require_admin!(:modifier_tri)
+    @account = Account.find(params[:id])
+    fkz = FrankizLdap.new
+    user = fkz.insert(fkz.get(@account.frankiz_id))
+    user.update_account
+    render_redirect_to
+  end
+
   def exists
     render json: Account.where(trigramme: params[:trigramme].upcase).exists?
   end

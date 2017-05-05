@@ -23,6 +23,11 @@
             <%= fa_icon "pencil-square-o" %>
           </a>
         </h1>
+        <% if @account.frankiz_id %>
+          <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
+            <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
+          <% end %>
+        <% end %>
         <div class="collapse text-right" id="trigrammeCollapse">
           <%= bootstrap_form_tag(
                 remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,

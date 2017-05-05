@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     post 'credit/:id' => :credit
     post 'clopes/:id' => :clopes
     post 'transfer/:id' => :transfer
+    post 'fkz_refresh/:id' => :fkz_refresh
     post ':id' => :update
   end
 

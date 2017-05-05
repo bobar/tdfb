@@ -1,6 +1,8 @@
 class Account < ActiveRecord::Base
   has_many :transactions, class_name: :Transaction, foreign_key: :id
 
+  has_one :user, foreign_key: :frankiz_id, primary_key: :frankiz_id
+
   # 0=X platal,1=X
   # ancien,2=binet,3=personnel,4=autre
   # etudiant,5=autre
