@@ -16,8 +16,16 @@ class FrankizController < ApplicationController
   end
 
   def refresh_promo
-    _check_fkz_ldap!
-    pid = spawn("bin/rake frankiz:refresh_promo[#{params[:promo]}]", out: '/tmp/frankiz.log', err: '/tmp/frankiz.log')
+    command = if Rails.env.production?
+                "mkdir -p ~/.ssh &&
+                  echo \"#{ENV['DEIZ_SSH']}\" | sed 's/\\\\n/\\n/g' > ~/.ssh/id_rsa;
+                  LDAP_PROXY=http://localhost:1080 bin/rake frankiz:refresh_promo[#{params[:promo]}] |
+                    ssh -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no manou@deiz.polytechnique.fr -p 2222 -D1080 cat"
+              else
+                _check_fkz_ldap!
+                "bin/rake frankiz:refresh_promo[#{params[:promo]}]"
+              end
+    pid = spawn(ENV, command, out: '/tmp/frankiz.log', err: '/tmp/frankiz.log')
     Process.detach(pid)
     redirect_to_url '/frankiz'
   end
