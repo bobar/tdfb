@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_one :account, foreign_key: :frankiz_id, primary_key: :frankiz_id
+
   STATUSES = {
     'Polytechniciens' => 0,
     'Doctorants de l\'X' => 4,
@@ -25,7 +27,7 @@ class User < ActiveRecord::Base
       casert: casert || '',
       status: status,
       promo: promo,
-      mail: email,
+      mail: email || '',
     )
   end
 
