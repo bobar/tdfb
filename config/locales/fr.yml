@@ -87,6 +87,7 @@ fr:
   frankiz_id: Id Frankiz
   casert: Casert
   status: Statut
+  readable_status: Statut
   mail: Mail
   turnover: Chiffre d'affaire
   total_clopes: Total Clopes

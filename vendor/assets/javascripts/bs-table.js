@@ -66,7 +66,7 @@
                 value = filter.values.indexOf(value);
             }
             if (filterType && typeof filterData[field] !== 'undefined') {
-                ret = ret && bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field], value);
+                ret = ret && bootstrapTableFilter.checkFilterTypeValue(filterType, filterData[field], this);
             }
         });
         return ret;

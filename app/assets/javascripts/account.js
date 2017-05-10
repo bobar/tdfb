@@ -103,9 +103,24 @@ $(document).ready(function() {
     }
   });
 
-  var ranges = ['id', 'frankiz_id', 'birthdate', 'status', 'promo', 'budget', 'turnover'];
+  var ranges = ['id', 'frankiz_id', 'birthdate', 'promo', 'budget', 'turnover'];
   var filters = $('#table-filter th').map(function(i, th) {
     var field = $(th).attr('data-field');
+    if (field === 'readable_status') {
+      return {
+        field: field,
+        label: th.textContent,
+        type: 'select',
+        values: [
+          { id: 'X platal', label: 'X platal' },
+          { id: 'X ancien', label: 'X ancien' },
+          { id: 'Binet', label: 'Binet' },
+          { id: 'Personnel', label: 'Personnel' },
+          { id: 'Etudiant non x', label: 'Etudiant non X' },
+          { id: 'Autre', label: 'Autre' }
+        ]
+      };
+    }
     return {
       field: field,
       label: th.textContent,
@@ -120,8 +135,9 @@ $(document).ready(function() {
     // }
   });
   var year = new Date().getFullYear() - 2;
-  $('#filter-bar').bootstrapTableFilter('setupFilter', 'promo', { eq: year });
+  $('#filter-bar').bootstrapTableFilter('setupFilter', 'promo', { gte: year });
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'casert');
+  $('#filter-bar').bootstrapTableFilter('setupFilter', 'readable_status');
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'budget', { lte: -1 });
 });
 

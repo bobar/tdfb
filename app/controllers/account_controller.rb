@@ -135,8 +135,8 @@ class AccountController < ApplicationController
 
   def filter
     @accounts = Account.all
-    @columns = Account.columns.map(&:name) - ['balance'] + ['budget']
-    @visible_columns = %w(trigramme name first_name casert promo budget)
+    @columns = Account.columns.map(&:name) - %w(balance status) + %w(budget readable_status)
+    @visible_columns = %w(trigramme name first_name readable_status casert promo budget)
   end
 
   def cancel_transaction
