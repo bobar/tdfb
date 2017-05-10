@@ -100,8 +100,8 @@ class FileImportController < ApplicationController
     rows.each_with_index.map do |r, i|
       {
         idx: i + 1,
-        trigramme: r[trigramme_col].strip.upcase,
-        price: r[amount_col].strip.tr(',', '.').to_f,
+        trigramme: r[trigramme_col].to_s.strip.upcase,
+        price: r[amount_col].to_s.strip.tr(',', '.').to_f,
         name: r.values_at(*cols).map(&:to_s).map(&:strip).map(&:capitalize).join(' ').strip,
       }
     end
