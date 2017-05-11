@@ -8,7 +8,7 @@ class GroupLogController < ApplicationController
     fail TdbException, 'Amount too high!' if amount > 200
     trigrammes = params[:trigramme].select { |t| t.size == 3 }.map(&:to_s).map(&:upcase)
     accounts = Account.where(trigramme: trigrammes)
-    fail TdbExceptionm 'Need at least 1 account' if accounts.empty?
+    fail TdbException, 'Need at least 1 account' if accounts.empty?
     require_admin!(:log_groupe)
     comment = params[:comment] + " (shared with #{trigrammes.join(', ')})"
     per_person = (10 * amount / accounts.size).ceil / 10.0
