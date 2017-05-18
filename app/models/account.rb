@@ -84,7 +84,7 @@ class Account < ActiveRecord::Base
   end
 
   def readable_status
-    status.tr('_', ' ').capitalize
+    status.to_s.tr('_', ' ').capitalize
   end
 
   def bank_display_name
