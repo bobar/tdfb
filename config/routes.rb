@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     post 'transfer/:id' => :transfer
     post 'fkz_refresh/:id' => :fkz_refresh
     post ':id' => :update
+    delete ':id' => :delete
   end
 
   controller :user, path: 'user' do

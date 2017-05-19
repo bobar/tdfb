@@ -149,6 +149,10 @@
         </div>
       </div>
     <% end %>
+    <h3><%= I18n.t(:delete) %></h3>
+    <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
+      <%= f.submit I18n.t(:delete), class: 'btn btn-xs btn-danger' %>
+    <% end %>
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">

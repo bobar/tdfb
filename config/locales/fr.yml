@@ -139,3 +139,7 @@ fr:
   feedback_title: Titre
   feedback_body: Description
   feedback_button: Envoyer un gentil message aux créateurs du TDB
+  need_positive_amount: Le montant doit être positif!
+  balance_must_be_zero: Le solde du trigramme n'est pas à 0
+  duplicate_fkz_id: Ce compte Frankiz est deja en service, utiliser la recherche !
+  deactivated_account: Compte actuellement désactivé, lui attribuer un trigramme !
