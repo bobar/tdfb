@@ -2,23 +2,20 @@ class User < ActiveRecord::Base
   has_one :account, foreign_key: :frankiz_id, primary_key: :frankiz_id
 
   STATUSES = {
-    'Polytechniciens' => 0,
-    'Doctorants de l\'X' => 4,
-    'Masters de l\'X' => 4,
-    'Anciens comptes' => 1,
-    'NULL' => 5,
-    'PEI' => 4,
-    'IOGS' => 4,
-    'Saint-Cyriens' => 4,
-    'ENSTA' => 4,
+    'Polytechniciens' => :x_platal,
+    'Doctorants de l\'X' => :etudiant_non_x,
+    'Masters de l\'X' => :etudiant_non_x,
+    'Anciens comptes' => :x_ancien,
+    'NULL' => :autre,
+    'PEI' => :etudiant_non_x,
+    'IOGS' => :etudiant_non_x,
+    'Saint-Cyriens' => :etudiant_non_x,
+    'ENSTA' => :etudiant_non_x,
   }.freeze
 
   def update_account
     account = Account.find_by(frankiz_id: frankiz_id)
     return if account.nil?
-
-    status = STATUSES[group]
-    status = 1 if Date.current > Date.new(promo.to_i + 3, 5, 1) && status == 0
 
     account.update(
       name: last_name || '',
@@ -40,7 +37,9 @@ class User < ActiveRecord::Base
   end
 
   def status
-    STATUSES[group]
+    status = STATUSES[group]
+    status = :x_ancien if Date.current > Date.new(promo.to_i + 3, 5, 1) && status == :x_platal
+    status
   end
 
   def autocomplete_text
