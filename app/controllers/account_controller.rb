@@ -111,7 +111,7 @@ class AccountController < ApplicationController
 
   def create
     require_admin!(:creer_tri)
-    fail TdbException, I18n.t(:duplicate_fkz_id) if Account.exists(frankiz_id: params[:frankiz_id])
+    fail TdbException, I18n.t(:duplicate_fkz_id) if Account.exists?(frankiz_id: params[:frankiz_id])
     account = Account.create(
       trigramme: params[:trigramme].upcase,
       frankiz_id: params[:frankiz_id],

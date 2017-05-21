@@ -24,11 +24,19 @@
           </a>
         </h1>
         <% if @account.frankiz_id %>
-          <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
-            <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
-          <% end %>
+          <div class="col-md-6">
+            <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
+              <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
+            <% end %>
+          </div>
         <% end %>
+        <div class="col-md-6">
+          <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
+            <%= f.submit I18n.t(:close_account), class: 'btn btn-xs btn-danger' %>
+          <% end %>
+        </div>
         <div class="collapse text-right" id="trigrammeCollapse">
+          <br><br>
           <%= bootstrap_form_tag(
                 remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,
                 html: { id: 'trigramme-form' }) do |f| %>
@@ -42,6 +50,7 @@
             <%= f.primary I18n.t(:save) %>
           <% end %>
         </div>
+        <br>
         <h2>
           <%= @account.first_name %> <%= @account.name %>
           <small><%= @account.promo %></small>
@@ -148,10 +157,6 @@
           <%= f.primary I18n.t(:transfer) %>
         </div>
       </div>
-    <% end %>
-    <h3><%= I18n.t(:delete) %></h3>
-    <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
-      <%= f.submit I18n.t(:delete), class: 'btn btn-xs btn-danger' %>
     <% end %>
   </div>
 

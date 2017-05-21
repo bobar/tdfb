@@ -143,3 +143,4 @@ fr:
   balance_must_be_zero: Le solde du trigramme n'est pas à 0
   duplicate_fkz_id: Ce compte Frankiz est deja en service, utiliser la recherche !
   deactivated_account: Compte actuellement désactivé, lui attribuer un trigramme !
+  close_account: Clôturer le compte
