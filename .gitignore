@@ -14,7 +14,7 @@
 /tmp
 
 # Ignore account images
-app/assets/images/*
+app/assets/images/accounts/*
 !/app/assets/images/.keep
 
 .byebug_history

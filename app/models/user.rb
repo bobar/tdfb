@@ -36,6 +36,12 @@ class User < ActiveRecord::Base
     where(clause).order(promo: :desc, name: :asc)
   end
 
+  def sport_picture
+    return nil if sport.nil?
+    return nil if sport == 'Sanssection'
+    "#{sport.downcase}.png"
+  end
+
   def status
     status = STATUSES[group]
     status = :x_ancien if Date.current > Date.new(promo.to_i + 3, 5, 1) && status == :x_platal

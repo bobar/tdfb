@@ -24,13 +24,13 @@
           </a>
         </h1>
         <% if @account.frankiz_id %>
-          <div class="col-md-6">
+          <div class="col-md-6" style="padding-left: 0;">
             <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
               <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
             <% end %>
           </div>
         <% end %>
-        <div class="col-md-6">
+        <div class="col-md-6" style="padding-right: 0;">
           <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
             <%= f.submit I18n.t(:close_account), class: 'btn btn-xs btn-danger' %>
           <% end %>
@@ -89,8 +89,15 @@
         <h1 class="<%= 'text-danger' if @account.balance < 0 %>"><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
       </div>
       <% if @account.display_picture %>
-        <div class="col-md-7 text-right">
-          <%= image_tag @account.display_picture, alt: @account.first_name, class: 'account-image' %>
+        <div class="col-md-7 text-right hidden-sm hidden-xs">
+          <div class="col-md-12">
+            <%= image_tag @account.display_picture, alt: @account.first_name, title: @account.first_name, class: 'account-image' %>
+          </div>
+          <% if @user && @user.sport_picture %>
+            <div class="col-md-12">
+              <%= image_tag @user.sport_picture, alt: @user.sport, title: @user.sport, class: 'sport-image' %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
