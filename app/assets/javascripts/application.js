@@ -69,8 +69,14 @@ $(document).ajaxError(function(e, jqXHR) {
   if (jqXHR.statusText === 'canceled') {
     return;
   }
-  if(jqXHR.status === 401){
+  if (jqXHR.status === 401) {
     $('#unauthorized-modal').modal('show');
+  } else if (jqXHR.status === 499) {
+    // Invalid authenticity token, let's prompt to try again and refresh the page
+    $('#error-modal #error-modal-text').html(
+      'Oups, <a href="#" onclick="window.location.reload(true);">rafraichissez la page</a> et réessayez.'
+    );
+    $('#error-modal').modal('show');
   } else {
     try {
       if(typeof jqXHR.responseJSON === 'undefined') {

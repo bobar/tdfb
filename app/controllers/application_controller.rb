@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     # Just to stop propagation
   end
 
+  rescue_from ActionController::InvalidAuthenticityToken do
+    render json: '', status: 499
+  end
+
   def index
     @chart_globals = Chart.theme(session['chart_theme'], session['theme'])
     @transactions_volume = Chart.transactions_volume(7, @bank)
