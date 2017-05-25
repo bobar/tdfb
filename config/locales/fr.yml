@@ -107,6 +107,7 @@ fr:
   import: Importer
   file: Fichier
   no_account_for_trigramme: Pas de compte avec le trigramme %{trigramme}
+  suggested_accounts: Comptes suggérés
   negative_amount: Montant négatif
   not_x_goes_negative: Compte non-X passe en négatif
   high_price: Montant élevé

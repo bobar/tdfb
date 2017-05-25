@@ -13,10 +13,18 @@ class AccountController < ApplicationController
     render json: Account.search(params[:term]).map { |a| { label: a.autocomplete_text, value: a.id, full_name: a.full_name } }
   end
 
+  def unknown_account
+    @unknown_trigramme = params[:trigramme].upcase
+    @suggestions = Account.where("trigramme LIKE '_#{@unknown_trigramme[1]}#{@unknown_trigramme[2]}'") +
+                   Account.where("trigramme LIKE '#{@unknown_trigramme[0]}_#{@unknown_trigramme[2]}'") +
+                   Account.where("trigramme LIKE '#{@unknown_trigramme[0]}#{@unknown_trigramme[1]}_'")
+    @suggestions.sort_by! { |s| [s. trigramme.nil? ? 1 : 0, -s.promo.to_i, s.name] }
+  end
+
   def show
     @account = Account.find(params[:id]) if params[:id] =~ /^\d+$/
     @account ||= Account.find_by(trigramme: params[:id].upcase) if params[:id].size == 3
-    return redirect_to controller: :application, action: :index unless @account
+    return redirect_to action: :unknown_account, trigramme: params[:id].upcase unless @account
     @user = @account.user
     @transactions = Transaction.where(id: @account.id)
       .includes(:receiver)

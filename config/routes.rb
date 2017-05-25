@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get 'search' => :search
     get 'new' => :new
     get 'filter' => :filter
+    get 'unknown/:trigramme' => :unknown_account
     get 'exists/:trigramme' => :exists
     get 'details/:trigramme' => :details
     get ':id' => :show
