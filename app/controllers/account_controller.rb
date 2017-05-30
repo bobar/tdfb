@@ -15,9 +15,11 @@ class AccountController < ApplicationController
 
   def unknown_account
     @unknown_trigramme = params[:trigramme].upcase
-    @suggestions = Account.where("trigramme LIKE '_#{@unknown_trigramme[1]}#{@unknown_trigramme[2]}'") +
-                   Account.where("trigramme LIKE '#{@unknown_trigramme[0]}_#{@unknown_trigramme[2]}'") +
-                   Account.where("trigramme LIKE '#{@unknown_trigramme[0]}#{@unknown_trigramme[1]}_'")
+    @suggestions = [
+      "_#{@unknown_trigramme[1]}#{@unknown_trigramme[2]}",
+      "#{@unknown_trigramme[0]}_#{@unknown_trigramme[2]}",
+      "#{@unknown_trigramme[0]}#{@unknown_trigramme[1]}_",
+    ].map { |s| Account.where('trigramme LIKE ?', s) }.reduce([], :+)
     @suggestions.sort_by! { |s| [s. trigramme.nil? ? 1 : 0, -s.promo.to_i, s.name] }
   end
 
