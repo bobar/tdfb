@@ -6,30 +6,25 @@ function validateTrigrammeForm(submit) {
   return !exists;
 }
 
-function validateLogForm(submit) {
-  var amountField = $('#log-form #amount');
-  var amount = amountField.val();
+function validatePositiveNumberField(field, submit) {
+  var amount = field.val();
   var valid = isPositiveNumber(amount);
   if (!submit) valid = valid || (amount === '');
-  amountField.parent().toggleClass('has-error', !valid);
+  field.parent().toggleClass('has-error', !valid);
   return valid;
+}
+
+function validateLogForm(submit) {
+  return validatePositiveNumberField($('#log-form #amount'), submit);
 }
 
 function validateCreditForm(submit) {
-  var amountField = $('#credit-form #amount');
-  var amount = amountField.val();
-  var valid = isPositiveNumber(amount);
-  if (!submit) valid = valid || (amount === '');
-  amountField.parent().toggleClass('has-error', !valid);
-  return valid;
+  return validatePositiveNumberField($('#credit-form #amount'), submit);
 }
 
 function validateTransferForm(submit) {
-  var amountField = $('#transfer-form #amount');
-  var amount = amountField.val();
-  var valid = isPositiveNumber(amount);
-  if (!submit) valid = valid || (amount === '');
-  amountField.parent().toggleClass('has-error', !valid);
+  valid = validatePositiveNumberField($('#transfer-form #amount'), submit);
+
   var receiverField = $('#transfer-form #receiver');
   var receiver = receiverField.val();
   var exists = trigrammeExists(receiver, receiverField.parent(), submit);
@@ -46,11 +41,7 @@ function validateCreateForm(submit) {
   trigrammeField.parent().toggleClass('has-error', !trigrammeValid);
   valid = valid && trigrammeValid;
 
-  var balanceField = $('#account-create-form #balance');
-  var balance = balanceField.val();
-  var balanceValid = isPositiveNumber(balance);
-  balanceField.parent().toggleClass('has-error', !balanceValid);
-  valid = valid && balanceValid;
+  valid = valid && validatePositiveNumberField($('#transfer-form #amount'), true);
 
   var nameField = $('#account-create-form #name');
   var name = nameField.val();

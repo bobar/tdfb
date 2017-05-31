@@ -41,11 +41,11 @@ function setValidator(form, handler) {
   form.on('ajax:beforeSend', function() { return handler(true); });
 }
 
-function trigrammeExists(trigramme) {
+function accountRequest(endpoint, trigramme) {
   if (typeof(trigramme) === 'undefined') return false;
   if (trigramme.length !== 3) return false;
   var request = new XMLHttpRequest();
-  request.open('GET', '/account/exists/' + trigramme, false);
+  request.open('GET', endpoint + trigramme, false);
   request.setRequestHeader('Accept', 'application/json');
   request.send();
   if (request.status === 200) {
@@ -53,16 +53,12 @@ function trigrammeExists(trigramme) {
   }
 }
 
+function trigrammeExists(trigramme) {
+  return accountRequest('/account/exists/', trigramme);
+}
+
 function getAccount(trigramme) {
-  if (typeof(trigramme) === 'undefined') return false;
-  if (trigramme.length !== 3) return false;
-  var request = new XMLHttpRequest();
-  request.open('GET', '/account/details/' + trigramme, false);
-  request.setRequestHeader('Accept', 'application/json');
-  request.send();
-  if (request.status === 200) {
-    return JSON.parse(request.responseText);
-  }
+  return accountRequest('/account/details/', trigramme);
 }
 
 $(document).ajaxError(function(e, jqXHR) {
