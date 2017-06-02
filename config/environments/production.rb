@@ -34,9 +34,4 @@ Rails.application.configure do
   }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  Rails.application.config.middleware.use ExceptionNotification::Rack, email: {
-    email_prefix: "[TDB - #{Rails.env}] ",
-    sender_address: %("TDB" <bobar.tdb@gmail.com>),
-    exception_recipients: %w(bobar.tdb@gmail.com),
-  }
 end

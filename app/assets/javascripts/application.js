@@ -88,6 +88,14 @@ $(document).ajaxError(function(e, jqXHR) {
 });
 
 $(document).ready(function() {
+  try {
+    Raven.config('https://27660d4e6a794beaacb08a6e987ef257@sentry.io/175369').install();
+  } catch (e) {
+    /* eslint-disable */
+    console.warn('Failed to initialize Raven: ', e);
+    /* eslint-enable */
+  }
+
   $('#trigramme-search').on('input', function() {
     var val = $('#trigramme-search').val();
     if (val.length === 3) {
