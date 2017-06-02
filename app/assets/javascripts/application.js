@@ -66,6 +66,11 @@ $(document).ajaxError(function(e, jqXHR) {
     return;
   }
   if (jqXHR.status === 401) {
+    if (jqXHR.getResponseHeader('Auth_reason') !== null) {
+      $('#unauthorized-modal .modal-body').html(jqXHR.getResponseHeader('Auth_reason'));
+    } else {
+      $('#unauthorized-modal .modal-body').html('L\'authentification a échouée.');
+    }
     $('#unauthorized-modal').modal('show');
   } else if (jqXHR.status === 499) {
     // Invalid authenticity token, let's prompt to try again and refresh the page
