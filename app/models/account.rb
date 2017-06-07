@@ -11,9 +11,10 @@ class Account < ActiveRecord::Base
 
   GENGEN_FRANKIZ_ID = 135
   MANOU_FRANKIZ_ID = 12_368
+  DEFAULT_BANK_ID = 1
 
   def self.default_bank
-    find(1)
+    find(DEFAULT_BANK_ID)
   end
 
   def self.search(term)

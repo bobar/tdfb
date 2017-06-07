@@ -1,0 +1,7 @@
+<% if (session[:bank_id] != Account::DEFAULT_BANK_ID) %>
+  <div class="text-center alert alert-danger">
+    <h1>
+      <strong><%= I18n.t :current_bank, bank_name: @bank.bank_display_name %></strong>
+    </h1>
+  </div>
+<% end %>
