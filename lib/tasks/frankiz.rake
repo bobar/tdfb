@@ -6,7 +6,7 @@ namespace :frankiz do
 
   task :associate_accounts, [:promo] => :environment do |_, args|
     doubtful = 0
-    Account.where(frankiz_id: nil, promo: args[:promo]).where(status: User::STATUSES.values.uniq).each do |acc|
+    Account.where(frankiz_id: nil, promo: args[:promo]).where.not(status: Account.statuses[:binet]).each do |acc|
       users = acc.possible_users
       next if users.nil? || users.try(:empty?)
       if users.is_a? User
