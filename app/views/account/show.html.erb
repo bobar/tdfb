@@ -1,3 +1,6 @@
+<% if @account.birthday? %>
+  <div class="birthday">
+<% end %>
 <div class="row">
   <div class="col-sm-5 col-sm-push-7">
     <div class="row low-padding <%= 'alert alert-danger' if @account.age && @account.age < 18 %>">
@@ -56,7 +59,7 @@
           <small><%= @account.promo %></small>
         </h2>
         <h3>
-          <%= if (@account.birthdate && Date.current.month == @account.birthdate.month && Date.current.day == @account.birthdate.day)
+          <%= if @account.birthday?
             fa_icon "birthday-cake 2x"
           end %>
           <% if @account.age %>
@@ -188,3 +191,6 @@
     <%= will_paginate @transactions %>
   </div>
 </div>
+<% if @account.birthday? %>
+  </div>
+<% end %>

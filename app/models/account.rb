@@ -51,6 +51,10 @@ class Account < ActiveRecord::Base
     age
   end
 
+  def birthday?
+    birthdate && Date.current.month == birthdate.month && Date.current.day == birthdate.day
+  end
+
   def local_picture
     files = Dir[Rails.root.join('app', 'assets', 'images', 'accounts', "#{id}.*")]
     return files.first.gsub(Rails.root.join('app', 'assets', 'images').to_s + '/', '') unless files.empty?

@@ -10,6 +10,18 @@
   }
 }
 
+.birthday::after {
+  background: image-url('birthday.gif');
+  bottom: 0;
+  content: '';
+  left: 0;
+  opacity: .3;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
 #transactions-table::before {
   background: image-url('pinte.png') no-repeat 0 0 / contain;
   content: '';
