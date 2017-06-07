@@ -4,11 +4,7 @@ class ApplicationController < ActionController::Base
   AUTH_EXPIRES = 20.seconds
   FORCE_AUTH = %w(supprimer_tri banque_binet gestion_clopes gestion_admin).freeze
 
-  include Chart
-
-  before_action do
-    require_admin!(:log_eleve) if Rails.env.production?
-  end
+  around_action :production_auth if Rails.env.production? # We don't want anyone being able to read from Heroku
 
   protect_from_forgery with: :exception
   before_action :load_bank
@@ -78,6 +74,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin!(right, force: false)
+    @auth_called = true
     force ||= FORCE_AUTH.include?(right.to_s)
 
     if request.headers['Authorization'].nil? || request.headers['Authorization'] == ''
@@ -101,7 +98,7 @@ class ApplicationController < ActionController::Base
     end
 
     authenticate_with_http_basic do |username, password|
-      @admin = Admin.joins(:account).includes(:right).find_by(accounts: { trigramme: username })
+      @admin = Admin.joins(:account).joins(:right).includes(:right).find_by(accounts: { trigramme: username })
       auth = false
       if @admin.nil?
         response.header['auth_reason'] = I18n.t(:unauthorized_unknown_admin, trigramme: username)
@@ -119,5 +116,10 @@ class ApplicationController < ActionController::Base
       end
       auth
     end || fail(AuthException)
+  end
+
+  def production_auth
+    yield
+    require_admin!(:log_eleve) unless @auth_called
   end
 end
