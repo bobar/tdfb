@@ -41,7 +41,7 @@ function validateCreateForm(submit) {
   trigrammeField.parent().toggleClass('has-error', !trigrammeValid);
   valid = valid && trigrammeValid;
 
-  valid = valid && validatePositiveNumberField($('#transfer-form #amount'), true);
+  valid = valid && validatePositiveNumberField($('#account-create-form #balance'), true);
 
   var nameField = $('#account-create-form #name');
   var name = nameField.val();
