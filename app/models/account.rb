@@ -12,6 +12,7 @@ class Account < ActiveRecord::Base
   GENGEN_FRANKIZ_ID = 135
   MANOU_FRANKIZ_ID = 12_368
   DEFAULT_BANK_ID = 1
+  DEFAULT_BANK_TRIGRAMME = 'BOB'.freeze
 
   def self.default_bank
     find(DEFAULT_BANK_ID)

@@ -68,8 +68,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_bank
-    session[:bank_id] ||= 1
-    session[:bank] ||= 'BOB'
+    session[:bank_id] ||= Account::DEFAULT_BANK_ID
+    session[:bank] ||= Account::DEFAULT_BANK_TRIGRAMME
     @bank = Account.find(session[:bank_id])
   end
 

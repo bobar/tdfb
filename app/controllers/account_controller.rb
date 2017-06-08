@@ -155,7 +155,7 @@ class AccountController < ApplicationController
   def binets
     last_transactions = Transaction.group(:id).maximum(:date)
     binets = Account.binet.order(balance: :desc).map do |bin|
-      next if bin.id == 1 || bin.balance == 0
+      next if bin.id == Account::DEFAULT_BANK_ID || bin.balance == 0
       {
         full_name: bin.full_name,
         trigramme: bin.trigramme,
