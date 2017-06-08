@@ -77,11 +77,6 @@ class ApplicationController < ActionController::Base
     @auth_called = true
     force ||= FORCE_AUTH.include?(right.to_s)
 
-    if request.headers['Authorization'].nil? || request.headers['Authorization'] == ''
-      # For some reason chrome sometimes doesn't send the header even if auth was done earlier.
-      fail AuthException
-    end
-
     if force
       # If force = true, we want to enforce the user to type their password, indepently of what happened before,
       # so we're gonna fail and store the current action in the session so that next time we have a match and we succeed.
@@ -94,6 +89,11 @@ class ApplicationController < ActionController::Base
     end
 
     if session[:expire_at].nil? || session[:expire_at] < Time.current
+      fail AuthException
+    end
+
+    if request.headers['Authorization'].nil? || request.headers['Authorization'] == ''
+      # For some reason chrome sometimes doesn't send the header even if auth was done earlier.
       fail AuthException
     end
 
