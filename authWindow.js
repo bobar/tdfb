@@ -20,10 +20,8 @@ module.exports = { createAuthWindow: function(mainWindow, loginCallback) {
     loginWindow.webContents.executeJavaScript('\
         var ipcRenderer = require("electron").ipcRenderer;\
         const form = document.getElementById("login-form");\
-        console.log(form);\
         document.getElementById("trigramme").focus();\
         form.addEventListener("submit", function(event) {\
-            console.log("submit");\
             event.preventDefault();\
             const username = document.getElementById("trigramme").value;\
             const password = document.getElementById("password").value;\
@@ -31,7 +29,7 @@ module.exports = { createAuthWindow: function(mainWindow, loginCallback) {
         });\
         document.addEventListener("keydown", event => {\
             if (event.key === "Escape" || event.keyCode === 27) {\
-                window.close();\
+                ipcRenderer.send("login-message");\
             }\
         });'
     );
