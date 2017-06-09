@@ -12,7 +12,7 @@ class Transaction < ActiveRecord::Base
     comment ||= ''
     transaction do
       amounts.each do |account, amount|
-        amount = (amount * 100).ceil # Screwing the customers
+        amount = (amount * 100).round(1).ceil # Screwing the customers
         account.balance = account.balance - amount
         account.turnover = account.turnover + amount if amount > 0
         bank.balance = bank.balance + amount
