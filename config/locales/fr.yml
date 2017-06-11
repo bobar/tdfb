@@ -147,3 +147,4 @@ fr:
   duplicate_fkz_id: Ce compte Frankiz est deja en service, utiliser la recherche !
   deactivated_account: Compte actuellement désactivé, lui attribuer un trigramme !
   close_account: Clôturer le compte
+  non_frankiz_accounts: Comptes non-Frankiz

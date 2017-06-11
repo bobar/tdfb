@@ -15,6 +15,15 @@ class FrankizController < ApplicationController
       .select(:promo, 'CASE WHEN frankiz_id IS NULL THEN 0 ELSE 1 END has_frankiz', 'COUNT(*) count').group(:promo, 'has_frankiz')
   end
 
+  def unassociated_accounts
+    @accounts = Account.where.not(status: Account.statuses.slice(:binet, :personnel).values).where(frankiz_id: nil).order(promo: :desc)
+  end
+
+  def associate
+    Account.find(params[:account_id]).update(frankiz_id: params[:frankiz_id].to_i)
+    redirect_to_url('/frankiz/unassociated_accounts')
+  end
+
   def refresh_promo
     command = if Rails.env.production?
                 "mkdir -p ~/.ssh &&

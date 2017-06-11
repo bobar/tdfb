@@ -63,7 +63,7 @@ function getAccount(trigramme) {
 }
 
 $(document).ajaxError(function(e, jqXHR) {
-  if (jqXHR.statusText === 'canceled') {
+  if (jqXHR.statusText === 'canceled' || jqXHR.status === 200) {
     return;
   }
   if (jqXHR.status === 401) {

@@ -1,0 +1,27 @@
+<div class="row text-center">
+  <div class="col-md-12">
+    <h1><%= I18n.t(:non_frankiz_accounts) %></h1>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <td><%= I18n.t(:trigramme) %></td>
+          <td><%= I18n.t(:first_name) %></td>
+          <td><%= I18n.t(:name) %></td>
+          <td><%= I18n.t(:nickname) %></td>
+          <td><%= I18n.t(:status) %></td>
+          <td><%= I18n.t(:promo) %></td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'frankiz/account', collection: @accounts %>
+      </tbody>
+    </table>
+  </div>
+</div>

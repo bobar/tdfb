@@ -49,6 +49,8 @@ Rails.application.routes.draw do
 
   controller :frankiz, path: 'frankiz' do
     get '/' => :index
+    get '/unassociated_accounts' => :unassociated_accounts
+    post '/associate/:account_id' => :associate
     post '/stop' => :stop
     post '/refresh_promo' => :refresh_promo
   end

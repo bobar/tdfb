@@ -1,0 +1,16 @@
+<tr>
+  <td><%= account.trigramme %></td>
+  <td><%= account.first_name %></td>
+  <td><%= account.name %></td>
+  <td><%= account.nickname %></td>
+  <td><%= account.status %></td>
+  <td><%= account.promo %></td>
+  <td>
+    <div class="form-group">
+      <%= bootstrap_form_tag inline: true, remote: true, method: :post, url: "/frankiz/associate/#{account.id}" do |f| %>
+        <%= f.text_field :name, hide_label: true, placeholder: I18n.t(:frankiz_search), class: 'frankiz-search', append: f.primary(I18n.t(:save)) %>
+        <%= f.hidden_field :frankiz_id %>
+      <% end %>
+    </div>
+  </td>
+</tr>
