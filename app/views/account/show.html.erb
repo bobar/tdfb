@@ -4,11 +4,7 @@
 <div class="row">
   <div class="col-sm-5 col-sm-push-7">
     <div class="row low-padding <%= 'alert alert-danger' if @account.age && @account.age < 18 %>">
-      <% if @account.display_picture %>
-        <div class="col-md-5">
-      <% else %>
-        <div class="col-md-12">
-      <% end %>
+      <div class="col-md-5">
         <h1
           class="<%= @account.binet? ? 'text-success' : @account.x_platal? ? '' : 'text-primary' %>"
         >
@@ -26,19 +22,20 @@
             <%= fa_icon "pencil-square-o" %>
           </a>
         </h1>
-        <% if @account.frankiz_id %>
-          <div class="col-md-6" style="padding-left: 0;">
-            <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
-              <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
+        <div class="collapse" id="trigrammeCollapse">
+          <br>
+          <% if @account.frankiz_id %>
+            <div class="col-md-6" style="padding-left: 0;">
+              <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
+                <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="col-md-6" style="padding-right: 0;">
+            <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
+              <%= f.submit I18n.t(:close_account), class: 'btn btn-xs btn-danger' %>
             <% end %>
           </div>
-        <% end %>
-        <div class="col-md-6" style="padding-right: 0;">
-          <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
-            <%= f.submit I18n.t(:close_account), class: 'btn btn-xs btn-danger' %>
-          <% end %>
-        </div>
-        <div class="collapse text-right" id="trigrammeCollapse">
           <br><br>
           <%= bootstrap_form_tag(
                 remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,
@@ -91,18 +88,18 @@
         </div>
         <h1 class="<%= 'text-danger' if @account.balance < 0 %>"><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
       </div>
-      <% if @account.display_picture %>
-        <div class="col-md-7 text-right hidden-sm hidden-xs">
+      <div class="col-md-7 text-right hidden-sm hidden-xs">
+        <% if @account.display_picture %>
           <div class="col-md-12">
             <%= image_tag @account.display_picture, alt: @account.first_name, title: @account.first_name, class: 'account-image' %>
           </div>
-          <% if @user && @user.sport_picture %>
-            <div class="col-md-12">
-              <%= image_tag @user.sport_picture, alt: @user.sport, title: @user.sport, class: 'sport-image' %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+        <% end %>
+        <% if @user && @user.sport_picture %>
+          <div class="col-md-12">
+            <%= image_tag @user.sport_picture, alt: @user.sport, title: @user.sport, class: 'sport-image' %>
+          </div>
+        <% end %>
+      </div>
     </div>
     <%= bootstrap_form_tag(
           remote: true, url: "/account/log/#{@account.id}", method: :post, layout: :inline,
