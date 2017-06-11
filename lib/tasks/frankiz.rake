@@ -9,7 +9,7 @@ namespace :frankiz do
       .group(:promo)
       .having('COUNT(1) > 1')
       .order(:updated_at).first.promo
-    promo = User.maximum(:promo) + 1 if Random.rand(10) == 0
+    promo = User.maximum(:promo).to_i + 1 if Random.rand(10) == 0
     FrankizLdap.new.crawl_promo(promo)
   end
 
