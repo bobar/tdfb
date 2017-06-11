@@ -16,7 +16,9 @@ class FrankizController < ApplicationController
   end
 
   def unassociated_accounts
-    @accounts = Account.where.not(status: Account.statuses.slice(:binet, :personnel).values).where(frankiz_id: nil).order(promo: :desc)
+    @accounts = Account.where.not(balance: 0, trigramme: nil, status: Account.statuses.slice(:binet, :personnel).values)
+      .where(frankiz_id: nil)
+      .order(promo: :desc)
   end
 
   def associate
