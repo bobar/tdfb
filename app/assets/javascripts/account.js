@@ -133,9 +133,20 @@ $(document).ready(function() {
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'casert');
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'readable_status');
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'budget', { lte: -1 });
+
 });
 
 $(document).on('ready page:load', function () {
   $('#filter-bar').submit();
   $('#filter-bar').bootstrapTableFilter('toggleRefreshButton', false);
+});
+
+$(document).on('keyup', '#_clope_id', function(e) {
+  if(e.keyCode == 13) {
+    e.preventDefault();
+    $('#quantity').focus();
+  }
+  if(e.keyCode == 39) {
+    $('#quantity').focus();
+  }
 });
