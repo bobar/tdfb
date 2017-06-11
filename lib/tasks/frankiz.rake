@@ -1,7 +1,16 @@
 namespace :frankiz do
   task :refresh_promo, [:promo] => :environment do |_, args|
-    fkz = FrankizLdap.new
-    fkz.crawl_promo(args[:promo])
+    FrankizLdap.new.crawl_promo(args[:promo])
+  end
+
+  task refresh_oldest_promo: :environment do
+    promo = User.select(:promo, 'MIN(updated_at) updated_at')
+      .where.not(promo: nil)
+      .group(:promo)
+      .having('COUNT(1) > 1')
+      .order(:updated_at).first.promo
+    promo = User.maximum(:promo) + 1 if Random.rand(10) == 0
+    FrankizLdap.new.crawl_promo(promo)
   end
 
   task :associate_accounts, [:promo] => :environment do |_, args|
