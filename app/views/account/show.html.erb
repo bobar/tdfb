@@ -185,6 +185,7 @@
         <%= render @transactions %>
       </tbody>
     </table>
+    <div class="wait" data-text="<%= I18n.t(:please_wait) %>" hidden></div>
     <%= will_paginate @transactions %>
   </div>
 </div>

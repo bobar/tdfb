@@ -149,3 +149,4 @@ fr:
   close_account: Clôturer le compte
   non_frankiz_accounts: Comptes non-Frankiz
   fkz_id_used: Ce compte Frankiz est déjà associé à <a href="%{link}">%{trigramme}</a>
+  please_wait: Attendez s'il vous plaît ...
