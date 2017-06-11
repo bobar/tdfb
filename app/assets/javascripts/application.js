@@ -82,9 +82,9 @@ $(document).ajaxError(function(e, jqXHR) {
   } else {
     try {
       if(typeof jqXHR.responseJSON === 'undefined') {
-        $('#error-modal #error-modal-text').text(JSON.parse(jqXHR.responseText)['message']);
+        $('#error-modal #error-modal-text').html(JSON.parse(jqXHR.responseText)['message']);
       } else {
-        $('#error-modal #error-modal-text').text(jqXHR.responseJSON['message']);
+        $('#error-modal #error-modal-text').html(jqXHR.responseJSON['message']);
       }
     } catch(e) {
       $('#error-modal #error-modal-text').text('Something went wrong, call the SIE.');

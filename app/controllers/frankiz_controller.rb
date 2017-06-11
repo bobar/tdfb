@@ -22,6 +22,8 @@ class FrankizController < ApplicationController
   end
 
   def associate
+    account = Account.find_by(frankiz_id: params[:frankiz_id].to_i)
+    fail TdbException, I18n.t(:fkz_id_used, trigramme: "#{account.full_name} (#{account.trigramme})", link: "/account/#{account.id}") if account
     Account.find(params[:account_id]).update(frankiz_id: params[:frankiz_id].to_i)
     redirect_to_url('/frankiz/unassociated_accounts')
   end
