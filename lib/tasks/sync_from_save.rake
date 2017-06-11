@@ -1,15 +1,14 @@
 namespace :db do
-  task :sync_from_save, [:password, :user] => :environment do |_, args|
-    check_user(args[:user])
+  task :sync_from_save, [:password] => :environment do |_, args|
+    check_user!
     ask_confirmation
     backup_current_base
     database_path = fetch_database_on_gmail(args[:password])
     replace_database(database_path)
-    customize_database
   end
 
-  def check_user(user)
-    fail 'Tu n\'est pas celui que tu crois être' unless user == ENV['USER']
+  def check_user!
+    fail 'Opération interdite au BôB' if ENV['USER'] == 'bobar'
   end
 
   def ask_confirmation
@@ -48,11 +47,5 @@ namespace :db do
     `gzip -dc #{path} | mysql -h#{conf['host']} -u#{conf['username']} -p#{conf['password']} #{conf['database']}`
     puts 'Remplacement de la base réussie !'
     `rm #{path}`
-  end
-
-  def customize_database
-    Admin.find(Account::GENGEN_FRANKIZ_ID).update(permissions: 3)
-    gengen = Account.find(Account::GENGEN_FRANKIZ_ID)
-    Transaction.log(gengen, Account.default_bank, -100)
   end
 end
