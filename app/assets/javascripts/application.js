@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery-ui/widgets/autocomplete
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require_tree .
 //= require bootstrap-datepicker
 //= require bootstrap-filestyle

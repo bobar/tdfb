@@ -154,6 +154,7 @@ GEM
     rake (12.0.0)
     rdoc (4.2.2)
       json (~> 1.4)
+    remotipart (1.3.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-gmail (0.3.1)
@@ -223,6 +224,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.3)
   rails-i18n!
+  remotipart (~> 1.2)
   rest-client (~> 1.6.7)
   ruby-gmail
   sass-rails (~> 5.0)
