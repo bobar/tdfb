@@ -10,6 +10,10 @@ development:
   <<: *default
   database: tdb
 
+bob:
+  <<: *default
+  database: tdb
+
 test:
   <<: *default
   database: tdb_test
