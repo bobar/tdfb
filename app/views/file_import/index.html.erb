@@ -1,6 +1,11 @@
 <div class="row text-center">
   <div class="col-md-6 col-md-offset-3">
     <%= render 'shared/active_bank' %>
+    <div class="text-center alert alert-warning">
+      <h1>
+        <strong><%= I18n.t(:file_import_explanation, bank_name: @bank.bank_display_name) %></strong>
+      </h1>
+    </div>
   </div>
   <div class="col-md-12">
     <h1><%= I18n.t(:file_import) %></h1>
