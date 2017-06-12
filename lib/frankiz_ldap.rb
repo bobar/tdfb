@@ -31,7 +31,7 @@ class FrankizLdap
     items.each_with_index do |item, idx|
       user = insert(item)
       user.update_account
-      @logger.info "Inserted user #{idx + 1}/#{todo} #{item[:givenname].first} #{item[:sn].first}"
+      @logger.info "[#{item[:brpromo].first}] Inserted user #{idx + 1}/#{todo} #{item[:givenname].first} #{item[:sn].first}"
     end
   end
 
