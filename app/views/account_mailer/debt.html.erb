@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Salut <%= @account.first_name %>,
+    </p>
+    <p>
+      Ton trigramme <%= @account.trigramme %> est en négatif au BôB, tu nous dois <%= number_to_currency(-@account.budget) %>.
+      Fais nous vite un chèque !
+    </p>
+    <p>
+      Le BôB, qui t'enkhûle avec affection.
+    </p>
+  </body>
+</html>

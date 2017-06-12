@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get ':id' => :show
     post 'create' => :create
     post 'cancel_transaction' => :cancel_transaction
+    post 'debt_mail/:id' => :debt_mail
     post 'log/:id' => :log
     post 'credit/:id' => :credit
     post 'clopes/:id' => :clopes

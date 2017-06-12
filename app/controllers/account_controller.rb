@@ -35,6 +35,16 @@ class AccountController < ApplicationController
       .paginate(page: params[:page])
   end
 
+  def debt_mail
+    @account = Account.find(params[:id])
+    require_admin!(:modifier_tri)
+    fail TdbException, 'Le compte est en positif' unless @account.balance < 0
+    fail TdbException, 'Le compte n\'est pas X Platal' unless @account.x_platal?
+    fail TdbException, 'Pas d\'adresse mail' if @account.mail.nil? || @account.mail.blank?
+    @account.send_fascisation_mail(@admin)
+    render_redirect_to
+  end
+
   def fkz_refresh
     require_admin!(:modifier_tri)
     @account = Account.find(params[:id])

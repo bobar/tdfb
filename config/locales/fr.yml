@@ -152,3 +152,6 @@ fr:
   please_wait: Attendez s'il vous plaît ...
   file_import_explanation: "Le ficher sera importé au bénéfice de la banque actuelle : %{bank_name}"
   today_birthdays: Anniversaires du jour
+  send_debt_mail: Envoyer email de négatif
+  debt_mail:
+    subject: T'es en négatif au BôB

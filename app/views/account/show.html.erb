@@ -36,6 +36,12 @@
               <%= f.submit I18n.t(:close_account), class: 'btn btn-xs btn-danger' %>
             <% end %>
           </div>
+          <br>
+          <div class="col-md-6" style="padding-left: 0;">
+            <%= bootstrap_form_tag(remote: true, url: "/account/debt_mail/#{@account.id}", method: :post) do |f| %>
+              <%= f.submit I18n.t(:send_debt_mail), class: 'btn btn-xs btn-default', id: 'send-debt-mail' %>
+            <% end %>
+          </div>
           <br><br>
           <%= bootstrap_form_tag(
                 remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,

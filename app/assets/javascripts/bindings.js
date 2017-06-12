@@ -35,6 +35,9 @@ $(document).ready(function() {
   bind('ctrl+t', function() {
     $('#transfer-form #amount').focus();
   });
+  bind('ctrl+alt+m', function() {
+    $('#send-debt-mail').click();
+  });
   Mousetrap.bind('esc', function () {
     if (document.activeElement.tagName === 'BODY') {
       window.location.href = '/';

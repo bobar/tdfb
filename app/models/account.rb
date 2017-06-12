@@ -104,4 +104,12 @@ class Account < ActiveRecord::Base
     end
     res
   end
+
+  def send_fascisation_mail(admin)
+    sent_mail = AccountMailer.debt(self).deliver_now
+    fail TdbException, 'Le mail n\'a pas pu être envoyé' unless sent_mail.is_a? Mail::Message
+    Transaction.create(
+      id: id, id2: id, price: 0, admin: admin.try(:id), comment: "Mail de négatif envoyé à #{mail} (solde #{budget})", date: Time.current,
+    )
+  end
 end
