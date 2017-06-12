@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
     @best_consumers = Chart.best_consumers(7, @bank)
     @scatter_plot = Chart.scatter_plot
     @heat_map = Chart.heat_map(7, @chart_globals)
+    @birthdays = Account.x.where('birthdate LIKE ?', Date.current.strftime('%%-%m-%d')).order(promo: :desc)
   end
 
   def login

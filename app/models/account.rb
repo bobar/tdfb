@@ -14,6 +14,8 @@ class Account < ActiveRecord::Base
   DEFAULT_BANK_ID = 1
   DEFAULT_BANK_TRIGRAMME = 'BOB'.freeze
 
+  scope :x, -> { where(status: Account.statuses.slice(:x_platal, :x_ancien).values) }
+
   def self.default_bank
     find(DEFAULT_BANK_ID)
   end

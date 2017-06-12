@@ -3,7 +3,8 @@
     <h1><%= I18n.t(:welcome) %></h1>
   </div>
 </div>
-
+<br>
+<%= render 'birthdays', birthdays: @birthdays %>
 <br>
 <%= high_chart_globals(@chart_globals) %>
 <div class="row">
