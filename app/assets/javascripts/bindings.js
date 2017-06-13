@@ -32,6 +32,9 @@ $(document).ready(function() {
   bind('ctrl+w', function() {
     $('#clopes-form #_clope_id').focus();
   });
+  bind('ctrl+c', function() {
+    $('#clopes-form #_clope_id').focus();
+  });
   bind('ctrl+t', function() {
     $('#transfer-form #amount').focus();
   });

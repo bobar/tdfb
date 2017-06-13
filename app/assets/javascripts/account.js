@@ -142,10 +142,6 @@ $(document).on('ready page:load', function () {
 });
 
 $(document).on('keyup', '#_clope_id', function(e) {
-  if(e.keyCode == 13) {
-    e.preventDefault();
-    $('#quantity').focus();
-  }
   if(e.keyCode == 39) {
     $('#quantity').focus();
   }

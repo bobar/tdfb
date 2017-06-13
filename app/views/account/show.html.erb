@@ -120,7 +120,14 @@
           html: { id: 'clopes-form' }) do |f| %>
       <div class="row low-padding">
         <div class="col-md-6">
-          <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
+          <div class="form-group">
+            <label class="sr-only control-label" for="clope_id">Clope</label>
+            <select multiple class="form-control" name="[clope_id]" id="_clope_id">
+              <% Clope.order(quantite: :desc).all.map do |clope| %>
+              <option value="<%= clope.id %>" <% if clope.id == 1 %>selected="selected"<% end %>><%= clope.marque %></option>
+              <% end %>
+            </select>
+          </div>
         </div>
         <div class="col-md-6">
           <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary(I18n.t(:log))) %>
