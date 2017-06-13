@@ -141,6 +141,7 @@ $(document).on('ready page:load', function () {
 });
 
 $(document).on('keyup', '#_clope_id', function(e) {
+  // Left arrow key
   if(e.keyCode == 39) {
     $('#quantity').focus();
   }
