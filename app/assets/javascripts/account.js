@@ -133,7 +133,6 @@ $(document).ready(function() {
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'casert');
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'readable_status');
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'budget', { lte: -1 });
-
 });
 
 $(document).on('ready page:load', function () {
