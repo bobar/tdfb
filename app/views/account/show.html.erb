@@ -5,194 +5,25 @@
   <div class="col-sm-5 col-sm-push-7">
     <div class="row low-padding <%= 'alert alert-danger' if @account.age && @account.age < 18 %>">
       <div class="col-md-5">
-        <h1
-          class="<%= @account.binet? ? 'text-success' : @account.x_platal? ? '' : 'text-primary' %>"
-        >
-          <strong><%= @account.trigramme %></strong>
-          <% if @account.binet? %>
-            <%= bootstrap_form_tag(remote: true, url: "/bank/#{@account.trigramme}", method: :post, html: { style: 'display: inline' }) do |f| %>
-              <%= f.primary I18n.t(:set_as_bank) %>
-            <% end %>
-          <% end %>
-          <% unless @account.x_platal? %>
-            <br>
-            <small><%= @account.readable_status %></small>
-          <% end %>
-          <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse" style="display: inline; font-size: 14px;">
-            <%= fa_icon "pencil-square-o" %>
-          </a>
-        </h1>
-        <div class="collapse" id="trigrammeCollapse">
-          <br>
-          <% if @account.frankiz_id %>
-            <div class="col-md-6" style="padding-left: 0;">
-              <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
-                <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
-              <% end %>
-            </div>
-          <% end %>
-          <div class="col-md-6" style="padding-right: 0;">
-            <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
-              <%= f.submit I18n.t(:close_account), class: 'btn btn-xs btn-danger' %>
-            <% end %>
-          </div>
-          <br>
-          <div class="col-md-6" style="padding-left: 0;">
-            <%= bootstrap_form_tag(remote: true, url: "/account/debt_mail/#{@account.id}", method: :post) do |f| %>
-              <%= f.submit I18n.t(:send_debt_mail), class: 'btn btn-xs btn-default', id: 'send-debt-mail' %>
-            <% end %>
-          </div>
-          <br><br>
-          <%= bootstrap_form_tag(
-                remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,
-                html: { id: 'trigramme-form' }) do |f| %>
-            <%= f.text_field(:trigramme, class: 'uppercase-input', hide_label: true, placeholder: I18n.t(:trigramme)) %>
-            <%= f.select(
-              :status,
-              Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] },
-              selected: @account.status, hide_label: true)
-            %>
-            <%= f.file_field(:picture, hide_label: true, class: 'filestyle', 'data-buttonText' => I18n.t(:picture)) %>
-            <%= f.primary I18n.t(:save) %>
-          <% end %>
-        </div>
+        <%= render 'show_trigramme' %>
+        <%= render 'show_edition' %>
         <br>
-        <h2>
-          <%= @account.first_name %> <%= @account.name %>
-          <small><%= @account.promo %></small>
-        </h2>
-        <h3>
-          <%= if @account.birthday?
-            fa_icon "birthday-cake 2x"
-          end %>
-          <% if @account.age %>
-            <%= @account.age %> ans (<%= @account.birthdate %>)
-          <% end %>
-        </h3>
-        <div>
-          <small>
-            <%= I18n.t(:since_last_reset, amount: number_to_currency(@account.turnover / 100.0)) %>
-          </small>
-        </div>
-        <div>
-          <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
-          <% if @account.nickname.nil? || @account.nickname.blank? %>
-            <small><em>Nickname</em></small>
-          <% else %>
-            <%= @account.nickname %>
-          <% end %>
-        </div>
-        <div class="collapse text-right" id="nicknameCollapse">
-          <br>
-          <%= bootstrap_form_tag(
-                remote: true, url: "/account/#{@account.id}", method: :post,
-                html: { id: 'nickname-form' }) do |f| %>
-            <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
-            <%= f.primary 'Save' %>
-          <% end %>
-          <br>
-        </div>
-        <h1 class="<%= 'text-danger' if @account.balance < 0 %>"><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
+        <%= render 'show_description' %>
       </div>
       <div class="col-md-7 text-right hidden-sm hidden-xs">
-        <% if @account.display_picture %>
-          <div class="col-md-12">
-            <%= image_tag @account.display_picture, alt: @account.first_name, title: @account.first_name, class: 'account-image' %>
-          </div>
-        <% end %>
-        <% if @user && @user.sport_picture %>
-          <div class="col-md-12">
-            <%= image_tag @user.sport_picture, alt: @user.sport, title: @user.sport, class: 'sport-image' %>
-          </div>
-        <% end %>
+        <%= render 'show_pictures' %>
       </div>
     </div>
-    <%= bootstrap_form_tag(
-          remote: true, url: "/account/log/#{@account.id}", method: :post, layout: :inline,
-          html: { id: 'log-form' }) do |f| %>
-      <div class="row low-padding">
-        <div class="col-md-6">
-          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:pay), prepend: I18n.t(:currency)) %>
-        </div>
-        <div class="col-md-6">
-          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:comment), append: f.primary(I18n.t(:log))) %>
-        </div>
-      </div>
-    <% end %>
+    <%= render 'show_log' %>
     <br>
-    <h3><%= I18n.t(:cigarettes) %></h3>
-    <%= bootstrap_form_tag(
-          remote: true, url: "/account/clopes/#{@account.id}", method: :post, layout: :inline,
-          html: { id: 'clopes-form' }) do |f| %>
-      <div class="row low-padding">
-        <div class="col-md-6">
-          <%= f.select(:clope_id, Clope.order(quantite: :desc).all.collect { |c| [c.marque, c.id] }, class: 'mousetrap', hide_label: true) %>
-        </div>
-        <div class="col-md-6">
-          <%= f.number_field(:quantity, class: 'mousetrap', hide_label: true, value: 1, min: 1, append: f.primary(I18n.t(:log))) %>
-        </div>
-      </div>
-    <% end %>
-    <h3><%= I18n.t(:credit) %></h3>
-    <%= bootstrap_form_tag(
-          remote: true, url: "/account/credit/#{@account.id}", method: :post, layout: :inline,
-          html: { id: 'credit-form' }) do |f| %>
-      <div class="row low-padding">
-        <div class="col-md-6">
-          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:more_money), prepend: I18n.t(:currency)) %>
-        </div>
-        <div class="col-md-6">
-          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:comment)) %>
-        </div>
-        <div class="col-md-6">
-          <%= f.primary I18n.t(:check) %>
-          <%= f.primary I18n.t(:cash) %>
-        </div>
-      </div>
-    <% end %>
-    <h3><%= I18n.t(:transfer) %></h3>
-    <%= bootstrap_form_tag(
-          remote: true, url: "/account/transfer/#{@account.id}", method: :post, layout: :inline,
-          html: { id: 'transfer-form' }) do |f| %>
-      <div class="row low-padding">
-        <div class="col-md-6">
-          <%= f.text_field(:amount, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:pay), prepend: I18n.t(:currency)) %>
-        </div>
-        <div class="col-md-6">
-          <%= f.text_field(:receiver, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:trigramme)) %>
-        </div>
-      </div>
-      <div class="row low-padding">
-        <div class="col-md-6">
-          <%= f.text_field(:comment, class: 'mousetrap', hide_label: true, placeholder: I18n.t(:comment)) %>
-        </div>
-        <div class="col-md-6">
-          <%= f.primary I18n.t(:transfer) %>
-        </div>
-      </div>
-    <% end %>
+    <%= render 'show_cigarettes' %>
+    <%= render 'show_credit' %>
+    <%= render 'show_transfer' %>
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">
     <%= render 'shared/active_bank' %>
-
-    <table id="transactions-table" class="table table-condensed table-bordered table-striped table-hover">
-      <thead>
-        <tr>
-          <td></td>
-          <td><%= I18n.t(:price) %></td>
-          <td><%= @account.binet? ? I18n.t(:trigramme) : I18n.t(:bank) %></td>
-          <td><%= I18n.t(:admin) %></td>
-          <td><%= I18n.t(:comment) %></td>
-          <td><%= I18n.t(:_date) %></td>
-        </tr>
-      </thead>
-      <tbody id="transactions">
-        <%= render @transactions %>
-      </tbody>
-    </table>
-    <div class="wait" data-text="<%= I18n.t(:please_wait) %>" hidden></div>
-    <%= will_paginate @transactions %>
+    <%= render 'show_transactions_table' %>
   </div>
 </div>
 <% if @account.birthday? %>

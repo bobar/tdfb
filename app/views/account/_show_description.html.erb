@@ -1,0 +1,36 @@
+<h2>
+  <%= @account.first_name %> <%= @account.name %>
+  <small><%= @account.promo %></small>
+</h2>
+<h3>
+  <%= if @account.birthday?
+    fa_icon "birthday-cake 2x"
+  end %>
+  <% if @account.age %>
+    <%= @account.age %> ans (<%= @account.birthdate %>)
+  <% end %>
+</h3>
+<div>
+  <small>
+    <%= I18n.t(:since_last_reset, amount: number_to_currency(@account.turnover / 100.0)) %>
+  </small>
+</div>
+<div>
+  <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
+  <% if @account.nickname.nil? || @account.nickname.blank? %>
+    <small><em>Nickname</em></small>
+  <% else %>
+    <%= @account.nickname %>
+  <% end %>
+</div>
+<div class="collapse text-right" id="nicknameCollapse">
+  <br>
+  <%= bootstrap_form_tag(
+        remote: true, url: "/account/#{@account.id}", method: :post,
+        html: { id: 'nickname-form' }) do |f| %>
+    <%= f.text_area(:nickname, rows: 3, hide_label: true, value: @account.nickname) %>
+    <%= f.primary 'Save' %>
+  <% end %>
+  <br>
+</div>
+<h1 class="<%= 'text-danger' if @account.balance < 0 %>"><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>

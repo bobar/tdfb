@@ -1,0 +1,17 @@
+<table id="transactions-table" class="table table-condensed table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <td></td>
+      <td><%= I18n.t(:price) %></td>
+      <td><%= @account.binet? ? I18n.t(:trigramme) : I18n.t(:bank) %></td>
+      <td><%= I18n.t(:admin) %></td>
+      <td><%= I18n.t(:comment) %></td>
+      <td><%= I18n.t(:_date) %></td>
+    </tr>
+  </thead>
+  <tbody id="transactions">
+    <%= render @transactions %>
+  </tbody>
+</table>
+<div class="wait" data-text="<%= I18n.t(:please_wait) %>" hidden></div>
+<%= will_paginate @transactions %>

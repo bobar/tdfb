@@ -1,0 +1,17 @@
+<h1
+  class="<%= @account.binet? ? 'text-success' : @account.x_platal? ? '' : 'text-primary' %>"
+>
+  <strong><%= @account.trigramme %></strong>
+  <% if @account.binet? %>
+    <%= bootstrap_form_tag(remote: true, url: "/bank/#{@account.trigramme}", method: :post, html: { style: 'display: inline' }) do |f| %>
+      <%= f.primary I18n.t(:set_as_bank) %>
+    <% end %>
+  <% end %>
+  <% unless @account.x_platal? %>
+    <br>
+    <small><%= @account.readable_status %></small>
+  <% end %>
+  <a data-toggle="collapse" href="#trigrammeCollapse" aria-expanded="false" aria-controls="trigrammeCollapse" style="display: inline; font-size: 14px;">
+    <%= fa_icon "pencil-square-o" %>
+  </a>
+</h1>

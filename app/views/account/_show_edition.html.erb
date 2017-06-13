@@ -1,0 +1,34 @@
+<div class="collapse" id="trigrammeCollapse">
+  <br>
+  <% if @account.frankiz_id %>
+    <div class="col-md-6" style="padding-left: 0;">
+      <%= bootstrap_form_tag(remote: true, url: "/account/fkz_refresh/#{@account.id}", method: :post) do |f| %>
+        <%= f.submit I18n.t(:refresh_from_fkz), class: 'btn btn-default btn-xs' %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="col-md-6" style="padding-right: 0;">
+    <%= bootstrap_form_tag(remote: true, url: "/account/#{@account.id}", method: :delete) do |f| %>
+      <%= f.submit I18n.t(:close_account), class: 'btn btn-xs btn-danger' %>
+    <% end %>
+  </div>
+  <br>
+  <div class="col-md-6" style="padding-left: 0;">
+    <%= bootstrap_form_tag(remote: true, url: "/account/debt_mail/#{@account.id}", method: :post) do |f| %>
+      <%= f.submit I18n.t(:send_debt_mail), class: 'btn btn-xs btn-default', id: 'send-debt-mail' %>
+    <% end %>
+  </div>
+  <br><br>
+  <%= bootstrap_form_tag(
+        remote: true, url: "/account/#{@account.id}", method: :post, authenticity_token: true,
+        html: { id: 'trigramme-form' }) do |f| %>
+    <%= f.text_field(:trigramme, class: 'uppercase-input', hide_label: true, placeholder: I18n.t(:trigramme)) %>
+    <%= f.select(
+      :status,
+      Account.statuses.keys.map { |k| [k.tr('_', ' ').capitalize, k] },
+      selected: @account.status, hide_label: true)
+    %>
+    <%= f.file_field(:picture, hide_label: true, class: 'filestyle', 'data-buttonText' => I18n.t(:picture)) %>
+    <%= f.primary I18n.t(:save) %>
+  <% end %>
+</div>
