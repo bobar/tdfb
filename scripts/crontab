@@ -1,0 +1,22 @@
+MAILTO="bobar.tdb@gmail.com"
+PASSWD=<password>
+
+# *     *     *   *    *        command to be executed
+# -     -     -   -    -
+# |     |     |   |    |
+# |     |     |   |    +----- day of week (0 - 6) (Sunday=0)
+# |     |     |   +------- month (1 - 12)
+# |     |     +--------- day of month (1 - 31)
+# |     +----------- hour (0 - 23)
+# +------------- min (0 - 59)
+
+15,30,45 0-2,12-13,20-23 * * * ~/save_db.sh
+00       *               * * * ~/save_db.sh
+
+*/10     *               * * * ~/sync_public_db.sh
+
+00       0,12            * * * cat /tmp/tdb.log | grep --text Processing | sed 's/^.*Processing by \(.*\) as .*/\1/g' | sort | uniq -c | sort -n | sendEmail -f bobar.save@gmail.com -t bobar.tdb@gmail.com -u "Endpoint usage" -s smtp.gmail.com:587 -o tls=yes -xu bobar.save@gmail.com -xp $PASSWD > /dev/null
+
+15,45    *               * * * cd ~/tdfb && RAILS_ENV=bob /home/bobar/.rvm/wrappers/default/bundle exec rake frankiz:refresh_oldest_promo > /dev/null
+
+# leave a newline at the end of this file
