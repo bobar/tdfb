@@ -47,7 +47,10 @@ class ApplicationController < ActionController::Base
   end
 
   def create_github_issue
-    IssueMailer.issue(params[:name], params[:email], params[:feedback_title], params[:feedback_body]).deliver_now
+    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+    body = params[:feedback_body]
+    body += "\n\nName: #{params[:name]}\nEmail: #{params[:email]}"
+    client.create_issue('bobar/tdfb', params[:feedback_title].to_s, body)
     redirect_to :back
   end
 
