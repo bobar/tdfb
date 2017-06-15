@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   FORCE_AUTH = %w(supprimer_tri banque_binet gestion_clopes gestion_admin).freeze
 
   around_action :production_auth if Rails.env.production? # We don't want anyone being able to read from Heroku
+  skip_around_action :production_auth, only: :create_github_issue # Because the issue was created anyway
 
   protect_from_forgery with: :exception
   before_action :load_bank
