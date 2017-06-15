@@ -18,6 +18,8 @@ function createWindow (railsApp) {
     mainWindow.show();
   });
 
+  mainWindow.setMenu(null);
+
   mainWindow.loadURL('http://localhost:2626');
 
   mainWindow.on('closed', function() {
