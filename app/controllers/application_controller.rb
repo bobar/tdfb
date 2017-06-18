@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    @chart_globals = Chart.theme(session['chart_theme'], session['theme'])
+    @chart_globals = Chart.theme(session[:chart_theme], session[:theme])
     @transactions_volume = Chart.transactions_volume(7, @bank)
     @best_consumers = Chart.best_consumers(7, @bank)
     @scatter_plot = Chart.scatter_plot
@@ -41,9 +41,9 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_theme
-    session['theme'] = params['theme'] if params['theme']
-    session['theme'] = nil if params['theme'] == 'bootstrap'
-    session['chart_theme'] = params['chart_theme'] if params['chart_theme']
+    session[:theme] = params[:theme] if params[:theme]
+    session[:theme] = nil if params[:theme] == 'bootstrap'
+    session[:chart_theme] = params[:chart_theme] if params[:chart_theme]
     redirect_to :back
   end
 
