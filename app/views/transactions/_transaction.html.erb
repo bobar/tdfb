@@ -1,21 +1,32 @@
 <tr>
+  <%
+    other_account, amount = nil, nil
+    is_debit = transaction.buyer_id == @account.id
+    if is_debit
+      other_account = transaction.receiver
+    else
+      other_account = transaction.buyer
+    end
+    other_trigramme = other_account.try(:trigramme)
+  %>
   <td class="text-center">
-    <% if transaction.price != 0 %>
-      <a class="cancel-transaction"
-         t-id="<%= transaction.id %>"
-         t-id2="<%= transaction.id2 %>"
-         t-date="<%= transaction.date %>"
-         t-price="<%= transaction.price %>">
+    <% if transaction.amount != 0 %>
+      <a class="cancel-transaction" t-id="<%= transaction.id %>">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
       </a>
     <% end %>
   </td>
-  <td><%= number_with_precision(transaction.price / 100.0, strip_insignificant_zeros: true, significant: false, precision: 2, delimiter: ' ') %></td>
-  <% bank_trigramme = transaction.receiver.try(:trigramme) %>
+  <% unless is_debit %>
+    <td></td>
+  <% end %>
+  <td><%= number_with_precision(transaction.amount / 100.0, strip_insignificant_zeros: true, significant: false, precision: 2, delimiter: ' ') %></td>
+  <% if is_debit %>
+    <td></td>
+  <% end %>
   <td>
-    <% if bank_trigramme != Account::DEFAULT_BANK_TRIGRAMME && transaction.id2 != transaction.id %>
-      <a href="/account/<%= transaction.id2 %>">
-        <%= bank_trigramme.nil? ? transaction.id2 : bank_trigramme %>
+    <% if other_trigramme != Account::DEFAULT_BANK_TRIGRAMME && @account.id != other_account.id %>
+      <a href="/account/<%= other_account.id %>">
+        <%= other_trigramme || other_account.id %>
       </a>
     <% end %>
   </td>

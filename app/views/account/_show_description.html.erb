@@ -34,3 +34,6 @@
   <br>
 </div>
 <h1 class="<%= 'text-danger' if @account.balance < 0 %>"><strong><%= number_to_currency(@account.balance / 100.0) %></strong></h1>
+<% if @account.total_clopes > 0 %>
+  <h4><strong><%= number_to_currency(@account.total_clopes / 100.0) %></strong> dépensés en cigarettes</h4>
+<% end %>

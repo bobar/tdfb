@@ -28,7 +28,8 @@ class AccountController < ApplicationController
     @account ||= Account.find_by(trigramme: params[:id].upcase) if params[:id].size == 3
     return redirect_to action: :unknown_account, trigramme: params[:id].upcase unless @account
     @user = @account.user
-    @transactions = Transaction.where(id: @account.id)
+    @transactions = Transaction.where('buyer_id = ? OR receiver_id = ?', @account.id, @account.id)
+      .includes(:buyer)
       .includes(:receiver)
       .includes(:administrator)
       .order(date: :desc)
@@ -184,12 +185,10 @@ class AccountController < ApplicationController
   end
 
   def cancel_transaction
-    date = Time.zone.parse(params[:date])
-    transaction = Transaction.find_by(id: params[:id], id2: params[:id2], price: params[:price], date: date)
-    reverse = Transaction.find_by(id: params[:id2], id2: params[:id], price: -params[:price].to_i, date: date)
-    fail TdbException, 'Cannot find this transaction' unless transaction && reverse
-    require_admin!(:credit) if date < Time.current - 1.minute
-    transaction.cancel(reverse, @admin)
+    transaction = Transaction.find_by(id: params[:transaction_id])
+    fail TdbException, 'Cannot find this transaction' unless transaction
+    require_admin!(:credit) if transaction.date < Time.current - 1.minute
+    transaction.cancel(@admin)
     render_redirect_to
   end
 

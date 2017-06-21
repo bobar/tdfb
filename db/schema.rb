@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170408164712) do
+ActiveRecord::Schema.define(version: 20170621181432) do
 
   create_table "accounts", force: :cascade do |t|
     t.string  "trigramme",    limit: 3
@@ -64,16 +64,40 @@ ActiveRecord::Schema.define(version: 20170408164712) do
     t.boolean "gestion_admin",             default: false, null: false
   end
 
-  create_table "transactions", id: false, force: :cascade do |t|
-    t.integer  "id",      limit: 4
-    t.integer  "price",   limit: 4
-    t.text     "comment", limit: 65535
-    t.integer  "admin",   limit: 4
-    t.integer  "id2",     limit: 4
+  create_table "event_transactions", force: :cascade do |t|
+    t.integer  "event_id",   limit: 4,                 null: false
+    t.integer  "account_id", limit: 4,                 null: false
+    t.string   "trigramme",  limit: 3,                 null: false
+    t.string   "first_name", limit: 255,               null: false
+    t.string   "last_name",  limit: 255,               null: false
+    t.decimal  "price",                  precision: 2, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_transactions", ["event_id"], name: "fk_rails_62eab051bc", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name",         limit: 255,             null: false
+    t.date     "date",                                 null: false
+    t.string   "binet_id",     limit: 255,             null: false
+    t.integer  "requester_id", limit: 4,               null: false
+    t.integer  "status",       limit: 4,   default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "buyer_id",    limit: 4
+    t.integer  "amount",      limit: 4
+    t.text     "comment",     limit: 4294967295
+    t.integer  "admin",       limit: 4
+    t.integer  "receiver_id", limit: 4
+    t.boolean  "is_tobacco",                     default: false, null: false
     t.datetime "date"
   end
 
-  add_index "transactions", ["id", "date"], name: "id_date", using: :btree
+  add_index "transactions", ["buyer_id", "date"], name: "id_date", using: :btree
 
   create_table "transactions_history", id: false, force: :cascade do |t|
     t.integer  "id",      limit: 4
@@ -110,4 +134,5 @@ ActiveRecord::Schema.define(version: 20170408164712) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "event_transactions", "events"
 end

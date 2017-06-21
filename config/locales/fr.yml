@@ -14,6 +14,8 @@ fr:
   password_again: Mot de passe (confirmation)
   pay: Paye, bâtard !
   price: Prix
+  debited: Débit
+  credited: Crédit
   receiver: Bénéficiaire
   search: Rechercher
   select_theme: Thèmes

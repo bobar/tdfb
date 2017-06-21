@@ -1,24 +1,35 @@
 class Transaction < ActiveRecord::Base
-  belongs_to :buyer, class_name: :Account, foreign_key: :id
-  belongs_to :receiver, class_name: :Account, foreign_key: :id2
+  belongs_to :buyer, class_name: :Account
+  belongs_to :receiver, class_name: :Account
   belongs_to :administrator, class_name: :Account, foreign_key: :admin
   self.per_page = 50
 
-  def self.log(account, bank, amount, comment: nil, admin: nil, time: Time.current)
-    batch_log([[account, amount]], bank, comment: comment, admin: admin, time: time)
+  def self.log(account, bank, amount, comment: nil, admin: nil, time: Time.current, is_tobacco: false)
+    batch_log([[account, amount]], bank, comment: comment, admin: admin, time: time, is_tobacco: is_tobacco)
   end
 
-  def self.batch_log(amounts, bank, comment: nil, admin: nil, time: Time.current) # amounts is an array [ [account, amount] ]
+  def self.batch_log(amounts, bank, comment: nil, admin: nil, time: Time.current, is_tobacco: false) # amounts is an array [ [account, amount] ]
     comment ||= ''
     transaction do
       amounts.each do |account, amount|
-        amount = (amount * 100).round(1).ceil # Screwing the customers
-        account.balance = account.balance - amount
-        account.turnover = account.turnover + amount if amount > 0
-        bank.balance = bank.balance + amount
-        bank.turnover = bank.turnover - amount if amount < 0
-        create(id: account.id, id2: bank.id, price: -amount, comment: comment, admin: admin.try(:id), date: time)
-        create(id: bank.id, id2: account.id, price: amount, comment: comment, admin: admin.try(:id), date: time)
+        buyer = amount > 0 ? account : bank
+        receiver = amount > 0 ? bank : account
+        amount = -amount if amount < 0
+
+        # We round the amount to the nearest cent upwards
+        amount = (amount * 100).round(1).ceil
+
+        buyer.balance -= amount
+        buyer.turnover += amount
+        buyer.total_clopes += amount if is_tobacco
+
+        receiver.balance += amount
+        receiver.total_clopes += amount if is_tobacco # So default bank has stats
+
+        create(
+          buyer_id: buyer.id, receiver_id: receiver.id, amount: amount, comment: comment, admin: admin.try(:id), date: time, is_tobacco: is_tobacco,
+        )
+
         account.save
       end
       bank.save
@@ -34,41 +45,29 @@ class Transaction < ActiveRecord::Base
     end.compact
     return if updates.empty?
     comment = 'Account updated: ' + updates.join(', ')
-    create(id: account.id, id2: account.id, price: 0, comment: comment, admin: admin.try(:id), date: Time.current)
+    create(buyer_id: account.id, receiver_id: account.id, amount: 0, comment: comment, admin: admin.try(:id), date: Time.current)
   end
 
-  def cancel(reverse, admin) # Reverse is the opposite transaction
-    payer = Account.find_by(id: id)
+  def cancel(admin)
     self.class.transaction do
-      payer.balance -= price
-      payer.turnover += price if price < 0
+      buyer.balance += amount
+      buyer.turnover -= amount
+      buyer.total_clopes -= amount if is_tobacco
 
-      receiver.balance += price
-      receiver.turnover -= price if price > 0
+      receiver.balance -= amount
+      receiver.total_clopes -= amount if is_tobacco
 
       new_comment = comment || ''
       new_comment += ' ' unless new_comment.empty?
       new_comment += if admin
-                       I18n.t(:transaction_cancelled_admin, amount: price / 100.0, admin: admin.account.trigramme)
+                       I18n.t(:transaction_cancelled_admin, amount: amount / 100.0, admin: admin.account.trigramme)
                      else
-                       I18n.t(:transaction_cancelled_comment, amount: price / 100.0)
+                       I18n.t(:transaction_cancelled_comment, amount: amount / 100.0)
                      end
-      self.class.where(date: date, id: id, id2: id2, price: price).update_all(
-        "price = 0, comment = #{self.class.connection.quote(new_comment)}",
-      )
 
-      new_comment = reverse.comment || ''
-      new_comment += ' ' unless new_comment.empty?
-      new_comment += if admin
-                       I18n.t(:transaction_cancelled_admin, amount: -price / 100.0, admin: admin.account.trigramme)
-                     else
-                       I18n.t(:transaction_cancelled_comment, amount: -price / 100.0)
-                     end
-      self.class.where(date: date, id: id2, id2: id, price: -price).update_all(
-        "price = 0, comment = #{self.class.connection.quote(new_comment)}",
-      )
+      update(amount: 0, comment: new_comment)
 
-      payer.save
+      buyer.save
       receiver.save
     end
   end

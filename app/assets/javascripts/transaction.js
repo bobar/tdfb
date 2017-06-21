@@ -2,10 +2,7 @@ function buttonCancelTransation() {
   $('.cancel-transaction').click(function(event) {
     $.ajax({
       data: {
-        id: event.target.parentElement.getAttribute('t-id'),
-        id2: event.target.parentElement.getAttribute('t-id2'),
-        date: event.target.parentElement.getAttribute('t-date'),
-        price: event.target.parentElement.getAttribute('t-price'),
+        transaction_id: event.target.parentElement.getAttribute('t-id'),
       },
       method: 'POST',
       dataType: 'script',
