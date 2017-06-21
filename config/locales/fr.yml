@@ -155,3 +155,7 @@ fr:
   send_debt_mail: Envoyer email de négatif
   debt_mail:
     subject: T'es en négatif au BôB
+  will_paginate:
+    previous_label: "Précédent"
+    next_label: "Suivant"
+    page_gap: " &hellip; "
