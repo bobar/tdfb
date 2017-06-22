@@ -4,17 +4,16 @@ class Transaction < ActiveRecord::Base
   belongs_to :administrator, class_name: :Account, foreign_key: :admin
   self.per_page = 50
 
-  def self.log(account, bank, amount, comment: nil, admin: nil, time: Time.current, is_tobacco: false)
-    batch_log([[account, amount]], bank, comment: comment, admin: admin, time: time, is_tobacco: is_tobacco)
+  def self.log(account, bank, value, comment: nil, admin: nil, time: Time.current, is_tobacco: false)
+    batch_log([[account, value]], bank, comment: comment, admin: admin, time: time, is_tobacco: is_tobacco)
   end
 
-  def self.batch_log(amounts, bank, comment: nil, admin: nil, time: Time.current, is_tobacco: false) # amounts is an array [ [account, amount] ]
+  def self.batch_log(amounts, bank, comment: nil, admin: nil, time: Time.current, is_tobacco: false) # amounts is an array [ [account, value] ]
     comment ||= ''
     transaction do
-      amounts.each do |account, amount|
-        buyer = amount > 0 ? account : bank
-        receiver = amount > 0 ? bank : account
-        amount = -amount if amount < 0
+      amounts.each do |account, value|
+        buyer, receiver = value > 0 ? [account, bank] : [bank, account]
+        amount = value.abs
 
         # We round the amount to the nearest cent upwards
         amount = (amount * 100).round(1).ceil

@@ -110,7 +110,6 @@ fr:
   file_import: Importer un fichier
   import: Importer
   file: Fichier
-  no_account_for_trigramme: Pas de compte avec le trigramme %{trigramme}
   suggested_accounts: Comptes suggérés
   negative_amount: Montant négatif
   not_x_goes_negative: Compte non-X passe en négatif
@@ -144,10 +143,6 @@ fr:
   feedback_title: Titre
   feedback_body: Description
   feedback_button: Envoyer un gentil message aux créateurs du TDB
-  need_positive_amount: Le montant doit être positif!
-  balance_must_be_zero: Le solde du trigramme n'est pas à 0
-  duplicate_fkz_id: Ce compte Frankiz est deja en service, utiliser la recherche !
-  deactivated_account: Compte actuellement désactivé, lui attribuer un trigramme !
   close_account: Clôturer le compte
   non_frankiz_accounts: Comptes non-Frankiz
   fkz_id_used: Ce compte Frankiz est déjà associé à <a href="%{link}">%{trigramme}</a>
@@ -158,6 +153,17 @@ fr:
   debt_mail:
     subject: T'es en négatif au BôB
   will_paginate:
-    previous_label: "Précédent"
-    next_label: "Suivant"
+    previous_label: Précédent
+    next_label: Suivant
     page_gap: " &hellip; "
+  exception:
+    positive_account: Le compte est en positif
+    account_not_x_platal: Le compte n'est pas X Platal
+    account_without_email: Le compte n'a pas d'addresse mail
+    need_positive_amount: Le montant doit être positif!
+    no_account_for_trigramme: Pas de compte avec le trigramme %{trigramme}
+    identical_sender_receiver: Les 2 comptes sont identiques
+    deactivated_account: Compte actuellement désactivé, lui attribuer un trigramme !
+    duplicate_fkz_id: Ce compte Frankiz est deja en service, utiliser la recherche !
+    balance_must_be_zero: Le solde du trigramme n'est pas à 0
+    transaction_does_not_exist: Cette transaction ne peut pas être retrouvée

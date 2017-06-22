@@ -4,7 +4,7 @@ class GroupLogController < ApplicationController
 
   def log
     amount = params[:amount].to_f
-    fail TdbException, I18n.t(:need_positive_amount) if amount < 0
+    fail TdbException, I18n.t('exception.need_positive_amount') if amount < 0
     fail TdbException, 'Amount too high!' if amount > 200
     trigrammes = params[:trigramme].select { |t| t.size == 3 }.map(&:to_s).map(&:upcase)
     accounts = Account.where(trigramme: trigrammes)

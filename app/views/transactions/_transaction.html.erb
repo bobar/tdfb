@@ -1,17 +1,12 @@
 <tr>
   <%
-    other_account, amount = nil, nil
     is_debit = transaction.buyer_id == @account.id
-    if is_debit
-      other_account = transaction.receiver
-    else
-      other_account = transaction.buyer
-    end
-    other_trigramme = other_account.try(:trigramme)
+    partner = is_debit ? transaction.receiver : transaction.buyer
+    partner_trigramme = partner.try(:trigramme)
   %>
   <td class="text-center">
     <% if transaction.amount != 0 %>
-      <a class="cancel-transaction" t-id="<%= transaction.id %>">
+      <a class="cancel-transaction" transaction-id="<%= transaction.id %>">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
       </a>
     <% end %>
@@ -24,9 +19,9 @@
     <td></td>
   <% end %>
   <td>
-    <% if other_trigramme != Account::DEFAULT_BANK_TRIGRAMME && @account.id != other_account.id %>
-      <a href="/account/<%= other_account.id %>">
-        <%= other_trigramme || other_account.id %>
+    <% if partner_trigramme != Account::DEFAULT_BANK_TRIGRAMME && @account.id != partner.id %>
+      <a href="/account/<%= partner.id %>">
+        <%= partner_trigramme || partner.id %>
       </a>
     <% end %>
   </td>

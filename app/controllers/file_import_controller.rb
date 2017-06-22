@@ -24,7 +24,7 @@ class FileImportController < ApplicationController
       acc = accounts[e[:trigramme]]
       e[:comments] = []
       if acc.nil?
-        e[:comments] << I18n.t(:no_account_for_trigramme, trigramme: e[:trigramme])
+        e[:comments] << I18n.t('exception.no_account_for_trigramme', trigramme: e[:trigramme])
         e[:level] ||= :fatal
         e[:int_level] ||= 3
         next

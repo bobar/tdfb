@@ -4,7 +4,7 @@ class AccountController < ApplicationController
   def load_account
     return unless params.key?(:id) && params[:id] =~ /^\d+$/
     @account = Account.find(params[:id])
-    fail TdbException, I18n.t(:deactivated_account) if @account.trigramme.nil?
+    fail TdbException, I18n.t('exception.deactivated_account') if @account.trigramme.nil?
   end
 
   skip_before_action :load_account, only: [:show, :update]
@@ -39,9 +39,9 @@ class AccountController < ApplicationController
   def debt_mail
     @account = Account.find(params[:id])
     require_admin!(:modifier_tri)
-    fail TdbException, 'Le compte est en positif' unless @account.balance < 0
-    fail TdbException, 'Le compte n\'est pas X Platal' unless @account.x_platal?
-    fail TdbException, 'Pas d\'adresse mail' if @account.mail.nil? || @account.mail.blank?
+    fail TdbException, I18n.t('exception.positive_account') unless @account.balance < 0
+    fail TdbException, I18n.t('exception.account_not_x_platal') unless @account.x_platal?
+    fail TdbException, I18n.t('exception.account_without_email') if @account.mail.nil? || @account.mail.blank?
     @account.send_fascisation_mail(@admin)
     render_redirect_to
   end
@@ -68,7 +68,7 @@ class AccountController < ApplicationController
   def log
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
-    fail TdbException, I18n.t(:need_positive_amount) if amount < 0
+    fail TdbException, I18n.t('exception.need_positive_amount') if amount < 0
     require_admin!(:log_eleve) if amount > 20 || (!@account.x_platal? && @account.budget < amount)
     Transaction.log(@account, @bank, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
@@ -77,7 +77,7 @@ class AccountController < ApplicationController
   def credit
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
-    fail TdbException, I18n.t(:need_positive_amount) if amount < 0
+    fail TdbException, I18n.t('exception.need_positive_amount') if amount < 0
     require_admin!(:credit)
     comment = params[:commit]
     comment += " - #{params[:comment]}" if params[:comment] && !params[:comment].empty?
@@ -119,11 +119,11 @@ class AccountController < ApplicationController
   def transfer
     @account = Account.find(params[:id])
     amount = params[:amount].to_f
-    fail TdbException, I18n.t(:need_positive_amount) if amount < 0
+    fail TdbException, I18n.t('exception.need_positive_amount') if amount < 0
     require_admin!(:transfert)
     receiver = Account.find_by(trigramme: params[:receiver].upcase)
-    fail TdbException, I18n.t(:no_account_for_trigramme, trigramme: params[:receiver].upcase) unless receiver
-    fail TdbException, 'Sender and recipient are the same' if receiver.id == @account.id
+    fail TdbException, I18n.t('exception.no_account_for_trigramme', trigramme: params[:receiver].upcase) unless receiver
+    fail TdbException, I18n.t('exception.identical_sender_receiver') if receiver.id == @account.id
     Transaction.log(@account, receiver, amount, comment: params[:comment], admin: @admin)
     render_redirect_to
   end
@@ -133,7 +133,7 @@ class AccountController < ApplicationController
 
   def create
     require_admin!(:creer_tri)
-    fail TdbException, I18n.t(:duplicate_fkz_id) if Account.exists?(frankiz_id: params[:frankiz_id])
+    fail TdbException, I18n.t('exception.duplicate_fkz_id') if Account.exists?(frankiz_id: params[:frankiz_id])
     account = Account.create(
       trigramme: params[:trigramme].upcase,
       frankiz_id: params[:frankiz_id],
@@ -155,7 +155,7 @@ class AccountController < ApplicationController
     require_admin!(:supprimer_tri)
     # We're actually just going to set trigramme to null so that we keep the history and everything
     @account = Account.find(params[:id])
-    fail TdbException, I18n.t(:balance_must_be_zero) unless @account.balance == 0
+    fail TdbException, I18n.t('exception.balance_must_be_zero') unless @account.balance == 0
     ActiveRecord::Base.transaction do
       Transaction.account_update(@account, { trigramme: nil }, admin: @admin)
       @account.update(trigramme: nil)
@@ -186,7 +186,7 @@ class AccountController < ApplicationController
 
   def cancel_transaction
     transaction = Transaction.find_by(id: params[:transaction_id])
-    fail TdbException, 'Cannot find this transaction' unless transaction
+    fail TdbException, I18n.t('exception.transaction_does_not_exist') unless transaction
     require_admin!(:credit) if transaction.date < Time.current - 1.minute
     transaction.cancel(@admin)
     render_redirect_to

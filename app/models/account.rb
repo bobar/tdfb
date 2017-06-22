@@ -109,7 +109,12 @@ class Account < ActiveRecord::Base
     sent_mail = AccountMailer.debt(self).deliver_now
     fail TdbException, 'Le mail n\'a pas pu être envoyé' unless sent_mail.is_a? Mail::Message
     Transaction.create(
-      id: id, id2: id, price: 0, admin: admin.try(:id), comment: "Mail de négatif envoyé à #{mail} (solde #{budget})", date: Time.current,
+      buyer_id: id,
+      receiver_id: id,
+      price: 0,
+      admin: admin.try(:id),
+      comment: "Mail de négatif envoyé à #{mail} (solde #{budget})",
+      date: Time.current,
     )
   end
 end
