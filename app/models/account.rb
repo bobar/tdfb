@@ -107,7 +107,7 @@ class Account < ActiveRecord::Base
 
   def send_fascisation_mail(admin)
     sent_mail = AccountMailer.debt(self).deliver_now
-    fail TdbException, 'Le mail n\'a pas pu être envoyé' unless sent_mail.is_a? Mail::Message
+    fail TdbException, I18n.t('exception.mail_could_not_be_sent') unless sent_mail.is_a? Mail::Message
     Transaction.create(
       buyer_id: id,
       receiver_id: id,

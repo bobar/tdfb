@@ -23,7 +23,11 @@ class FrankizController < ApplicationController
 
   def associate
     account = Account.find_by(frankiz_id: params[:frankiz_id].to_i)
-    fail TdbException, I18n.t(:fkz_id_used, trigramme: "#{account.full_name} (#{account.trigramme})", link: "/account/#{account.id}") if account
+    fail TdbException, I18n.t(
+      'exception.fkz_id_used',
+      trigramme: "#{account.full_name} (#{account.trigramme})",
+      link: "/account/#{account.id}",
+    ) if account
     Account.find(params[:account_id]).update(frankiz_id: params[:frankiz_id].to_i)
     redirect_to_url('/frankiz/unassociated_accounts')
   end
@@ -54,6 +58,6 @@ class FrankizController < ApplicationController
     # Test that LDAP connection works
     fkz = FrankizLdap.new
     manou = fkz.get(Account::MANOU_FRANKIZ_ID)
-    fail TdbException, 'Frankiz LDAP not reachable' unless manou
+    fail TdbException, I18n.t('exception.frankiz_ldap_failure') unless manou
   end
 end
