@@ -1,15 +1,11 @@
 module Chart
   def self.transactions_volume(days, bank)
-    debits = Transaction.select('DATE(date) as day, SUM(ABS(price)) as sum')
-      .where.not(id: bank.id)
-      .where(id2: bank.id)
-      .where('price < 0')
+    debits = Transaction.select('DATE(date) as day, SUM(amount) as sum')
+      .where(receiver_id: bank.id)
       .where('date > ?', Time.current - days.days)
       .group('day')
-    credits = Transaction.select('DATE(date) as day, SUM(price) as sum')
-      .where.not(id: bank.id)
-      .where(id2: bank.id)
-      .where('price > 0')
+    credits = Transaction.select('DATE(date) as day, SUM(amount) as sum')
+      .where(buyer_id: bank.id)
       .where('date > ?', Time.current - days.days)
       .group('day')
     LazyHighCharts::HighChart.new('graph') do |f|
@@ -23,14 +19,12 @@ module Chart
   end
 
   def self.best_consumers(days, bank)
-    consumers = Transaction.select('trigramme, SUM(ABS(price)) as sum')
+    consumers = Transaction.select('trigramme, SUM(amount) as sum')
       .joins(:buyer)
       .where.not(accounts: { status: 2 })
-      .where.not(id: bank.id)
-      .where(id2: bank.id)
-      .where('price < 0')
+      .where(receiver_id: bank.id)
       .where('date > ?', Time.current - days.days)
-      .group(:id)
+      .group(:buyer_id)
       .order('sum DESC')
       .limit(20)
     LazyHighCharts::HighChart.new('graph') do |f|
