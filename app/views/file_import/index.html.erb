@@ -14,7 +14,7 @@
 <div class="row text-center">
   <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
     <%= bootstrap_form_tag(
-        remote: true, url: "/file_import", method: :post, html: { id: 'file-import-form' }) do |f| %>
+        remote: true, url: "/file_import", authenticity_token: true, method: :post, html: { id: 'file-import-form' }) do |f| %>
       <%= f.file_field(:file, hide_label: true, class: 'filestyle', 'data-buttonText' => I18n.t(:file)) %>
       <%= f.primary I18n.t('import') %>
     <% end %>

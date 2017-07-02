@@ -176,3 +176,4 @@ fr:
     wrong_password: Mot de passe erroné
     passwords_do_not_match: Les mots de passe ne correspondent pas
     rights_are_in_use: Les droits sont actuellement utilisés
+    unhandled_extension: Cette extension n'est pas supportée

@@ -16,6 +16,12 @@ class FileImportController < ApplicationController
            when '.csv'
              require 'csv'
              CSV.read(file.path)
+           when '.xls', '.xlsx', '.xlsm', '.ods'
+             require 'roo'
+             parsed = Roo::Spreadsheet.open(file.path)
+             parsed.sheet(0).parse
+           else
+             fail TdbException, I18n.t('exception.unhandled_extension')
            end
     @entries = to_hashes(rows)
     accounts = Account.where(trigramme: @entries.map { |e| e[:trigramme] }).index_by(&:trigramme)
@@ -53,6 +59,8 @@ class FileImportController < ApplicationController
       e[:int_level] = 1 if e[:level] == :warning
     end
     @entries.sort_by! { |e| [-e[:int_level].to_i, e[:comments], e[:trigramme]] }
+
+    render 'read_file'
   end
 
   def submit

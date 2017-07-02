@@ -158,13 +158,21 @@ GEM
     rake (12.0.0)
     rdoc (4.2.2)
       json (~> 1.4)
-    remotipart (1.3.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    roo (2.7.1)
+      nokogiri (~> 1)
+      rubyzip (~> 1.1, < 2.0.0)
+    roo-xls (1.1.0)
+      nokogiri
+      roo (>= 2.0.0beta1, < 3)
+      spreadsheet (> 0.9.0)
     ruby-gmail (0.3.1)
       mail (>= 2.2.1)
       mime (>= 0.1)
       shared-mime-info
+    ruby-ole (1.2.12.1)
+    rubyzip (1.2.1)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -181,6 +189,8 @@ GEM
     sentry-raven (2.5.1)
       faraday (>= 0.7.6, < 1.0)
     shared-mime-info (0.2.5)
+    spreadsheet (1.1.4)
+      ruby-ole (>= 1.0)
     spring (2.0.0)
       activesupport (>= 4.2)
     sprockets (3.7.0)
@@ -231,8 +241,9 @@ DEPENDENCIES
   octokit (~> 4.0)
   rails (= 4.2.3)
   rails-i18n!
-  remotipart (~> 1.2)
   rest-client (~> 1.6.7)
+  roo
+  roo-xls
   ruby-gmail
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
