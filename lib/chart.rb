@@ -29,7 +29,9 @@ module Chart
       .limit(20)
     LazyHighCharts::HighChart.new('graph') do |f|
       f.title(text: I18n.t(:best_consumers, days: days))
-      f.xAxis(categories: consumers.map(&:trigramme))
+      js_function = "'<a href=\"/account/' + this.value + '\">' + this.value + '</a>'"
+      formatter = %|function() { return #{js_function}; }|.js_code
+      f.xAxis(categories: consumers.map(&:trigramme), labels: { formatter: formatter, useHTML: true })
       f.series(name: I18n.t(:consumption), yAxis: 0, data: consumers.map { |t| t.sum / 100 })
       f.yAxis [{ title: { text: I18n.t(:euros) } }]
       f.chart(defaultSeriesType: 'column')
