@@ -111,7 +111,7 @@ class Account < ActiveRecord::Base
     Transaction.create(
       buyer_id: id,
       receiver_id: id,
-      price: 0,
+      amount: 0,
       admin: admin.try(:id),
       comment: "Mail de négatif envoyé à #{mail} (solde #{budget})",
       date: Time.current,

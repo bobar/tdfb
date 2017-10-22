@@ -24,7 +24,7 @@ class AccountController < ApplicationController
   end
 
   def show
-    @account = Account.find(params[:id]) if params[:id] =~ /^\d+$/
+    @account = Account.find_by(id: params[:id]) if params[:id] =~ /^\d+$/
     @account ||= Account.find_by(trigramme: params[:id].upcase) if params[:id].size == 3
     return redirect_to action: :unknown_account, trigramme: params[:id].upcase unless @account
     @user = @account.user
@@ -108,6 +108,7 @@ class AccountController < ApplicationController
     end
     to_update[:nickname] = params[:nickname].strip if params[:nickname] && !params[:nickname].empty?
     to_update[:trigramme] = params[:trigramme].strip.upcase if params[:trigramme] && !params[:trigramme].empty?
+    fail TdbException, I18n.t('exception.invalid_trigramme') if to_update.key?(:trigramme) && to_update[:trigramme].size != 3
     to_update[:status] = params[:status] if params[:status]
     ActiveRecord::Base.transaction do
       Transaction.account_update(@account, to_update, admin: @admin)

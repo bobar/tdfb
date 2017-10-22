@@ -3,7 +3,7 @@
   <td><%= admin.account.promo %></td>
   <td><%= admin.account.full_name %></td>
   <td>
-    <%= admin.right.nom %>
+    <%= admin.right.try(:nom) %>
     <a data-toggle="collapse" href="#admin-collapse-<%= admin.id %>" aria-expanded="false">
       <%= fa_icon "pencil-square-o" %>
     </a>
