@@ -16,11 +16,13 @@
   </small>
 </div>
 <div>
-  <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse"><%= fa_icon "pencil-square-o" %></a>
+  <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse">
+    <%= fa_icon "pencil-square-o" %> <%= I18n.t(:change_nickname) %>
+  </a>
   <% if @account.nickname.nil? || @account.nickname.blank? %>
-    <small><em>Nickname</em></small>
+    <small><em><%= I18n.t(:nickname) %></em></small>
   <% else %>
-    <%= @account.nickname %>
+    <%= simple_format(@account.nickname) %>
   <% end %>
 </div>
 <div class="collapse text-right" id="nicknameCollapse">

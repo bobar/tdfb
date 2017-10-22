@@ -120,6 +120,7 @@ fr:
   download_csv_format: Télécharger au format CSV
   never: Jamais
   refresh_from_fkz: Importer depuis Frankiz
+  change_nickname: Modifier le surnom
   file_import_cancelled_mail:
     subject: Import de fichier - transactions refusées
   _rights:
