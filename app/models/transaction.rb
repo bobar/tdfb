@@ -8,7 +8,9 @@ class Transaction < ActiveRecord::Base
     batch_log([[account, value]], bank, comment: comment, admin: admin, time: time, is_tobacco: is_tobacco)
   end
 
-  def self.batch_log(amounts, bank, comment: nil, admin: nil, time: Time.current, is_tobacco: false) # amounts is an array [ [account, value] ]
+  # amounts is an array [ [account, value] ]
+  def self.batch_log(amounts, bank,
+                     comment: nil, admin: nil, time: Time.current, is_tobacco: false, bank_comment: false)
     comment ||= ''
     transaction do
       amounts.each do |account, value|
@@ -31,7 +33,7 @@ class Transaction < ActiveRecord::Base
 
         account.save
       end
-      bank.nickname += "\nDébit fichier #{Time.current.strftime('%F %T')}: #{comment}" unless comment.empty?
+      bank.nickname += "\nDébit fichier #{Time.current.strftime('%F %T')}: #{comment}" unless comment.empty? && bank_comment
       bank.save
     end
   end

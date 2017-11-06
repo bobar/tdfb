@@ -88,7 +88,7 @@ class FileImportController < ApplicationController
     end
 
     FileImportMailer.cancelled_debits('bobar.tdb@gmail.com', @cancelled_file).deliver_now unless @cancelled.empty?
-    Transaction.batch_log(confirmed, @bank, comment: comment, admin: @admin)
+    Transaction.batch_log(confirmed, @bank, comment: comment, admin: @admin, bank_comment: true)
   end
 
   def cancelled_file
