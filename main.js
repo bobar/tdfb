@@ -1,6 +1,8 @@
 'use strict';
 
 const electron = require('electron');
+var path = require('path');
+
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
@@ -12,7 +14,12 @@ let mainWindow;
 
 function createWindow (railsApp) {
   const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
-  mainWindow = new BrowserWindow({width: width, height: height, show: false});
+  mainWindow = new BrowserWindow({
+    width: width,
+    height: height,
+    icon: path.join(__dirname, 'app/assets/images/pinte_squared.png'),
+    show: false,
+  });
 
   mainWindow.once('ready-to-show', function() {
     mainWindow.show();
