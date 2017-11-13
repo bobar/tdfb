@@ -33,7 +33,7 @@ class Transaction < ActiveRecord::Base
 
         account.save
       end
-      bank.nickname += "\nDébit fichier #{Time.current.strftime('%F %T')}: #{comment}" unless comment.empty? && bank_comment
+      bank.nickname += "\nDébit fichier #{Time.current.strftime('%F %T')}: #{comment}" if bank_comment && !comment.empty?
       bank.save
     end
   end
