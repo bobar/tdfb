@@ -22,4 +22,4 @@ production:
   <<: *default
   database: tdb
   password: <%= ENV['MYSQL_PASSWORD'] %>
-  host: 92.222.86.35
+  host: mysql.bobar.pro
