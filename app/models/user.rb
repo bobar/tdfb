@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
       first_name: first_name || '',
       birthdate: birthdate,
       casert: casert || '',
-      status: status,
+      status: group == 'Polytechniciens' ? account.status : status,
       promo: promo,
       mail: email || '',
     )
