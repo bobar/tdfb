@@ -7,7 +7,7 @@
 * `CREATE USER 'bob'@'localhost' IDENTIFIED BY 'zde';`
 * `GRANT ALL PRIVILEGES ON tdb.* TO 'bob'@'localhost';`
 * `FLUSH PRIVILEGES;`
-* Exit mysql ands run the rake task `rake "db:sync_from_save[gmailpassword,localuser]"`
+* Exit mysql ands run the rake task `rake "db:sync_from_save[gmailpassword]"`
 
 # Adding a new theme
 
