@@ -1,4 +1,5 @@
 fr:
+  settings: Paramètres
   bank: Banque
   cash: Liquide
   check: Chèque
@@ -179,3 +180,11 @@ fr:
     rights_are_in_use: Les droits sont actuellement utilisés
     unhandled_extension: Cette extension n'est pas supportée
     invalid_trigramme: Le trigramme %{trigramme} est invalide
+  settings_details:
+    debt_mail_subject: &debt_mail_subject
+      title: Sujet du mail de négatif
+      description: |
+        Variables disponibles:
+    debt_mail_body:
+      <<: *debt_mail_subject
+      title: Contenu du mail de négatif

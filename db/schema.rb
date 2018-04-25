@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621181432) do
+ActiveRecord::Schema.define(version: 20180425130846) do
 
   create_table "accounts", force: :cascade do |t|
     t.string  "trigramme",    limit: 3
@@ -64,42 +64,14 @@ ActiveRecord::Schema.define(version: 20170621181432) do
     t.boolean "gestion_admin",             default: false, null: false
   end
 
-  create_table "event_comments", force: :cascade do |t|
-    t.integer  "event_id",   limit: 4,     null: false
-    t.integer  "author_id",  limit: 4,     null: false
-    t.text     "comment",    limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "settings", force: :cascade do |t|
+    t.string   "name",       limit: 255,   null: false
+    t.text     "value",      limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
-  create_table "event_transactions", force: :cascade do |t|
-    t.integer  "event_id",   limit: 4,                 null: false
-    t.integer  "account_id", limit: 4,                 null: false
-    t.string   "trigramme",  limit: 3,                 null: false
-    t.string   "first_name", limit: 255,               null: false
-    t.string   "last_name",  limit: 255,               null: false
-    t.decimal  "price",                  precision: 2, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "event_transactions", ["event_id"], name: "fk_rails_62eab051bc", using: :btree
-
-  create_table "events", force: :cascade do |t|
-    t.string   "name",         limit: 255,             null: false
-    t.date     "date",                                 null: false
-    t.string   "binet_id",     limit: 255,             null: false
-    t.integer  "requester_id", limit: 4,               null: false
-    t.integer  "status",       limit: 4,   default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "schema_migrations_public", id: false, force: :cascade do |t|
-    t.string "version", limit: 255, null: false
-  end
-
-  add_index "schema_migrations_public", ["version"], name: "unique_schema_migrations_public", unique: true, using: :btree
+  add_index "settings", ["name"], name: "index_settings_on_name", unique: true, using: :btree
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "buyer_id",    limit: 4
@@ -148,5 +120,4 @@ ActiveRecord::Schema.define(version: 20170621181432) do
     t.datetime "updated_at"
   end
 
-  add_foreign_key "event_transactions", "events"
 end

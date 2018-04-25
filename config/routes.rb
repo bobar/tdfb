@@ -67,7 +67,12 @@ Rails.application.routes.draw do
   controller :file_import, path: 'file_import' do
     get '/' => :index
     post '/' => :read_file
-    post 'submit' => :submit
-    get 'cancelled_file' => :cancelled_file
+    post '/submit' => :submit
+    get '/cancelled_file' => :cancelled_file
+  end
+
+  controller :settings, path: 'settings' do
+    get '/' => :index
+    post '/:name' => :update
   end
 end
