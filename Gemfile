@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '4.2.3'
+gem 'rails', '~> 4.2.3'
 
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-filestyle-rails'
@@ -20,7 +20,6 @@ gem 'net-ldap'
 gem 'nokogiri'
 gem 'octokit', '~> 4.0'
 gem 'rails-i18n', git: 'https://github.com/svenfuchs/rails-i18n', branch: 'rails-4-x'
-gem 'rest-client', '~> 1.6.7'
 gem 'roo'
 gem 'roo-xls'
 gem 'ruby-gmail'
