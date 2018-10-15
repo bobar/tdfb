@@ -117,7 +117,7 @@ class FileImportController < ApplicationController
 
   def string_array_matching(a, b)
     return 100 if a.nil? || b.nil? || a.blank? || b.blank?
-    a, b = [a, b].map { |s| I18n.transliterate(s).downcase.gsub(/[^a-z]/, ' ') }.split(' ') }
+    a, b = [a, b].map { |s| I18n.transliterate(s).downcase.gsub(/[^a-z]/, ' ').split(' ') }
     return 100 if a.empty? || b.empty?
     a.map { |a1| b.map { |b1| Levenshtein.distance(a1, b1) }.min }.max
   end
