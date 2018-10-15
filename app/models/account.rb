@@ -98,6 +98,7 @@ class Account < ActiveRecord::Base
   def bank_display_name
     res = trigramme
     if first_name || name
+      res ||= ''
       res += ' -'
       res += " #{first_name.capitalize}" if first_name
       res += " #{name.capitalize}" if name

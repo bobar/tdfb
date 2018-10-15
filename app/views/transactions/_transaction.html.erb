@@ -19,7 +19,7 @@
     <td></td>
   <% end %>
   <td>
-    <% if partner_trigramme != Account::DEFAULT_BANK_TRIGRAMME && @account.id != partner.id %>
+    <% if partner_trigramme != Account::DEFAULT_BANK_TRIGRAMME && partner && partner.id != @account.id %>
       <a href="/account/<%= partner.id %>">
         <%= partner_trigramme || partner.id %>
       </a>
