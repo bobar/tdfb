@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_url(url)
     respond_to do |format|
       format.html { redirect_to url }
-      format.js { return render text: "window.location.href = '#{url}';" }
+      format.js { return render text: "Turbolinks.visit('#{url}');" }
     end
   end
 

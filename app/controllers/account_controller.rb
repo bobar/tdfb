@@ -198,7 +198,7 @@ class AccountController < ApplicationController
   def render_redirect_to
     respond_to do |format|
       format.html { redirect_to action: :show }
-      format.js { return render text: 'location.reload();' }
+      format.js { return render text: 'Turbolinks.visit(window.location);' }
     end
   end
 end

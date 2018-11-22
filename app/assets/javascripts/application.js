@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery-ui/widgets/autocomplete
 //= require jquery_ujs
+//= require turbolinks
 //= require_tree .
 //= require bootstrap-datepicker
 //= require bootstrap-filestyle
@@ -75,7 +76,7 @@ $(document).ajaxError(function(e, jqXHR) {
   } else if (jqXHR.status === 499) {
     // Invalid authenticity token, let's prompt to try again and refresh the page
     $('#error-modal #error-modal-text').html(
-      'Oups, <a href="#" onclick="window.location.reload(true);">rafraichissez la page</a> et réessayez.'
+      'Oups, <a href="#" onclick="Turbolinks.visit(window.location);">rafraichissez la page</a> et réessayez.'
     );
     $('#error-modal').modal('show');
   } else {
@@ -92,7 +93,7 @@ $(document).ajaxError(function(e, jqXHR) {
   }
 });
 
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   try {
     Raven.config('https://27660d4e6a794beaacb08a6e987ef257@sentry.io/175369').install();
   } catch (e) {
@@ -104,7 +105,7 @@ $(document).ready(function() {
   $('#trigramme-search').on('input', function() {
     var val = $('#trigramme-search').val();
     if (val.length === 3) {
-      window.location.assign('/account/' + val);
+      Turbolinks.visit('/account/' + val);
     }
   });
 
@@ -116,7 +117,7 @@ $(document).ready(function() {
       return false;
     },
     select: function(event, ui) {
-      window.location.href = '/account/' + ui.item.value;
+      Turbolinks.visit('/account/' + ui.item.value);
       $('#account-search').val(ui.item.full_name);
       return false;
     }

@@ -34,6 +34,11 @@
   width: calc(100vw - 120px);
 }
 
+#nickname-container {
+  overflow-y: auto;
+  max-height: 25vh;
+}
+
 .account-image {
   margin-bottom: 10px;
   max-height: 30vh;

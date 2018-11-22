@@ -16,7 +16,7 @@ function bind(shortcut, handler, return_true) {
   }, 'keydown');
 }
 
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   bind(letters, function() {
     $('#trigramme-search').focus();
   }, true);
@@ -40,7 +40,7 @@ $(document).ready(function() {
   });
   Mousetrap.bind('esc', function () {
     if (document.activeElement.tagName === 'BODY') {
-      window.location.href = '/';
+      Turbolinks.visit('/');
     } else {
       document.activeElement.blur();
     }

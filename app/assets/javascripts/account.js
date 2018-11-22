@@ -58,7 +58,7 @@ function validateCreateForm(submit) {
   return valid;
 }
 
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   setValidator($('#trigramme-form'), validateTrigrammeForm);
   setValidator($('#log-form'), validateLogForm);
   setValidator($('#credit-form'), validateCreditForm);
@@ -135,7 +135,7 @@ $(document).ready(function() {
   $('#filter-bar').bootstrapTableFilter('setupFilter', 'budget', { lte: -1 });
 });
 
-$(document).on('ready page:load', function () {
+$(document).on('ready turbolinks:load', function () {
   $('#filter-bar').submit();
   $('#filter-bar').bootstrapTableFilter('toggleRefreshButton', false);
 });

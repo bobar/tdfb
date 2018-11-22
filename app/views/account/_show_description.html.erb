@@ -22,7 +22,9 @@
   <% if @account.nickname.nil? || @account.nickname.blank? %>
     <small><em><%= I18n.t(:nickname) %></em></small>
   <% else %>
-    <%= simple_format(@account.nickname) %>
+    <div id="nickname-container">
+      <%= simple_format(@account.nickname) %>
+    </div>
   <% end %>
 </div>
 <div class="collapse text-right" id="nicknameCollapse">

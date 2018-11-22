@@ -11,6 +11,6 @@ function buttonCancelTransation() {
   });
 }
 
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   buttonCancelTransation();
 });

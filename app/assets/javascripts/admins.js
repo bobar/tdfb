@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   $('.delete-rights').click(function(event) {
     event.preventDefault();
     $.ajax({

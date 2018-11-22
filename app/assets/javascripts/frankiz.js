@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   $('time.timeago').timeago();
 
   $('.refresh-promo').click(function(event) {

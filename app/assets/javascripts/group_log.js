@@ -31,7 +31,7 @@ function addTrigrammeRow() {
   new_row.find('input').focus(addTrigrammeRow);
 }
 
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   setValidator($('#group-log-form'), validateGroupLogForm);
   $('.trigramme-row input').focus(addTrigrammeRow);
 });
