@@ -106,7 +106,7 @@ class AccountController < ApplicationController
       File.open(path, 'wb') { |f| f.write params[:picture].read }
       to_update[:picture] = path.to_s
     end
-    to_update[:nickname] = params[:nickname].strip if params[:nickname] && !params[:nickname].empty?
+    to_update[:nickname] = params[:nickname].strip if params[:nickname]
     to_update[:trigramme] = params[:trigramme].strip.upcase if params[:trigramme] && !params[:trigramme].empty?
     fail TdbException, I18n.t('exception.invalid_trigramme') if to_update.key?(:trigramme) && to_update[:trigramme].size != 3
     to_update[:status] = params[:status] if params[:status]

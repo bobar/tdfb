@@ -17,11 +17,9 @@
 </div>
 <div>
   <a data-toggle="collapse" href="#nicknameCollapse" aria-expanded="false" aria-controls="nicknameCollapse">
-    <%= fa_icon "pencil-square-o" %> <%= I18n.t(:change_nickname) %>
+    <%= fa_icon "pencil-square-o" %> <%= I18n.t(@account.nickname.present? ? :change_nickname : :add_nickname) %>
   </a>
-  <% if @account.nickname.nil? || @account.nickname.blank? %>
-    <small><em><%= I18n.t(:nickname) %></em></small>
-  <% else %>
+  <% if @account.nickname.present? %>
     <div id="nickname-container">
       <%= simple_format(@account.nickname) %>
     </div>

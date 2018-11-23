@@ -122,6 +122,7 @@ fr:
   never: Jamais
   refresh_from_fkz: Importer depuis Frankiz
   change_nickname: Modifier le surnom
+  add_nickname: Ajouter un surnom
   file_import_cancelled_mail:
     subject: Import de fichier - transactions refusées
   _rights:
