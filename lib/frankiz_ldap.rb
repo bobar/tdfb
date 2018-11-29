@@ -35,13 +35,6 @@ class FrankizLdap
     end
   end
 
-  def get(id, write = false)
-    item = @ldap.search(filter: "brmemberof=user_#{id}").first
-    insert(item) if item && write
-    WrongFrankizId.find_or_create_by(frankiz_id: id) if item.nil?
-    item
-  end
-
   def insert(item)
     frankiz_id = item[:brmemberof].find { |group| group =~ /^user_\d+$/ }
     frankiz_id = frankiz_id.tr('user_', '')

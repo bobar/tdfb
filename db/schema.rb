@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180425130846) do
+ActiveRecord::Schema.define(version: 20181129081926) do
 
   create_table "accounts", force: :cascade do |t|
     t.string  "trigramme",    limit: 3
@@ -64,15 +64,6 @@ ActiveRecord::Schema.define(version: 20180425130846) do
     t.boolean "gestion_admin",             default: false, null: false
   end
 
-  create_table "settings", force: :cascade do |t|
-    t.string   "name",       limit: 255,   null: false
-    t.text     "value",      limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "settings", ["name"], name: "index_settings_on_name", unique: true, using: :btree
-
   create_table "transactions", force: :cascade do |t|
     t.integer  "buyer_id",    limit: 4
     t.integer  "amount",      limit: 4
@@ -113,11 +104,5 @@ ActiveRecord::Schema.define(version: 20180425130846) do
   end
 
   add_index "users", ["frankiz_id"], name: "index_users_on_frankiz_id", unique: true, using: :btree
-
-  create_table "wrong_ids", force: :cascade do |t|
-    t.integer  "frankiz_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end
