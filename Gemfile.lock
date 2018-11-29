@@ -1,17 +1,10 @@
 GIT
-  remote: https://github.com/michelson/lazy_high_charts
-  revision: a86783132a0baaa4a8cd2dda615bc5d67d62905c
+  remote: https://github.com/dredupuika/lazy_high_charts
+  revision: c21849e7e1f4e287b84fa7cb7c7f6d900285370e
   branch: master
   specs:
-    lazy_high_charts (1.5.8)
+    lazy_high_charts (1.5.7)
       hash-deep-merge
-
-GIT
-  remote: https://github.com/quotaguard/socksify-ruby
-  revision: f19b5c052eb3f33fa58f31fde810ebcc4929556d
-  branch: master
-  specs:
-    socksify (1.5.0)
 
 GIT
   remote: https://github.com/svenfuchs/rails-i18n
@@ -193,6 +186,7 @@ GEM
     sentry-raven (2.7.4)
       faraday (>= 0.7.6, < 1.0)
     shared-mime-info (0.2.5)
+    socksify (1.7.1)
     spreadsheet (1.1.7)
       ruby-ole (>= 1.0)
     spring (2.0.2)
@@ -251,7 +245,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sentry-raven
-  socksify!
+  socksify
   spring
   timecop
   turbolinks
