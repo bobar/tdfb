@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.6.3"
+    "electron": "^15.5.5"
   },
   "dependencies": {
     "continuation-local-storage": "^3.1.4",
